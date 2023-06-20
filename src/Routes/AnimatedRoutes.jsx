@@ -20,6 +20,7 @@ import { GetRequest } from "../API/api";
 import { User } from "../API/Paths";
 import PasswordRecovery from "../Pages/PasswordRecovery";
 import axios from "axios";
+import HomePage from "../Pages/HomePage";
 
 const LoginPage = lazy(() => import("../Pages/Login"));
 const RegisterPage = lazy(() => import("../Pages/Registration"));
@@ -121,6 +122,7 @@ const AnimatedRoute = () => {
           </Route>
 
           {/* <Route path="/logins" element={<LoginDummy />} /> */}
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminAuthentication />} />
