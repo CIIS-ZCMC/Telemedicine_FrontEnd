@@ -21,7 +21,10 @@ import { User } from "../API/Paths";
 import PasswordRecovery from "../Pages/PasswordRecovery";
 import axios from "axios";
 import HomePage from "../Pages/HomePage";
+import Navbar from "../Components/Homepage/Desktop/Navbar";
+import DesktopView from "../Pages/Homepage/DesktopView";
 import About from "../Components/Homepage/Desktop/About";
+
 
 const LoginPage = lazy(() => import("../Pages/Login"));
 const RegisterPage = lazy(() => import("../Pages/Registration"));
@@ -130,6 +133,8 @@ const AnimatedRoute = () => {
           <Route path="/admin" element={<AdminAuthentication />} />
           <Route path="/account-recovery" element={<PasswordRecovery />} />
           <Route path="/account" element={<AccountRegistration />} />
+          <Route path="/nav" element={<DesktopView />} />
+
           {/* catch all */}
           <Route path="*" element={<PageNotFound />} />
           <Route path="/credits" element={<Credits />} />
