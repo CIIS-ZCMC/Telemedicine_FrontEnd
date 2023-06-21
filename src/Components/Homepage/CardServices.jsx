@@ -40,7 +40,7 @@ function CardServices({ title, img, color }) {
         </Box>
       </div>
       <div>
-        <Card align="center" height="100%" boxShadow="sm" borderRadius="30px">
+        <Card align="center" height="100%" boxShadow="lg" borderRadius="30px">
           <CardHeader mt={9}>
             <Heading size="sm">{title}</Heading>
           </CardHeader>
