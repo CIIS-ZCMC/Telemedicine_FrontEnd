@@ -5,21 +5,21 @@ export const getContentForId = (id) => {
   switch (id) {
     case 1:
       return (
-        <Text fontSize={20}>
+        <Text fontSize={16}>
           ZCMC Regional Telemedicine Center will be the primary multi-specialty
           telehealth referral center in Zamboanga Peninsula and beyond by 2028.
         </Text>
       );
     case 2:
       return (
-        <Text fontSize={20}>
+        <Text fontSize={16}>
           To provide competent specialized telehealth services through state-of
           the-art technology across Zamboanga Peninsula and beyond.
         </Text>
       );
     case 3:
       return (
-        <Text fontSize={20}>
+        <Text fontSize={16}>
           <b>T</b>eamwork,&nbsp;
           <b>E</b>fficiency,&nbsp;
           <b>L</b>ove and loyalty,&nbsp;
