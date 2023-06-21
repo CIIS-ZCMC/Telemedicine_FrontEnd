@@ -69,22 +69,28 @@ const doctors = [
 function Carousel() {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
+  // Function to handle next button click
   const handleNextClick = () => {
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === doctors.length - slideSize ? 0 : prevIndex + 1
+    );
   };
 
+  // Function to handle previous button click
   const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) => prevIndex - 1);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? doctors.length - slideSize : prevIndex - 1
+    );
   };
 
   const slideSize = 4; // Number of doctors to display in each slide
-  const totalSlides = Math.ceil(doctors.length / slideSize);
+  const totalSlides = doctors.length / slideSize;
 
   const startIdx = currentIndex * slideSize;
   const visibleDoctors = doctors.slice(startIdx, startIdx + slideSize);
 
   const hasPrevious = currentIndex > 0;
-  const hasNext = currentIndex < totalSlides - 1;
+  const hasNext = currentIndex + 1 < totalSlides;
 
   return (
     <div>
@@ -93,6 +99,7 @@ function Carousel() {
           variant={hasPrevious ? "solid" : "outline"}
           icon={<ChevronLeftIcon />}
           onClick={handlePrevClick}
+          isDisabled={hasPrevious ? false : true}
           position="absolute"
           left="0"
           top="50%"
@@ -119,6 +126,7 @@ function Carousel() {
         </Box>
         <IconButton
           variant={hasNext ? "solid" : "outline"}
+          isDisabled={hasNext ? false : true}
           icon={<ChevronRightIcon />}
           onClick={handleNextClick}
           position="absolute"
