@@ -29,9 +29,9 @@ function About(props) {
   return (
     <div>
       <Box
-        // backgroundImage={`url(${bgImage})`}
-        // backgroundSize="cover"
-        // backgroundPosition="center"
+        backgroundImage={`url(${bgImage})`}
+        backgroundSize="cover"
+        backgroundPosition="center"
         width="100vw"
         height="100vh"
         display="flex"
