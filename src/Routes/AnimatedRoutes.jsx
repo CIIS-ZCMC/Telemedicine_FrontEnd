@@ -21,6 +21,8 @@ import { User } from "../API/Paths";
 import PasswordRecovery from "../Pages/PasswordRecovery";
 import axios from "axios";
 import HomePage from "../Pages/HomePage";
+import Navbar from "../Components/Homepage/Desktop/Navbar";
+import DesktopView from "../Pages/Homepage/DesktopView";
 import About from "../Components/Homepage/Desktop/About";
 import Services from "../Components/Homepage/Desktop/Services";
 
@@ -124,14 +126,15 @@ const AnimatedRoute = () => {
           </Route>
 
           {/* <Route path="/logins" element={<LoginDummy />} /> */}
-          <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/" element={<DesktopView />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminAuthentication />} />
           <Route path="/account-recovery" element={<PasswordRecovery />} />
           <Route path="/account" element={<AccountRegistration />} />
+
           {/* catch all */}
           <Route path="*" element={<PageNotFound />} />
           <Route path="/credits" element={<Credits />} />
