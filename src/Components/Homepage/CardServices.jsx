@@ -1,16 +1,13 @@
-import { Search2Icon } from "@chakra-ui/icons";
 import {
   Card,
   CardBody,
   Text,
   Box,
-  IconButton,
   CardHeader,
   Heading,
   Image,
 } from "@chakra-ui/react";
-import React from "react";
-import im from "../../assets/Icons/im.png";
+import PropTypes from "prop-types";
 
 function CardServices({ title, img, color }) {
   return (
@@ -57,5 +54,11 @@ function CardServices({ title, img, color }) {
     </div>
   );
 }
+
+CardServices.propTypes = {
+  title: PropTypes.string,
+  img: PropTypes.string,
+  color: PropTypes.color,
+};
 
 export default CardServices;
