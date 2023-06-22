@@ -1,6 +1,6 @@
-import { Box, Center, Text, VStack } from "@chakra-ui/react";
-import React from "react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 import { BiPulse } from "react-icons/bi";
+import PropTypes from "prop-types";
 
 function TitleHeader({ title, sub_title }) {
   return (
@@ -17,5 +17,10 @@ function TitleHeader({ title, sub_title }) {
     </VStack>
   );
 }
+
+TitleHeader.propTypes = {
+  title: PropTypes.string,
+  sub_title: PropTypes.string,
+};
 
 export default TitleHeader;
