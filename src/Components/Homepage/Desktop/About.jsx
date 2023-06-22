@@ -1,14 +1,12 @@
-import React from "react";
 import doc_cheng from "../../../assets/doctor/doc cheng (2).png";
 import Carousel from "../Carousel";
-import { Flex, Box, Image, HStack, Text } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import bgImage from "../../../assets/wave_bg.png";
 import TitleHeader from "../TitleHeader";
 import { HiOutlineLightBulb } from "react-icons/hi";
-import { TbTargetArrow } from "react-icons/tb";
 import { BiBarChartAlt, BiTrophy } from "react-icons/bi";
 
-function About(props) {
+function About() {
   const carouselItems = [
     {
       id: 1,
