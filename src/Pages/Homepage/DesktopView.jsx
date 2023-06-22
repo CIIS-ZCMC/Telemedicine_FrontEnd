@@ -5,6 +5,8 @@ import Banner from "../../Components/Homepage/Desktop/Banner";
 import About from "../../Components/Homepage/Desktop/About";
 import DoctorTile from "../../Components/Homepage/DoctorTile";
 import Doctors from "../../assets/doctor/Doctors";
+import Services from "../../Components/Homepage/Desktop/Services";
+import ContactUs from "../../Components/Homepage/Desktop/ContactUs";
 
 function DesktopView(props) {
   return (
@@ -33,11 +35,19 @@ function DesktopView(props) {
         <About />
       </div>
 
+      <div>
+        <Services />
+      </div>
+
       <Container maxW="92vw" py={20}>
         <div style={{ paddingTop: 80 }}>
           <Doctors />
         </div>
       </Container>
+
+      <div>
+        <ContactUs />
+      </div>
     </div>
   );
 }
