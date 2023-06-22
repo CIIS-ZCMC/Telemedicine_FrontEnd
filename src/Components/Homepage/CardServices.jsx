@@ -22,6 +22,7 @@ function CardServices({ title, img, color }) {
           height: 100,
           zIndex: 40,
           left: 0,
+
           right: 0,
           display: "flex",
           justifyContent: "center",
