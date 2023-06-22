@@ -10,7 +10,6 @@ function Footer(props) {
         sx={{
           backgroundColor: "#2EACAC",
           py: 4,
-
           px: 6,
           color: "white",
           borderRadius: 5,
