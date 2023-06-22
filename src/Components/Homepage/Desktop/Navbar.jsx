@@ -1,8 +1,7 @@
-import { Box, Button, Flex, HStack, Link, List, Text } from "@chakra-ui/react";
-import React from "react";
+import { Flex, HStack, Link, Text } from "@chakra-ui/react";
 import LogoHeader from "../LogoHeader";
 import ButtonComponent from "../ButtonComponent";
-import { ArrowForwardIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 const navItem = [
   {
@@ -28,7 +27,7 @@ const navItem = [
   },
 ];
 
-function Navbar(props) {
+function Navbar() {
   return (
     <div>
       <Flex
@@ -61,7 +60,7 @@ function Navbar(props) {
         </HStack>
 
         <HStack gap={4} fontSize={15}>
-          <Link>Sign in</Link>
+          <Link href="/login">Sign in</Link>
           <ButtonComponent
             icon={<ArrowForwardIcon />}
             text="Register"

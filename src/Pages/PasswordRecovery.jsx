@@ -20,15 +20,24 @@ import { PostRequest } from "../API/api";
 import { Auth } from "../API/Paths";
 import { HiEmojiSad } from "react-icons/hi";
 import { IoClose } from "react-icons/io5";
+import RecoveryCode from "./User/RecoveryCode";
+import NewPassword from "./User/NewPassword";
+import "../Style/App.css";
 
 const PasswordRecovery = () => {
   const navigate = useNavigate();
 
   const [feedback, setFeedback] = useState("");
 
+  const [btnLabel, setBtnLabel] = useState("Send Code");
   const [email, setEmail] = useState("");
   const [success, setSuccess] = useState(false);
+  const [validate, setValidate] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
   const [code, setCode] = useState("");
+
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -36,15 +45,20 @@ const PasswordRecovery = () => {
     e.preventDefault();
     setLoading(true);
 
-    PostRequest({ url: `${Auth}/recovery` }, { email: email })
+    if (btnLabel !== "Send Code") {
+      return;
+    }
+
+    const trimEmail = email.trim();
+    PostRequest({ url: `${Auth}/recovery` }, { email: trimEmail })
       .then((res) => res.data)
       .then((res) => {
         if (!res.statusText === "OK") {
           throw new Error("Bad response", { cause: res });
         }
 
-        setSuccess(res.data);
-        console.log(res.data);
+        setValidate(true);
+        setBtnLabel("Validate Code");
       })
       .catch((err) => {
         const {
@@ -62,7 +76,72 @@ const PasswordRecovery = () => {
             console.log(message);
             break;
         }
+      })
+      .finally(() => setLoading(false));
+  };
+
+  const handleValidateResetCode = (e) => {
+    e.preventDefault();
+    if (btnLabel !== "Validate Code") {
+      return;
+    }
+
+    setLoading(true);
+    const trimEmail = email.trim();
+    const trimCode = code.trim();
+    PostRequest(
+      { url: `${Auth}/recovery-validate` },
+      { email: trimEmail, code: trimCode }
+    )
+      .then((res) => {
+        console.log(res);
+        if (res.statusText !== "OK") {
+          throw new Error("Bad response", { cause: res });
+        }
+
+        setSuccess(true);
+        setBtnLabel("Submit");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
+  };
+
+  const handleSubmitNewPassword = (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    if (btnLabel !== "Submit") {
+      return;
+    }
+    const trimEmail = email.trim();
+    const trimConfirmPassword = confirmPassword;
+    const trimPassword = newPassword;
+
+    if (trimConfirmPassword !== trimPassword) {
+      return;
+    }
+
+    PostRequest(
+      { url: `${Auth}/reset-password` },
+      { password: trimPassword, email: trimEmail }
+    )
+      .then((res) => res.data)
+      .then((res) => {
+        if (!res.statusText !== "OK") {
+          throw new Error("Bad response.", { cause: res });
+        }
+
+        setBtnLabel("Success");
+        setResetSuccess(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleNavigateToLogin = (e) => {
@@ -163,43 +242,20 @@ const PasswordRecovery = () => {
                       </Flex>
                     </Box>
                     <Text fontSize={12} color={"grey"}>
-                      A recovery link will be sent to your email that is binded
+                      {validate === false && success === false
+                        ? `A recovery link will be sent to your email that is binded
                       with your account. Upon submitting open your Gmail app on
                       your phone or signin you Gmail account in Google chome and
                       check your inbox for recovery Link. Click the link and it
                       will redirect to a change password to update your account
-                      password.
+                      password.`
+                        : `A code has been sent to your email  ${email}. 
+                        Enter the code to validate.`}
                     </Text>
-                    {success ? (
-                      <CustomFormController
-                        isSignup={false}
-                        type={"text"}
-                        title={""}
-                        value={code}
-                        setValue={setCode}
-                        placeholder={"Enter code"}
-                        errorMessage={""}
-                        isError={false}
-                        mt={5}
-                      >
-                        <Box
-                          w="3rem"
-                          bg="teal"
-                          p="0.64rem"
-                          mt={0.49}
-                          ml={2.5}
-                          borderRight={"1px solid rgba(0,0,0,0.1)"}
-                          borderTopLeftRadius={5}
-                          borderBottomLeftRadius={5}
-                        >
-                          <Center>
-                            <Text color="white" fontSize={12} fontWeight={600}>
-                              CODE
-                            </Text>
-                          </Center>
-                        </Box>
-                      </CustomFormController>
-                    ) : (
+                    {validate && success & resetSuccess ? null : validate &&
+                      success === false ? (
+                      <RecoveryCode setCode={setCode} />
+                    ) : validate === false && success === false ? (
                       <CustomFormController
                         isSignup={false}
                         type={"text"}
@@ -211,7 +267,6 @@ const PasswordRecovery = () => {
                         isError={false}
                         mt={5}
                       >
-                        {" "}
                         <Box
                           w={8}
                           h={4}
@@ -224,21 +279,42 @@ const PasswordRecovery = () => {
                           </Center>
                         </Box>
                       </CustomFormController>
+                    ) : (
+                      <NewPassword
+                        newPassword={newPassword}
+                        setNewPassword={setNewPassword}
+                        confirmPassword={confirmPassword}
+                        setConfirmPassword={setConfirmPassword}
+                      />
                     )}
 
+                    {resetSuccess ? null : (
+                      <Button
+                        isLoading={loading}
+                        loadingText={"Signing In"}
+                        mt={14}
+                        bg={"teal"}
+                        color={"white"}
+                        _hover={{ bg: "teal" }}
+                        onClick={(e) => {
+                          if (validate && success) {
+                            handleSubmitNewPassword(e);
+                            return;
+                          }
+
+                          if (validate) {
+                            handleValidateResetCode(e);
+                            return;
+                          }
+
+                          handleClick(e);
+                        }}
+                      >
+                        <Text>{btnLabel}</Text>
+                      </Button>
+                    )}
                     <Button
-                      isLoading={loading}
-                      loadingText={"Signing In"}
-                      mt={14}
-                      bg={"teal"}
-                      color={"white"}
-                      _hover={{ bg: "teal" }}
-                      onClick={(e) => handleClick(e)}
-                    >
-                      <Text>Send Code</Text>
-                    </Button>
-                    <Button
-                      bg={"gray"}
+                      bg={resetSuccess ? "teal" : "gray"}
                       color={"white"}
                       mt={3}
                       _hover={{
@@ -246,7 +322,7 @@ const PasswordRecovery = () => {
                       }}
                       onClick={(e) => handleNavigateToLogin(e)}
                     >
-                      <Text>Back</Text>
+                      <Text>{resetSuccess ? "Go to Login" : "Back"}</Text>
                     </Button>
                   </Box>
                   <AuthFooter />

@@ -230,7 +230,6 @@ const Login = () => {
                       mt={3}
                       isRequired={false}
                     >
-                      {" "}
                       <Box
                         w={8}
                         h={4}

@@ -1,14 +1,12 @@
-import { Center, Container } from "@chakra-ui/react";
-import React from "react";
+import { Container } from "@chakra-ui/react";
 import Navbar from "../../Components/Homepage/Desktop/Navbar";
 import Banner from "../../Components/Homepage/Desktop/Banner";
 import About from "../../Components/Homepage/Desktop/About";
-import DoctorTile from "../../Components/Homepage/DoctorTile";
 import Doctors from "../../assets/doctor/Doctors";
 import Services from "../../Components/Homepage/Desktop/Services";
 import ContactUs from "../../Components/Homepage/Desktop/ContactUs";
 
-function DesktopView(props) {
+function DesktopView() {
   return (
     <div
       style={{

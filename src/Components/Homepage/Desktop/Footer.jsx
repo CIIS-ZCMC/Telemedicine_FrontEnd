@@ -1,7 +1,6 @@
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
-import React from "react";
 
-function Footer(props) {
+function Footer() {
   return (
     <div>
       <Flex
