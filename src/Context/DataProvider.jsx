@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { GetRequest, PostRequest } from "../API/api";
 import { Auth, Case } from "../API/Paths";
-import { Sanctum } from "../API/Paths";
 
 const DataContext = createContext({});
 
@@ -161,7 +160,7 @@ export const DataProvider = ({ children }) => {
   };
 
   const requestSanctumCSRF = async () => {
-    GetRequest({ url: Sanctum })
+    GetRequest({ url: "/sanctum/csrf-cookie" })
       .then((res) => {
         if (!res.status === 200) {
           throw new Error("Bad response.");
