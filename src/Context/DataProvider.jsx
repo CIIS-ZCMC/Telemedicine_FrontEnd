@@ -1,6 +1,16 @@
 import { createContext, useState, useEffect } from "react";
 import { GetRequest, PostRequest } from "../API/api";
 import { Auth, Case } from "../API/Paths";
+import axios from "axios";
+
+const csrf = new axios.create({
+  baseURL: "/sanctum/csrf-cookie",
+  withCredentials: true,
+  headers: {
+    Accept: "application/json",
+    "content-type": "application/json",
+  },
+});
 
 const DataContext = createContext({});
 
@@ -160,7 +170,8 @@ export const DataProvider = ({ children }) => {
   };
 
   const requestSanctumCSRF = async () => {
-    GetRequest({ url: "/sanctum/csrf-cookie" })
+    await csrf
+      .get("")
       .then((res) => {
         if (!res.status === 200) {
           throw new Error("Bad response.");
