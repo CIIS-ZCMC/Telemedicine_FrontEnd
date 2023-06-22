@@ -1,15 +1,13 @@
 import { Button } from "@chakra-ui/react";
-import React from "react";
+import PropTypes from "prop-types";
 
 const ButtonComponent = ({
   icon,
   text,
-
   variant = "solid",
   borderRadius,
   bgColor,
   color = "white",
-  styles,
   fontSize = "14px",
   paddingX,
   paddingY = "0px",
@@ -36,6 +34,18 @@ const ButtonComponent = ({
       {text}
     </Button>
   );
+};
+
+ButtonComponent.propTypes = {
+  icon: PropTypes.object,
+  text: PropTypes.string,
+  variant: PropTypes.string,
+  bgColor: PropTypes.string,
+  borderRadius: PropTypes.integer,
+  color: PropTypes.string,
+  fontSize: PropTypes.float,
+  paddingX: PropTypes.float,
+  paddingY: PropTypes.float,
 };
 
 export default ButtonComponent;

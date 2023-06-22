@@ -1,8 +1,9 @@
 import React from "react";
-import { Box, Image, IconButton, Text, SimpleGrid } from "@chakra-ui/react";
+import { Box, IconButton, SimpleGrid } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { getContentForId } from "./AboutContent";
 import CardComponent from "./Card";
+import PropTypes from "prop-types";
 
 function Carousel({ carouselItems }) {
   // Current index of the active item
@@ -69,4 +70,7 @@ function Carousel({ carouselItems }) {
   );
 }
 
+Carousel.propTypes = {
+  carouselItems: PropTypes.object,
+};
 export default Carousel;

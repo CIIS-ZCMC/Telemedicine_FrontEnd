@@ -44,9 +44,9 @@ function CardServices({ title, img, color }) {
           </CardHeader>
           <CardBody>
             <Text align="center" fontSize={14}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
+              {`Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s.
+              ever since the 1500s.`}
             </Text>
           </CardBody>
         </Card>
