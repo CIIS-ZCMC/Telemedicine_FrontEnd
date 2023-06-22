@@ -1,7 +1,8 @@
 import React from "react";
 import TitleHeader from "../TitleHeader";
-import { Box, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Box, Container, HStack, IconButton, Text } from "@chakra-ui/react";
 import { BiSearch } from "react-icons/bi";
+import Footer from "./Footer";
 
 function ContactUs(props) {
   return (
@@ -15,25 +16,30 @@ function ContactUs(props) {
             <IconButton icon={<BiSearch />} />
           </Box>
           <Box>
-            <Text fontWeight={600} fontSize={18}>
+            <Text fontWeight={600} fontSize={13}>
               REGIONAL TELEMEDICINE CENTER
             </Text>
-            <Text fontSize={15}>Zamboanga City Medical Center</Text>
+            <Text fontSize={13}>Zamboanga City Medical Center</Text>
           </Box>
         </Box>
         <Box>
           <Text fontSize={14}>Contact Info:</Text>
-          <Text fontWeight={600} fontSize={15} color="#005858">
+
+          <Text fontWeight={600} fontSize={14} color="#005858">
             zcmcregionaltelemedicine@gmail.com
           </Text>
         </Box>
         <Box>
           <Text fontSize={14}>Address:</Text>
-          <Text fontWeight={600} fontSize={15} color="#005858">
+          <Text fontWeight={600} fontSize={14} color="#005858">
             Dr. D. Evangelista St., Sta. Catalina Road, Zamboanga City
           </Text>
         </Box>
       </HStack>
+
+      <Container maxW="container.xl">
+        <Footer />
+      </Container>
     </div>
   );
 }
