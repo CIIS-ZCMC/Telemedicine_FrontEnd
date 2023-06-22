@@ -1,102 +1,101 @@
-import { Box, Button, Text } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import { GetRequest } from '../../API/api';
-import { Case } from '../../API/Paths';
+import { Box } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { GetRequest } from "../../API/api";
+import { Case } from "../../API/Paths";
 import {
   AiFillFileWord,
   AiFillFilePpt,
   AiFillFilePdf,
   AiFillFileExcel,
   AiFillFileUnknown,
-} from 'react-icons/ai';
-import { BsImageFill } from 'react-icons/bs';
-import { MdVideoLibrary } from 'react-icons/md';
-import { RiFolderMusicFill } from 'react-icons/ri';
+} from "react-icons/ai";
+import { BsImageFill } from "react-icons/bs";
+import { MdVideoLibrary } from "react-icons/md";
+import PropTypes from "prop-types";
 
 const CaseParaclinicalFiles = ({ id }) => {
   const [files, setFiles] = useState([]);
-  const [feedback, setFeedback] = useState('');
 
   function retrieveExtension(value, isIcon) {
-    const splitString = value.split('/');
+    const splitString = value.split("/");
     const fileName = splitString[splitString.length - 1];
-    const extension = fileName.split('.');
+    const extension = fileName.split(".");
 
     if (
-      extension[1] === 'png' ||
-      extension[1] === 'jpg' ||
-      extension[1] === 'jpeg'
+      extension[1] === "png" ||
+      extension[1] === "jpg" ||
+      extension[1] === "jpeg"
     ) {
       if (isIcon) {
         return <BsImageFill color="gray" />;
       }
-      return 'IMAGE';
+      return "IMAGE";
     }
 
-    if (extension[1] === 'mp4') {
+    if (extension[1] === "mp4") {
       if (isIcon) {
         return <MdVideoLibrary color="gray" />;
       }
-      return 'VIDEO';
+      return "VIDEO";
     }
 
-    if (extension[1] === 'docx') {
+    if (extension[1] === "docx") {
       if (isIcon) {
         return <AiFillFileWord color="gray" />;
       }
-      return 'WORD';
+      return "WORD";
     }
 
-    if (extension[1] === 'ppt') {
+    if (extension[1] === "ppt") {
       if (isIcon) {
         return <AiFillFilePpt color="gray" />;
       }
-      return 'PowerPoint';
+      return "PowerPoint";
     }
 
-    if (extension[1] === 'xls') {
+    if (extension[1] === "xls") {
       if (isIcon) {
         return <AiFillFileExcel color="gray" />;
       }
-      return 'EXCEL';
+      return "EXCEL";
     }
 
-    if (extension[1] === 'pdf') {
+    if (extension[1] === "pdf") {
       if (isIcon) {
         return <AiFillFilePdf color="gray" />;
       }
-      return 'PDF';
+      return "PDF";
     }
 
     if (isIcon) {
       return <AiFillFileUnknown color="gray" />;
     }
 
-    return value === 'NULL' ? 'MISSING' : 'FILE';
+    return value === "NULL" ? "MISSING" : "FILE";
   }
 
   useEffect(() => {
     GetRequest({ url: `${Case}/f/${id}` })
-      .then(res => res.data)
-      .then(res => {
-        if (!res.statusText === 'OK') {
-          throw new Error('Bad response.', { cause: res });
+      .then((res) => res.data)
+      .then((res) => {
+        if (!res.statusText === "OK") {
+          throw new Error("Bad response.", { cause: res });
         }
 
         setFiles(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         const { status, message } = err;
 
         switch (status) {
           case 400:
-            setFeedback(message);
+            console.log(message);
             break;
           case 404:
-            setFeedback('No record found.');
+            console.log(message);
             break;
           default:
-            setFeedback(message);
+            console.log(message);
             break;
         }
       });
@@ -104,12 +103,12 @@ const CaseParaclinicalFiles = ({ id }) => {
 
   return (
     <Box w="inherit" h="6rem" mt={5} display="flex" columnGap={5}>
-      {files.map(data => {
-        if (data.file_url === 'NULL') {
+      {files.map((data, index) => {
+        if (data.file_url === "NULL") {
           return;
         }
         return (
-          <Box>
+          <Box key={index}>
             <a
               href={`http://${data.file_url}`}
               target="_blank"
@@ -138,6 +137,10 @@ const CaseParaclinicalFiles = ({ id }) => {
       })}
     </Box>
   );
+};
+
+CaseParaclinicalFiles.propTypes = {
+  id: PropTypes.string,
 };
 
 export default CaseParaclinicalFiles;

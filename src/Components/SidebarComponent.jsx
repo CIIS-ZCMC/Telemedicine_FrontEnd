@@ -4,7 +4,6 @@ import RouteData from "../Routes/RouteData";
 import { useNavigate } from "react-router-dom";
 import "../Style/Sidebar.css";
 import useAuth from "../Hooks/AuthContext";
-import { useState } from "react";
 import PropTypes from "prop-types";
 import logo from "../assets/zcmc_logo.png";
 

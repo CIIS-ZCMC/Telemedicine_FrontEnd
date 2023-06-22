@@ -51,7 +51,7 @@ export const DataProvider = ({ children }) => {
     "https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg";
 
   const getChartData = async () => {
-    GetRequest({ url: "/api/getCaseData" })
+    GetRequest({ url: "getCaseData" })
       .then((res) => {
         if (!res.statusText === "OK") {
           throw new Error("Bad response.", { cause: res });
@@ -155,7 +155,7 @@ export const DataProvider = ({ children }) => {
     bodyFormData.append("profile_LastName", doctors_LastName);
     bodyFormData.append("FK_specializations_ID", FK_specializations_ID);
 
-    PostRequest({ url: "api/signup1" }, bodyFormData)
+    PostRequest({ url: "signup1" }, bodyFormData)
       .then((res) => {
         if (!res.statusText === "OK") {
           throw new Error("Bad response.", { cause: res });

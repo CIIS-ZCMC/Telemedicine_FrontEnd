@@ -1,14 +1,7 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
-import React from "react";
+import { Card, CardBody, CardHeader, Heading } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
-function CardComponent({ icon, title, content }) {
+const CardComponent = ({ icon, title, content }) => {
   return (
     <div>
       <Card height="100%" boxShadow="lg">
@@ -23,6 +16,12 @@ function CardComponent({ icon, title, content }) {
       </Card>
     </div>
   );
-}
+};
+
+CardComponent.propTypes = {
+  icon: PropTypes.object,
+  title: PropTypes.string,
+  content: PropTypes.object,
+};
 
 export default CardComponent;
