@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FaFacebookF, FaGithub } from "react-icons/fa";
 import { BsLinkedin } from "react-icons/bs";
+import dennis from "../../assets/profile/dennis.jpg";
 
 const CreditsJSON = [
   {
@@ -47,7 +48,7 @@ const CreditsJSON = [
     index: 3,
     name: "Dennis N. Falcasantos",
     skills: "Full-Stack Developer",
-    url: require("../../assets/profile/dennis.jpg"),
+    url: dennis,
     facebook: "https://www.facebook.com/Davidson848",
     linkedIn: "https://www.linkedin.com/in/dennis-falcasantos-233315230/",
     github: "https://github.com/aseyte2",
@@ -56,7 +57,7 @@ const CreditsJSON = [
   {
     index: 4,
     name: "Alyana Claire C. Barretto",
-    skills: "Full-Stack Developer | Data Analist",
+    skills: "Full-Stack Developer | Data Analyst",
     url: "https://media.licdn.com/dms/image/D5635AQEqfulSQAGamQ/profile-framedphoto-shrink_800_800/0/1669192283952?e=1688047200&v=beta&t=IOXzSBxCpjF25pblDV7jLQ7h-dHgh8eyCdXhX_bCgMY",
     facebook: "https://www.facebook.com/alyanaclaire.barretto",
     linkedIn: "https://www.linkedin.com/in/alyana-barretto-a34b1b147/",
@@ -81,6 +82,16 @@ const CreditsJSON = [
     facebook: "https://www.facebook.com/kimdeee",
     linkedIn: "https://www.linkedin.com/in/kim-horace-dolar-302984183/",
     github: "https://github.com/kimdee",
+    isRow: false,
+  },
+  {
+    index: 7,
+    name: "Adrian Agcaoili",
+    skills: "Web Developer | Project Manager",
+    url: "https://media.licdn.com/dms/image/D4D03AQH4Cqr7bTv-Jg/profile-displayphoto-shrink_800_800/0/1678399800254?e=1692835200&v=beta&t=c-l_FERym-ctG49TXAV_jl9CY7Pqx0r7ZrvVqo1jHPA",
+    facebook: "https://www.facebook.com/adrian.agcaoili",
+    linkedIn: "https://www.linkedin.com/in/adrian-agcaoili/",
+    github: "https://github.com/ZCMC-ADRIAN",
     isRow: false,
   },
 ];
