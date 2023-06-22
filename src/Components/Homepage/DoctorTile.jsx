@@ -1,11 +1,11 @@
 import { Badge, Box, Image, Text, VStack } from "@chakra-ui/react";
-import React from "react";
+import PropTypes from "prop-types";
 
-const specializations = [
-  { name: "OB-GYNE", color: "red" },
-  { name: "GENERAL PRACTITIONER", color: "blue" },
-  { name: "PEDIATRICS", color: "orange" },
-];
+// const specializations = [
+//   { name: "OB-GYNE", color: "red" },
+//   { name: "GENERAL PRACTITIONER", color: "blue" },
+//   { name: "PEDIATRICS", color: "orange" },
+// ];
 
 const DoctorTile = ({ img, name, title, spec }) => {
   return (
@@ -66,6 +66,13 @@ const DoctorTile = ({ img, name, title, spec }) => {
       </VStack>
     </div>
   );
+};
+
+DoctorTile.propTypes = {
+  img: PropTypes.string,
+  title: PropTypes.string,
+  name: PropTypes.color,
+  spec: PropTypes.color,
 };
 
 export default DoctorTile;
