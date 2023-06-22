@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // let baseURL = "http://localhost:8000/";
-let baseURL = "/";
+let baseURL = "/api/";
 
 const api = new axios.create({
   baseURL: baseURL,
