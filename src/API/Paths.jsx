@@ -1,35 +1,35 @@
 //Authentication
-export const Auth = '/api/auth';
+export const Auth = "auth";
 
 //Request server token
-export const Sanctum = 'sanctum/csrf-cookie';
+export const Sanctum = "sanctum/csrf-cookie";
 
 //Case
-export const Case = 'api/case';
+export const Case = "case";
 
 //Doctor
-export const Doctor = 'api/profile';
+export const Doctor = "profile";
 
 //Guardian
-export const Guardian = 'api/guardian';
+export const Guardian = "guardian";
 
 //Hospital
-export const Hospital = 'api/hospital';
+export const Hospital = "hospital";
 
 //Log
-export const Log = 'api/logs';
+export const Log = "logs";
 
 //Message
-export const Message = 'api/message';
+export const Message = "message";
 
 //Patient
-export const Patient = 'api/patient';
+export const Patient = "patient";
 
 //Specialization
-export const Specialization = 'api/specialization';
+export const Specialization = "specialization";
 
 //Report
-export const Reports = 'api/report';
+export const Reports = "report";
 
 //User
-export const User = 'api/user';
+export const User = "user";
