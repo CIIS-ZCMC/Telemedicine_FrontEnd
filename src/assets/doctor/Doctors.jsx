@@ -1,6 +1,6 @@
 import React from "react";
 import DoctorTile from "../../Components/Homepage/DoctorTile";
-import { Box, Center, HStack } from "@chakra-ui/react";
+import { Box, Center, Container, HStack } from "@chakra-ui/react";
 
 import TitleHeader from "../../Components/Homepage/TitleHeader";
 import CarouselDoctors from "../../Components/Homepage/CarouselDoctors";
@@ -12,7 +12,9 @@ function Doctors() {
         <TitleHeader title="Doctors" sub_title="Meet The Doctors" />
       </Box>
 
-      <CarouselDoctors />
+      <Container centerContent>
+        <CarouselDoctors />
+      </Container>
     </>
   );
 }
