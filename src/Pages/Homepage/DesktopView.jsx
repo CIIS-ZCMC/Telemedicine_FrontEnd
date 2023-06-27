@@ -1,4 +1,5 @@
-import { Container } from "@chakra-ui/react";
+import { Box, Center, Container } from "@chakra-ui/react";
+import React from "react";
 import Navbar from "../../Components/Homepage/Desktop/Navbar";
 import Banner from "../../Components/Homepage/Desktop/Banner";
 import About from "../../Components/Homepage/Desktop/About";
@@ -43,9 +44,9 @@ function DesktopView() {
         </div>
       </Container>
 
-      <div>
+      <Box pb={7}>
         <ContactUs />
-      </div>
+      </Box>
     </div>
   );
 }
