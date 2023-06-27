@@ -3,6 +3,7 @@ import TitleHeader from "../TitleHeader";
 import { Box, Container, HStack, IconButton, Text } from "@chakra-ui/react";
 import { BiSearch } from "react-icons/bi";
 import Footer from "./Footer";
+import logo from "../../../assets/telemed_logo.png";
 
 function ContactUs(props) {
   return (
@@ -13,7 +14,7 @@ function ContactUs(props) {
       <HStack px={5} gap={20} py={5} justifyContent="center">
         <Box display="flex" gap={5} alignItems="center">
           <Box>
-            <IconButton icon={<BiSearch />} />
+            <img src={logo} width={50} />
           </Box>
           <Box>
             <Text fontWeight={600} fontSize={13}>
