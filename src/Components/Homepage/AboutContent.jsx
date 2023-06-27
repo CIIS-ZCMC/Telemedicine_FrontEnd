@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Text, Box } from "@chakra-ui/react";
 
 export const getContentForId = (id) => {
   switch (id) {
@@ -18,15 +18,29 @@ export const getContentForId = (id) => {
       );
     case 3:
       return (
-        <Text fontSize={16}>
-          <b>T</b>eamwork,&nbsp;
-          <b>E</b>fficiency,&nbsp;
-          <b>L</b>ove and loyalty,&nbsp;
-          <b>E</b>xcellence,&nbsp;
-          <b>M</b>eritocracy,&nbsp;
-          <b>E</b>quality in gender and ethnicity,&nbsp;
-          <b>D</b>ependability and responsibility safety&nbsp;
-        </Text>
+        <Box whiteSpace="pre-line">
+          <p>
+            <b>T</b>eamwork,
+          </p>
+          <p>
+            <b>E</b>fficiency,
+          </p>
+          <p>
+            <b>L</b>ove and loyalty,
+          </p>
+          <p>
+            <b>E</b>xcellence,
+          </p>
+          <p>
+            <b>M</b>eritocracy,
+          </p>
+          <p>
+            <b>E</b>quality in gender and ethnicity,
+          </p>
+          <p>
+            <b>D</b>ependability and responsibility safety.
+          </p>
+        </Box>
       );
     default:
       return null;

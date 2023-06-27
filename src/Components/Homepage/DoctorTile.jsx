@@ -57,6 +57,8 @@ const DoctorTile = ({ img, name, title, spec }) => {
                 ? "purple"
                 : spec.toUpperCase() == "PEDIATRICS"
                 ? "orange"
+                : spec.toUpperCase() == "INTERNAL MEDICINE"
+                ? "blue"
                 : ""
             }
           >

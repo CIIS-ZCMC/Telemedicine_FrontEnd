@@ -1,9 +1,9 @@
 import React from "react";
-import DoctorTile from "../../Components/Homepage/DoctorTile";
+import DoctorTile from "../DoctorTile";
 import { Box, Center, Container, HStack } from "@chakra-ui/react";
 
-import TitleHeader from "../../Components/Homepage/TitleHeader";
-import CarouselDoctors from "../../Components/Homepage/CarouselDoctors";
+import TitleHeader from "../TitleHeader";
+import CarouselDoctors from "../CarouselDoctors";
 
 function Doctors() {
   return (
@@ -12,9 +12,9 @@ function Doctors() {
         <TitleHeader title="Doctors" sub_title="Meet The Doctors" />
       </Box>
 
-      <Container centerContent>
-        <CarouselDoctors />
-      </Container>
+      <Box display="flex" alignItems="center" justifyContent="center">
+        <CarouselDoctors size={4} />
+      </Box>
     </>
   );
 }
