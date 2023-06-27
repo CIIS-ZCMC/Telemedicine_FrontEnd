@@ -1,7 +1,16 @@
 import { createContext, useState, useEffect } from "react";
 import { GetRequest, PostRequest } from "../API/api";
 import { Auth, Case } from "../API/Paths";
-import { Sanctum } from "../API/Paths";
+import axios from "axios";
+
+const csrf = new axios.create({
+  baseURL: "/sanctum/csrf-cookie",
+  withCredentials: true,
+  headers: {
+    Accept: "application/json",
+    "content-type": "application/json",
+  },
+});
 
 const DataContext = createContext({});
 
@@ -42,7 +51,7 @@ export const DataProvider = ({ children }) => {
     "https://image.shutterstock.com/image-vector/user-login-authenticate-icon-human-260nw-1365533969.jpg";
 
   const getChartData = async () => {
-    GetRequest({ url: "/api/getCaseData" })
+    GetRequest({ url: "getCaseData" })
       .then((res) => {
         if (!res.statusText === "OK") {
           throw new Error("Bad response.", { cause: res });
@@ -146,7 +155,7 @@ export const DataProvider = ({ children }) => {
     bodyFormData.append("profile_LastName", doctors_LastName);
     bodyFormData.append("FK_specializations_ID", FK_specializations_ID);
 
-    PostRequest({ url: "api/signup1" }, bodyFormData)
+    PostRequest({ url: "signup1" }, bodyFormData)
       .then((res) => {
         if (!res.statusText === "OK") {
           throw new Error("Bad response.", { cause: res });
@@ -161,7 +170,8 @@ export const DataProvider = ({ children }) => {
   };
 
   const requestSanctumCSRF = async () => {
-    GetRequest({ url: Sanctum })
+    await csrf
+      .get("")
       .then((res) => {
         if (!res.status === 200) {
           throw new Error("Bad response.");
