@@ -23,8 +23,11 @@ function Carousel({ carouselItems }) {
     );
   };
 
+  const totalSlides = carouselItems.length / 2;
+  const startIdx = currentIndex * 2;
+
   const hasPrevious = currentIndex > 0;
-  const hasNext = currentIndex < carouselItems.length - 2;
+  const hasNext = currentIndex + 1 < totalSlides;
 
   return (
     <div>
@@ -33,6 +36,7 @@ function Carousel({ carouselItems }) {
           variant={hasPrevious ? "solid" : "outline"}
           icon={<ChevronLeftIcon />}
           onClick={handlePrevClick}
+          isDisabled={hasPrevious ? false : true}
           position="absolute"
           left="0"
           top="50%"
@@ -42,7 +46,7 @@ function Carousel({ carouselItems }) {
           fontSize="20px"
         />
         <SimpleGrid spacing={5} templateColumns="repeat(2, 1fr)" p={20}>
-          {carouselItems.slice(currentIndex, currentIndex + 2).map((item) => (
+          {carouselItems.slice(startIdx, startIdx + 2).map((item) => (
             <>
               <CardComponent
                 icon={item.icon}
@@ -57,6 +61,7 @@ function Carousel({ carouselItems }) {
           variant={hasNext ? "solid" : "outline"}
           icon={<ChevronRightIcon />}
           onClick={handleNextClick}
+          isDisabled={hasNext ? false : true}
           position="absolute"
           right="0"
           top="50%"
