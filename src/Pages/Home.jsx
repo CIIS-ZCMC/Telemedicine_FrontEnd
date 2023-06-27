@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DesktopView from "./Homepage/DesktopView";
 import MobileView from "./Homepage/MobileView";
 
-const HomePage = () => {
+const Home = () => {
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -27,4 +27,4 @@ const HomePage = () => {
   return <div>{isMobileView ? <MobileView /> : <DesktopView />}</div>;
 };
 
-export default HomePage;
+export default Home;

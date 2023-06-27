@@ -22,7 +22,7 @@ import PasswordRecovery from "../Pages/PasswordRecovery";
 import axios from "axios";
 import About from "../Components/Homepage/Desktop/About";
 import Services from "../Components/Homepage/Desktop/Services";
-import HomePage from "../Pages/HomePage";
+import Home from "../Pages/Home";
 
 const LoginPage = lazy(() => import("../Pages/Login"));
 const RegisterPage = lazy(() => import("../Pages/Registration"));
@@ -124,7 +124,7 @@ const AnimatedRoute = () => {
           </Route>
 
           {/* <Route path="/logins" element={<LoginDummy />} /> */}
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/login" element={<LoginPage />} />
