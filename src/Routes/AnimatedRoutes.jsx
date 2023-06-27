@@ -23,6 +23,7 @@ import axios from "axios";
 import DesktopView from "../Pages/Homepage/DesktopView";
 import About from "../Components/Homepage/Desktop/About";
 import Services from "../Components/Homepage/Desktop/Services";
+import HomePage from "../Pages/HomePage";
 
 const LoginPage = lazy(() => import("../Pages/Login"));
 const RegisterPage = lazy(() => import("../Pages/Registration"));
