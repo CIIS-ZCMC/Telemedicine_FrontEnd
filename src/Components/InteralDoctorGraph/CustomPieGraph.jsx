@@ -1,27 +1,27 @@
-import { ResponsivePie } from '@nivo/pie';
-import { Box } from '@chakra-ui/react';
-import { useQuery } from 'react-query';
-import api from '../../API/api';
+import { ResponsivePie } from "@nivo/pie";
+import { Box } from "@chakra-ui/react";
+import { useQuery } from "react-query";
+import api from "../../API/api";
 
 const CustomPieGraph = () => {
-  const { data, isLoading, error } = useQuery('pie', () =>
-    api.get('api/case/pie').then(res => res.data.data)
+  const { data, isLoading, error } = useQuery("pie", () =>
+    api.get("case/pie").then((res) => res.data.data)
   );
 
-  if (isLoading) return '';
+  if (isLoading) return "";
 
-  if (error) return 'LOADING...';
+  if (error) return "LOADING...";
 
   return (
-    <Box h={'40vh'}>
+    <Box h={"40vh"}>
       <ResponsivePie
-        data={data.map(item => {
+        data={data.map((item) => {
           return {
             id:
-              item.specialization === 'Internal Medicine'
-                ? 'I.M'
-                : item.specialization === 'Obstetrics and Gynecology'
-                ? 'OBGYN'
+              item.specialization === "Internal Medicine"
+                ? "I.M"
+                : item.specialization === "Obstetrics and Gynecology"
+                ? "OBGYN"
                 : item.specialization,
             label: item.specialization,
             value: item.value,
@@ -34,17 +34,17 @@ const CustomPieGraph = () => {
         activeOuterRadiusOffset={8}
         borderWidth={1}
         borderColor={{
-          from: 'color',
-          modifiers: [['darker', 0.2]],
+          from: "color",
+          modifiers: [["darker", 0.2]],
         }}
         arcLinkLabelsSkipAngle={10}
         arcLinkLabelsTextColor="#333333"
         arcLinkLabelsThickness={2}
-        arcLinkLabelsColor={{ from: 'color' }}
+        arcLinkLabelsColor={{ from: "color" }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{
-          from: 'color',
-          modifiers: [['darker', 2]],
+          from: "color",
+          modifiers: [["darker", 2]],
         }}
         // legends={[
         //   {

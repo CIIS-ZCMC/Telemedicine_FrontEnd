@@ -1,64 +1,35 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { GetRequest } from "../../API/api";
-import { Message } from "../../API/Paths";
 import moment from "moment/moment";
-import useCase from "../../Pages/Case SubCollection/CaseContext";
 import MessageComponent from "./MessageComponent";
 import PropTypes from "prop-types";
+import { io } from "socket.io-client";
 
-const CaseMessage = ({ id, setFetchMessage, date }) => {
-  const [messages, setMessages] = useState([]);
+const CaseMessage = ({ id, date }) => {
   const [fetch, setFetch] = useState(true);
-  const [init, setInit] = useState(true);
   const messageRef = useRef(null);
-  const { fetchMessage } = useCase();
-
-  const handleInitialization = useCallback(() => {
-    GetRequest({ url: `${Message}/${id}` })
-      .then((res) => res.data)
-      .then((res) => {
-        if (!res.statusText === "OK") {
-          throw new Error("Bad response.");
-        }
-        const { data } = res;
-        if (data.length === messages.length) {
-          return;
-        }
-        setMessages(data);
-      })
-      .catch((err) => {
-        const { status } = err;
-        switch (status) {
-          case 400:
-            console.log("Can't complete request right now. try again later.");
-            break;
-          case 404:
-            console.log("No record found.");
-            break;
-          default:
-            console.log("Can't process request right now. Try again later");
-            break;
-        }
-      });
-  }, [id, messages]);
+  const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    const intervalId = setInterval(
-      () => {
-        if (init) {
-          setInit(false);
-        }
-        if (fetchMessage) {
-          setFetchMessage(false);
-        }
-        handleInitialization();
-      },
-      init ? 0 : 6000
-    );
+    const socket = io("http://localhost:8573");
 
-    return () => clearInterval(intervalId);
-  }, [handleInitialization, setFetchMessage, fetchMessage, init]);
+    // Listen for the "todos" event
+    socket.on("connect", () => {
+      console.log("Connected to the server.");
+
+      // Send a message to the server
+      socket.emit("message", id);
+    });
+
+    socket.on("message", (message) => {
+      setMessage(message);
+    });
+
+    return () => {
+      socket.disconnect();
+      console.log("Socket disconnected.");
+    };
+  }, []);
 
   useEffect(() => {
     if (fetch) {
@@ -66,7 +37,11 @@ const CaseMessage = ({ id, setFetchMessage, date }) => {
     }
 
     return () => setFetch(false);
-  }, [messages, fetch]);
+  }, [fetch, message]);
+
+  if (message === null) {
+    return <Box>Loading</Box>;
+  }
 
   return (
     <Box
@@ -82,8 +57,8 @@ const CaseMessage = ({ id, setFetchMessage, date }) => {
         </Text>
       </Box>
       <Box mt="3rem" scrollBehavior="smooth">
-        {messages.map((value, index) => {
-          return <MessageComponent key={index} value={value} />;
+        {message.map((value, index) => {
+          return <MessageComponent key={index} {...value} />;
         })}
       </Box>
       <Box h={0} ref={messageRef} />
@@ -93,7 +68,6 @@ const CaseMessage = ({ id, setFetchMessage, date }) => {
 
 CaseMessage.propTypes = {
   id: PropTypes.string,
-  setFetchMessage: PropTypes.function,
   date: PropTypes.date,
 };
 

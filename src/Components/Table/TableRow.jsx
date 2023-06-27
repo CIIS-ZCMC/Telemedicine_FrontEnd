@@ -21,21 +21,24 @@ const TableRow = ({
   const navigate = useNavigate();
   const { user_role } = user;
 
-  const handleClick = (e, data) => {
+  const handleViewCase = (e, id) => {
     e.preventDefault();
-    if (props.title.toLowerCase().includes("case")) {
-      navigate("/case-view", { state: data });
+    try {
+      navigate("/case-view", { state: id });
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
     <>
-      {page.map((row, i) => {
+      {page.map((row, index) => {
+        const rowID = row.cells[0].value;
         prepareRow(row);
         return (
           <Tr
-            key={i}
-            onClick={(e) => handleClick(e, row.original)}
+            key={index}
+            onClick={(e) => handleViewCase(e, rowID)}
             className="td"
             {...row.getRowProps()}
           >
@@ -62,12 +65,13 @@ const TableRow = ({
                               title={title}
                               cellvalue={cell.row.values}
                               fetch={fetch}
-                              rawData={data}
+                              data={data}
                               SpecializationData={SpecializationData}
                               hospitalData={hospitalData}
                               row={row.values}
                               props={props}
                               user={user}
+                              id={rowID}
                             />
                           </>
                         ) : (
@@ -76,12 +80,13 @@ const TableRow = ({
                               title={title}
                               cellvalue={cell.row.values}
                               fetch={fetch}
-                              rawData={data}
+                              data={data}
                               SpecializationData={SpecializationData}
                               hospitalData={hospitalData}
                               row={row.values}
                               props={props}
                               user={user}
+                              id={rowID}
                             />
                           </>
                         )
@@ -91,19 +96,20 @@ const TableRow = ({
                             title={title}
                             cellvalue={cell.row.values}
                             fetch={fetch}
-                            rawData={data}
+                            data={data}
                             SpecializationData={SpecializationData}
                             hospitalData={hospitalData}
                             row={row.values}
                             props={props}
                             user={user}
+                            id={rowID}
                           />
                         </>
                       )}
                     </Flex>
                   ) : cell.column.Header === "ID" ? (
                     <Box display="flex" columnGap={3}>
-                      <Text>{cell.row.values.id}</Text>
+                      <Text>{++index + pageIndex * 10}</Text>
                       {!!row.original.notif &&
                       row.original.notif !== 1 &&
                       user_role !== "External Doctor" ? (

@@ -25,6 +25,7 @@ const ConsultHeader = ({ id, isPendingStatus, onOpen }) => {
   const [isPending, setIsPending] = useState(
     isPendingStatus === 0 ? true : false
   );
+
   const [status, setStatus] = useState(isPendingStatus);
 
   const navigate = useNavigate();

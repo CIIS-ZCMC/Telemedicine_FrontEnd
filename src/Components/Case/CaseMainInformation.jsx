@@ -46,14 +46,13 @@ const CaseMainInformation = ({
 };
 
 CaseMainInformation.propTypes = {
-  cases_CC: PropTypes.function,
-  cases_HPI: PropTypes.bool,
-  cases_PMH: PropTypes.integer,
-  cases_PE: PropTypes.function,
-  cases_WI: PropTypes.bool,
-  cases_IMD: PropTypes.integer,
-  pageOptions: PropTypes.object,
-  cases_Reason: PropTypes.integer,
+  cases_CC: PropTypes.string,
+  cases_HPI: PropTypes.string,
+  cases_PMH: PropTypes.string,
+  cases_PE: PropTypes.string,
+  cases_WI: PropTypes.string,
+  cases_IMD: PropTypes.string,
+  cases_Reason: PropTypes.string,
 };
 
 export default CaseMainInformation;

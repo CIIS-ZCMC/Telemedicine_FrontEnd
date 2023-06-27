@@ -34,10 +34,6 @@ const Archived = () => {
       accessor: "sex",
     },
     {
-      Header: "SERVICE",
-      accessor: "specialization",
-    },
-    {
       Header: "STATUS",
       accessor: "case_status",
     },
@@ -48,7 +44,7 @@ const Archived = () => {
   ];
 
   const handleFetch = () => {
-    GetRequest({ url: Case })
+    GetRequest({ url: `${Case}/archived` })
       .then((res) => res.data)
       .then((res) => {
         if (!res.statusText === "OK") {
@@ -86,17 +82,6 @@ const Archived = () => {
       });
   };
 
-  const filtered = cases.filter((filter) =>
-    filter.case_status === 2
-      ? filter.case_number
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase()) ||
-        filter.patient.toLowerCase().includes(search.toLowerCase()) ||
-        filter.specialization.toLowerCase().includes(search.toLowerCase()) ||
-        filter.sex.toLowerCase().includes(search.toLowerCase())
-      : null
-  );
-
   useEffect(() => {
     if (fetch && localStorage.getItem("archived") !== null) {
       setCases(JSON.parse(localStorage.getItem("archived")));
@@ -122,7 +107,7 @@ const Archived = () => {
           <CustomTablePaginate
             title={Title}
             columns={columns}
-            data={filtered}
+            data={cases}
             fetch={setFetch}
             search={search}
             handleClick={handleClick}

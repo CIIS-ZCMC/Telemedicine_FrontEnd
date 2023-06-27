@@ -18,6 +18,7 @@ const Actions = ({
   row,
   data,
   user,
+  id,
 }) => {
   const navigate = useNavigate();
 
@@ -59,6 +60,7 @@ const Actions = ({
             fontWeight={"normal"}
             color={"blue.400"}
             onClick={() => {
+              console.log(data);
               navigate("/case/case-view", {
                 state: {
                   data: cellvalue,
@@ -114,6 +116,7 @@ Actions.propTypes = {
   row: PropTypes.integer,
   data: PropTypes.object,
   user: PropTypes.object,
+  id: PropTypes.string,
 };
 
 export default Actions;

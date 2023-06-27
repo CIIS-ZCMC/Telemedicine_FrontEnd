@@ -5,13 +5,15 @@ import PropTypes from "prop-types";
 
 const MessageComponent = ({
   PK_hospital_ID,
+  profile,
+  name,
   hospital_Name,
   comment,
-  name,
   created_at,
-  profile,
-  files,
+  fileNames,
 }) => {
+  const data = decodeURIComponent(comment);
+
   return (
     <Box
       w="100%"
@@ -25,11 +27,9 @@ const MessageComponent = ({
     >
       <Avatar src={profile} name={name} size="sm" />
       <Box>
-        <Box>
+        <FileList files={fileNames} />
+        <Box mt={2}>
           <Box dir={PK_hospital_ID === 1 ? "rtl" : "none"}>
-            <Text fontSize={12}>
-              {hospital_Name} - {name}
-            </Text>
             <Text
               w={"auto"}
               bg="white"
@@ -38,22 +38,36 @@ const MessageComponent = ({
               boxShadow="md"
               dir="ltr"
             >
-              {comment}
+              {data}
+            </Text>
+            <Text fontSize={12}>
+              {hospital_Name} - {name}
             </Text>
           </Box>
           <Text dir="none" float="right" fontSize={11} color="gray">
             {moment(created_at).startOf("hour").fromNow()}
           </Text>
         </Box>
+      </Box>
+    </Box>
+  );
+};
+
+const FileList = (prop) => {
+  if (prop.files !== null) {
+    let files = prop.files.split(",");
+
+    if (files.length > 1) {
+      return (
         <Box w="inherit" mt={2} display="flex" flexWrap="wrap" columnGap={3}>
           {files.map((file, index) => {
-            let desctuctureFileURL = file.file_url.split("/");
+            let desctuctureFileURL = file.split("/");
             return (
               <MessageFile
                 key={index}
-                file={file.file_url}
+                file={file}
                 filename={
-                  file.file_url === null
+                  file === null
                     ? "File Missing."
                     : desctuctureFileURL[desctuctureFileURL.length - 1]
                 }
@@ -61,19 +75,39 @@ const MessageComponent = ({
             );
           })}
         </Box>
-      </Box>
-    </Box>
-  );
+      );
+    }
+
+    if (!Array.isArray(prop.files)) {
+      let desctuctureFileURL = prop.files.split("/");
+      console.log(
+        `files is not null : ${
+          desctuctureFileURL[desctuctureFileURL.length - 1]
+        }`
+      );
+
+      return (
+        <Box w="inherit" mt={2} display="flex" flexWrap="wrap" columnGap={3}>
+          <MessageFile
+            file={prop.files}
+            filename={desctuctureFileURL[desctuctureFileURL.length - 1]}
+          />
+        </Box>
+      );
+    }
+  }
+
+  return null;
 };
 
 MessageComponent.propTypes = {
-  PK_hospital_ID: PropTypes.object,
-  hospital_Name: PropTypes.object,
-  comment: PropTypes.object,
-  name: PropTypes.object,
-  created_at: PropTypes.object,
-  profile: PropTypes.object,
-  files: PropTypes.object,
+  PK_hospital_ID: PropTypes.string,
+  profile: PropTypes.string,
+  name: PropTypes.string,
+  hospital_Name: PropTypes.string,
+  comment: PropTypes.string,
+  created_at: PropTypes.date,
+  fileNames: PropTypes.string,
 };
 
 export default MessageComponent;

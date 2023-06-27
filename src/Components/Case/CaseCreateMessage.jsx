@@ -54,7 +54,7 @@ const CaseCreateMessage = ({ id, setFetchMessage }) => {
       bodyform.append("attachments[]", element, key);
     });
 
-    bodyform.append("message", message);
+    bodyform.append("message", encodeURIComponent(message));
     bodyform.append("FK_cases_ID", id);
 
     PostRequest({ url: Message }, bodyform)

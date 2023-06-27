@@ -43,10 +43,6 @@ const Cases = () => {
       accessor: "sex",
     },
     {
-      Header: "SERVICE",
-      accessor: "specialization",
-    },
-    {
       Header: "STATUS",
       accessor: "case_status",
     },
@@ -57,7 +53,7 @@ const Cases = () => {
   ];
 
   const handleFetch = () => {
-    GetRequest({ url: Case })
+    GetRequest({ url: `${Case}/active` })
       .then((res) => res.data)
       .then((res) => {
         if (!res.statusText === "OK") {
@@ -75,6 +71,7 @@ const Cases = () => {
           }
         }
 
+        console.log(data);
         localStorage.setItem("cases", JSON.stringify(data));
         setCases(data);
       })
@@ -95,24 +92,6 @@ const Cases = () => {
         }
       });
   };
-
-  const filtered = cases.filter((filter) =>
-    filter.case_status === 2
-      ? null
-      : filter.case_number
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase()) ||
-        filter.patient
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase()) ||
-        filter.specialization
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase()) ||
-        filter.sex.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
-        filter.hospital_Name
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase())
-  );
 
   useEffect(() => {
     if (fetch && JSON.parse(localStorage.getItem("cases"))) {
@@ -139,7 +118,7 @@ const Cases = () => {
           <CustomTablePaginate
             title={Title}
             columns={columns}
-            data={filtered}
+            data={cases}
             fetch={setFetch}
             search={search}
             onOpen={onOpen}
