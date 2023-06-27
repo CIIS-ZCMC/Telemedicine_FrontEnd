@@ -12,19 +12,19 @@ function Carousel({ carouselItems }) {
   // Function to handle next button click
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === carouselItems.length - 2 ? 0 : prevIndex + 1
+      prevIndex === carouselItems.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   // Function to handle previous button click
   const handlePrevClick = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? carouselItems.length - 2 : prevIndex - 1
+      prevIndex === 0 ? carouselItems.length - 1 : prevIndex - 1
     );
   };
 
-  const totalSlides = carouselItems.length / 2;
-  const startIdx = currentIndex * 2;
+  const totalSlides = carouselItems.length / 1;
+  const startIdx = currentIndex * 1;
 
   const hasPrevious = currentIndex > 0;
   const hasNext = currentIndex + 1 < totalSlides;
@@ -45,8 +45,8 @@ function Carousel({ carouselItems }) {
           colorScheme="green"
           fontSize="20px"
         />
-        <SimpleGrid spacing={5} templateColumns="repeat(2, 1fr)" p={20}>
-          {carouselItems.slice(startIdx, startIdx + 2).map((item) => (
+        <SimpleGrid templateColumns="repeat(1, 1fr)" p={20}>
+          {carouselItems.slice(startIdx, startIdx + 1).map((item) => (
             <>
               <CardComponent
                 icon={item.icon}

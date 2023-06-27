@@ -1,4 +1,4 @@
-import doc_cheng from "../../../assets/doctor/doc cheng (2).png";
+import React from "react";
 import Carousel from "../Carousel";
 import { Box, Image } from "@chakra-ui/react";
 import bgImage2 from "../../../assets/3.png";
@@ -6,7 +6,7 @@ import TitleHeader from "../TitleHeader";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { BiBarChartAlt, BiTrophy } from "react-icons/bi";
 
-function About() {
+function MobileAbout(props) {
   const carouselItems = [
     {
       id: 1,
@@ -30,18 +30,12 @@ function About() {
         backgroundImage={`url(${bgImage2})`}
         backgroundSize="cover"
         backgroundPosition="center"
-        width="100vw"
-        height="100vh"
-        display="flex"
         justifyContent="center"
         alignItems="center"
-        gap={2}
+        my={10}
+        p={5}
       >
-        <Box width="20%" align="right">
-          <Image src={doc_cheng} alt="deputy_chair" width={350} />
-        </Box>
-
-        <Box width="60%" p={10} mt="200px">
+        <Box>
           <TitleHeader title="About Us" />
           <Carousel carouselItems={carouselItems} />
         </Box>
@@ -50,4 +44,4 @@ function About() {
   );
 }
 
-export default About;
+export default MobileAbout;

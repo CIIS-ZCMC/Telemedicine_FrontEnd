@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-function CardServices({ title, img, color }) {
+function CardServices({ title, img, color, desc, width }) {
   return (
     <div style={{ position: "relative" }}>
       <div
@@ -38,18 +38,30 @@ function CardServices({ title, img, color }) {
         </Box>
       </div>
       <div>
-        <Card align="center" height="100%" boxShadow="lg" borderRadius="30px">
+        {/* <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="200px" // Adjust the desired height as needed
+        > */}
+        <Card
+          align="center"
+          boxShadow="lg"
+          borderRadius="30px"
+          height="100%"
+          width={width}
+          mb={20}
+        >
           <CardHeader mt={9}>
             <Heading size="sm">{title}</Heading>
           </CardHeader>
           <CardBody>
             <Text align="center" fontSize={14}>
-              {`Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s.`}
+              {desc}
             </Text>
           </CardBody>
         </Card>
+        {/* </Box> */}
       </div>
     </div>
   );

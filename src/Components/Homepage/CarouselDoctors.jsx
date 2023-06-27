@@ -11,16 +11,16 @@ const doctors = [
   {
     id: 1,
     img: doc_irene,
-    name: "Dr. Aireen Marie C. Sta. Teresa",
+    name: "Dr. Patricia Katherine D. Cabato",
     title: "Medical Officer IV",
-    spec: "OB-Gyne",
+    spec: "Internal Medicine",
   },
   {
     id: 2,
     img: doc_jessa,
-    name: "Dr. Jessa mayet A. Sumatra-Mabalot",
+    name: "Dr. Sitti Sophia A. Jupli, FPCP",
     title: "Medical Officer III",
-    spec: "General Practitioner",
+    spec: "Internal Medicine",
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const doctors = [
   {
     id: 4,
     img: doc_erwin,
-    name: "Dr. Erwin M. barrios",
+    name: "Dr. Erwin M. Barrios",
     title: "Medical Officer IV",
     spec: "Pediatrics",
   },
@@ -46,27 +46,27 @@ const doctors = [
   {
     id: 6,
     img: doc_jessa,
-    name: "Dr. Jessa mayet A. Sumatra-Mabalot",
+    name: "Dr. Ruby A. Maali",
     title: "Medical Officer III",
-    spec: "General Practitioner",
+    spec: "OB-Gyne",
   },
   {
     id: 7,
     img: doc_ben,
-    name: "Dr. Ben Jason H. Caranay",
+    name: "Dr. Ma. Fe P. Sarsoza-Juljani",
     title: "Medical Officer IV",
-    spec: "Pediatrics",
+    spec: "General Practitioner",
   },
   {
     id: 8,
     img: doc_jessa,
-    name: "Dr. Erwin M. barrios",
-    title: "Medical Officer IV",
-    spec: "Pediatrics",
+    name: "Dr. Jessa Mayet A. Sumatra-Mabalot",
+    title: "Medical Officer III",
+    spec: "General Practitioner",
   },
 ];
 
-function Carousel() {
+function Carousel({ size }) {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   // Function to handle next button click
@@ -83,7 +83,7 @@ function Carousel() {
     );
   };
 
-  const slideSize = 4; // Number of doctors to display in each slide
+  const slideSize = size; // Number of doctors to display in each slide
   const totalSlides = doctors.length / slideSize;
 
   const startIdx = currentIndex * slideSize;
