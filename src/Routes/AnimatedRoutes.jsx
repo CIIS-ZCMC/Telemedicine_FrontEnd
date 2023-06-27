@@ -127,7 +127,7 @@ const AnimatedRoute = () => {
           <Route path="/home" element={<DesktopView />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/" element={<DesktopView />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/admin" element={<AdminAuthentication />} />
