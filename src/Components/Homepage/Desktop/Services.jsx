@@ -33,11 +33,17 @@ function Services(props) {
   ];
   return (
     <div>
-      <Box pt={20}>
+      <Box pt={40}>
         <TitleHeader title="Services" sub_title="Explore Our Services" />
       </Box>
-      <Box display="flex" alignItems="center" justifyContent="center" p={40}>
-        <SimpleGrid spacing={10} templateColumns="repeat(3, 1fr)">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        py={40}
+        px={40}
+      >
+        <SimpleGrid spacing={10} templateColumns="repeat(3, 1fr)" px={40}>
           {servicesData.map((item) => (
             <>
               <CardServices

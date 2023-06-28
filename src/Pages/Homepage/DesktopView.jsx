@@ -8,6 +8,12 @@ import Services from "../../Components/Homepage/Desktop/Services";
 import ContactUs from "../../Components/Homepage/Desktop/ContactUs";
 
 function DesktopView() {
+  const scrollToSection = (id) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <div
       style={{
@@ -19,32 +25,33 @@ function DesktopView() {
     >
       <Container maxW="80vw" mb={10} pt={10} height="100vh">
         <div>
-          <Navbar />
+          <Navbar handleSelectionClick={scrollToSection} />
           <div
             style={{
               paddingTop: "10vh",
             }}
+            id="home"
           >
             <Banner />
           </div>
         </div>
       </Container>
 
-      <div>
+      <div id="about">
         <About />
       </div>
 
-      <Container maxW="92w" backgroundColor="#f5fdfd" py={20}>
+      <Container maxW="92w" backgroundColor="#f5fdfd" py={20} id="services">
         <Services />
       </Container>
 
-      <Container maxW="92vw" py={20}>
+      <Container maxW="92vw" py={20} id="doctors">
         <div style={{ paddingTop: 80 }}>
           <Doctors />
         </div>
       </Container>
 
-      <Box pb={7}>
+      <Box pb={7} id="contact-us">
         <ContactUs />
       </Box>
     </div>

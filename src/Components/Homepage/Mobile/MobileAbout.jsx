@@ -36,7 +36,7 @@ function MobileAbout(props) {
         p={5}
       >
         <Box>
-          <TitleHeader title="About Us" />
+          <TitleHeader title="About Us" sub_title="Know Us More" />
           <Carousel carouselItems={carouselItems} />
         </Box>
       </Box>

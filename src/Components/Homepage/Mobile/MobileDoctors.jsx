@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 function MobileDoctors(props) {
-  const size = useBreakpointValue({ base: 1, sm: 2, md: 2, lg: 2 });
+  const size = useBreakpointValue({ base: 1, sm: 1, md: 2, lg: 2 });
   return (
     <div>
       <Box textAlign="center">

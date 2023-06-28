@@ -36,13 +36,14 @@ function About() {
         justifyContent="center"
         alignItems="center"
         gap={2}
+        px={40}
       >
-        <Box width="20%" align="right">
+        <Box width="25%" align="right">
           <Image src={doc_cheng} alt="deputy_chair" width={350} />
         </Box>
 
         <Box width="60%" p={10} mt="200px">
-          <TitleHeader title="About Us" />
+          <TitleHeader title="About Us" sub_title="Know Us More" />
           <Carousel carouselItems={carouselItems} />
         </Box>
       </Box>
