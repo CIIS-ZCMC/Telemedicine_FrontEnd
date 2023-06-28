@@ -2,12 +2,12 @@ import { Flex, HStack, Link, Text } from "@chakra-ui/react";
 import LogoHeader from "../LogoHeader";
 import ButtonComponent from "../ButtonComponent";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
 const navItem = [
   {
     name: "Home",
     href: "home",
-    active: true,
   },
   {
     name: "About Us",
@@ -28,17 +28,42 @@ const navItem = [
 ];
 
 function Navbar({ handleSelectionClick }) {
+  const [isSticky, setIsSticky] = useState(false);
+  const [activeItem, setActiveItem] = useState("home");
+
+  const handleClick = (item) => {
+    setActiveItem(item.href);
+    handleSelectionClick(`#${item.href}`);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      setIsSticky(offset > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <div>
       <Flex
         justifyContent="space-between"
-        py={4}
+        py={isSticky ? 2 : 4}
         px={6}
         backgroundColor="white"
         boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
-        borderRadius={10}
+        borderRadius={isSticky ? 0 : 10}
         zIndex={50}
-        sx={{ position: "static" }}
+        sx={{
+          position: isSticky ? "fixed" : "static",
+          top: 0,
+          left: 0,
+          right: 0,
+        }}
       >
         <LogoHeader />
         <HStack gap={10}>
@@ -47,11 +72,11 @@ function Navbar({ handleSelectionClick }) {
               <>
                 <Text
                   fontSize={15}
-                  fontWeight={item.active ? 600 : 400}
-                  color={item.active ? "teal" : ""}
+                  fontWeight={item.href === activeItem ? 600 : 400}
+                  color={item.href === activeItem ? "teal" : ""}
                   // borderBottom={item.active ? "1px solid teal" : "none"}
                   // borderBottomWidth={2}
-                  onClick={() => handleSelectionClick(`#${item.href}`)}
+                  onClick={() => handleClick(item)}
                   cursor="pointer"
                 >
                   {item.name}
