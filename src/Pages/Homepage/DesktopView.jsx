@@ -23,14 +23,13 @@ function DesktopView() {
         width: "100vw",
       }}
     >
-      <Container maxW="80vw" mb={10} pt={10} height="100vh">
+      <Container maxW="80vw" mb={10} pt={10} height="100vh" id="home">
         <div>
           <Navbar handleSelectionClick={scrollToSection} />
           <div
             style={{
               paddingTop: "10vh",
             }}
-            id="home"
           >
             <Banner />
           </div>
