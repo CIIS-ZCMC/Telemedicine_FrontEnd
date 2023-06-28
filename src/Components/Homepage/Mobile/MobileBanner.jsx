@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import React from "react";
-import doc_kunting from "../../../assets/doc_kunting2.png";
+import doc_kunting from "../../../assets/doctor/doc_kunting.png";
 import ButtonComponent from "../ButtonComponent";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 

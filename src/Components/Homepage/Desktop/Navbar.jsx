@@ -6,28 +6,28 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 const navItem = [
   {
     name: "Home",
-    href: "#home",
+    href: "home",
     active: true,
   },
   {
     name: "About Us",
-    href: "#about",
+    href: "about",
   },
   {
     name: "Services",
-    href: "#services",
+    href: "services",
   },
   {
     name: "Doctors",
-    href: "#doctors",
+    href: "doctors",
   },
   {
     name: "Contact Us",
-    href: "#contact-us",
+    href: "contact-us",
   },
 ];
 
-function Navbar() {
+function Navbar({ handleSelectionClick }) {
   return (
     <div>
       <Flex
@@ -51,6 +51,8 @@ function Navbar() {
                   color={item.active ? "teal" : ""}
                   // borderBottom={item.active ? "1px solid teal" : "none"}
                   // borderBottomWidth={2}
+                  onClick={() => handleSelectionClick(`#${item.href}`)}
+                  cursor="pointer"
                 >
                   {item.name}
                 </Text>
