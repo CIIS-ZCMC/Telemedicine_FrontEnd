@@ -2,7 +2,7 @@ import { Flex, HStack, Link, Text } from "@chakra-ui/react";
 import LogoHeader from "../LogoHeader";
 import ButtonComponent from "../ButtonComponent";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const navItem = [
   {
@@ -27,9 +27,10 @@ const navItem = [
   },
 ];
 
-function Navbar({ handleSelectionClick }) {
+function Navbar({ currentSection, handleSelectionClick }) {
   const [isSticky, setIsSticky] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
+  const sectionRefs = useRef([]);
 
   const handleClick = (item) => {
     setActiveItem(item.href);
@@ -48,6 +49,10 @@ function Navbar({ handleSelectionClick }) {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    setActiveItem(currentSection);
+  }, [currentSection]);
   return (
     <div>
       <Flex
