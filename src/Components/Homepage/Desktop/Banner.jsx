@@ -12,6 +12,7 @@ import React from "react";
 import doc_kunting from "../../../assets/doctor/doc_kunting.png";
 import ButtonComponent from "../ButtonComponent";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import bgImage2 from "../../../assets/3.png";
 
 const Headings = () => {
   return (

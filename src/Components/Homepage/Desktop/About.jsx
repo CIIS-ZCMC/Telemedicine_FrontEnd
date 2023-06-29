@@ -29,7 +29,7 @@ function About() {
       <Box
         backgroundImage={`url(${bgImage2})`}
         backgroundSize="cover"
-        backgroundPosition="center"
+        backgroundPosition="top"
         width="100vw"
         height="100vh"
         display="flex"
@@ -37,6 +37,7 @@ function About() {
         alignItems="center"
         gap={2}
         px={40}
+        my={40}
       >
         <Box width="25%" align="right">
           <Image src={doc_cheng} alt="deputy_chair" width={350} />

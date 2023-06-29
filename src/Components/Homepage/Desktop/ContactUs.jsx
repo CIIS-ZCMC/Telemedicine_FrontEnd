@@ -10,7 +10,7 @@ function ContactUs(props) {
       <Box>
         <TitleHeader title="Contact Us" />
       </Box>
-      <HStack px={5} gap={20} py={5} justifyContent="center">
+      <HStack px={5} gap={10} py={5} justifyContent="center">
         <Box display="flex" gap={5} alignItems="center">
           <Box>
             <img src={logo} width={50} />
@@ -37,9 +37,7 @@ function ContactUs(props) {
         </Box>
       </HStack>
 
-      <Container maxW="container.xl">
-        <Footer />
-      </Container>
+      <Footer />
     </div>
   );
 }
