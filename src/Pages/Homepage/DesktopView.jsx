@@ -65,14 +65,14 @@ function DesktopView() {
         <Services />
       </section>
 
-      <section id="doctors" style={{ paddingTop: 80, backgroundColor: "blue" }}>
+      <section id="doctors" style={{ paddingTop: 80 }}>
         <Container py={20}>
           <Doctors />
         </Container>
       </section>
 
       <section id="contact-us">
-        <Container maxW="92vw" pb={7}>
+        <Container maxW="80vw" pb={7}>
           <ContactUs />
         </Container>
       </section>

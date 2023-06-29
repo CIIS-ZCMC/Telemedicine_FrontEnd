@@ -8,7 +8,7 @@ function ContactUs(props) {
   return (
     <div>
       <Box>
-        <TitleHeader title="Contact Us" />
+        <TitleHeader title="Contact Us" sub_title="Connect With Us" />
       </Box>
       <HStack px={5} gap={10} py={5} justifyContent="center">
         <Box display="flex" gap={5} alignItems="center">

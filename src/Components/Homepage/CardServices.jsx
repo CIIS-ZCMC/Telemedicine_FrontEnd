@@ -44,23 +44,25 @@ function CardServices({ title, img, color, desc, width }) {
           alignItems="center"
           minHeight="200px" // Adjust the desired height as needed
         > */}
-        <Card
-          align="center"
-          boxShadow="lg"
-          borderRadius="30px"
-          height="100%"
-          width={width}
-          mb={20}
-        >
-          <CardHeader mt={9}>
-            <Heading size="sm">{title}</Heading>
-          </CardHeader>
-          <CardBody>
-            <Text align="center" fontSize={14}>
-              {desc}
-            </Text>
-          </CardBody>
-        </Card>
+        <Box bgColor="#BAE8E8" padding={2} borderRadius="30px" boxShadow="xl">
+          <Card
+            align="center"
+            bgColor="white"
+            borderRadius="30px"
+            height="100%"
+            width={width}
+          >
+            <CardHeader mt={9}>
+              <Heading size="sm">{title}</Heading>
+            </CardHeader>
+            <CardBody>
+              <Text align="center" fontSize={13}>
+                {desc}
+              </Text>
+            </CardBody>
+          </Card>
+        </Box>
+
         {/* </Box> */}
       </div>
     </div>
