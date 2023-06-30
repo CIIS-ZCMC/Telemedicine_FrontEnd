@@ -33,7 +33,7 @@ function MobileServices(props) {
   ];
 
   // const columnCount = useBreakpointValue({ base: 1, sm: 1, md: 2, lg: 3 });
-  const space = useBreakpointValue({ base: 20, sm: 10, md: 10, lg: 10 });
+  // const space = useBreakpointValue({ base: 20, sm: 20, md: 20, lg: 10 });
   const width = useBreakpointValue({ base: 300, sm: 300, md: 400, lg: 400 });
   return (
     <div style={{ backgroundColor: "#f5fdfd" }}>
@@ -41,7 +41,7 @@ function MobileServices(props) {
         <TitleHeader title="Services" sub_title="Explore Our Services" />
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center" p={5}>
-        <SimpleGrid spacing={space} columns={1} mt="150px" align="center">
+        <SimpleGrid spacing={20} columns={1} mt="150px" align="center">
           {servicesData.map((item) => (
             <>
               <CardServices

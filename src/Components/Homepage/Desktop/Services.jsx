@@ -19,16 +19,15 @@ function Services(props) {
       title: "Pediatrics",
       img: pedia,
       color: "#fed6b5",
-      desc: `Our dedicated team of compassionate healthcare professionals is committed to nurturing your child's 
-            health, growth, and overall well-being, creating a positive and supportive environment for their 
-            bright futures.`,
+      desc: `Our team ensures exceptional care, creating a supportive environment for your 
+      child's health, growth, and well-being, guaranteeing a bright future.`,
     },
     {
       title: "Obstetrics & Gynecology",
       img: ob,
       color: "#f2c1c1",
-      desc: `Our expert team of compassionate professionals is dedicated to guiding you through every 
-            stage of your pregnancy, ensuring a safe and memorable experience for both you and your baby.`,
+      desc: `Our dedicated experts provide comprehensive support throughout your pregnancy, 
+      ensuring a safe and memorable experience for you and your baby`,
     },
   ];
   return (

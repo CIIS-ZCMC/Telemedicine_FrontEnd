@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "../Carousel";
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, useBreakpointValue } from "@chakra-ui/react";
 import bgImage2 from "../../../assets/3.png";
 import TitleHeader from "../TitleHeader";
 import { HiOutlineLightBulb } from "react-icons/hi";
@@ -24,6 +24,7 @@ function MobileAbout(props) {
       title: "Core Values",
     },
   ];
+  const padding = useBreakpointValue({ base: 5, sm: 5, md: 40, lg: 40 });
   return (
     <div>
       <Box
@@ -32,8 +33,10 @@ function MobileAbout(props) {
         backgroundPosition="center"
         justifyContent="center"
         alignItems="center"
+        width="100vw"
         my={10}
         p={5}
+        px={padding}
       >
         <Box>
           <TitleHeader title="About Us" sub_title="Know Us More" />

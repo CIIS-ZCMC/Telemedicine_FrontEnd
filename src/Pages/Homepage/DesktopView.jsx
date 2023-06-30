@@ -8,6 +8,7 @@ import Services from "../../Components/Homepage/Desktop/Services";
 import ContactUs from "../../Components/Homepage/Desktop/ContactUs";
 import bg from "../../assets/3.png";
 import { BiGame } from "react-icons/bi";
+import Footer from "../../Components/Homepage/Desktop/Footer";
 
 function DesktopView() {
   const [currSection, setCurrSection] = useState("");
@@ -57,11 +58,14 @@ function DesktopView() {
         </Container>
       </section>
 
-      <section id="about">
+      <section id="about" style={{ height: "100vh" }}>
         <About />
       </section>
 
-      <section id="services" style={{ backgroundColor: "#f5fdfd" }}>
+      <section
+        id="services"
+        style={{ backgroundColor: "#f5fdfd", height: "100vh" }}
+      >
         <Services />
       </section>
 
@@ -71,9 +75,20 @@ function DesktopView() {
         </Container>
       </section>
 
-      <section id="contact-us">
-        <Container maxW="80vw" pb={7}>
-          <ContactUs />
+      <section
+        id="contact-us"
+        style={{
+          backgroundColor: "#f5fdfd",
+          height: "100vh",
+          paddingTop: 80,
+        }}
+      >
+        <ContactUs />
+      </section>
+
+      <section>
+        <Container maxW="80vw" pt={10} pb={3}>
+          <Footer />
         </Container>
       </section>
     </div>
