@@ -1,4 +1,4 @@
-import { Flex, Link, VStack, Text } from "@chakra-ui/react";
+import { Flex, Link, VStack, Text, Container } from "@chakra-ui/react";
 import React, { useState } from "react";
 import LogoHeader from "../LogoHeader";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
@@ -60,10 +60,12 @@ function MobileNavbar({ handleSelectionClick }) {
         alignItems="center"
         zIndex={50}
         sx={{
-          position: "sticky",
+          position: "fixed",
           top: 0,
           left: 0,
           right: 0,
+          py: 3,
+          px: 5,
         }}
       >
         <LogoHeader />
@@ -75,6 +77,7 @@ function MobileNavbar({ handleSelectionClick }) {
           )}
         </Link>
       </Flex>
+
       <div style={menuContainerStyle}>
         {isMenuOpen && (
           <VStack gap={10} pt={20}>

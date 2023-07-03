@@ -10,6 +10,7 @@ const ButtonComponent = ({
   color = "white",
   fontSize = "14px",
   paddingX,
+  action,
   paddingY = "0px",
 }) => {
   return (
@@ -30,6 +31,7 @@ const ButtonComponent = ({
         paddingX: paddingX + 2,
         transition: ".4s ease",
       }}
+      onClick={action}
     >
       {text}
     </Button>
