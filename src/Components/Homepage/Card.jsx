@@ -4,7 +4,13 @@ import PropTypes from "prop-types";
 const CardComponent = ({ icon, title, content }) => {
   return (
     <div>
-      <Card height="100%" boxShadow="lg" width="full" align="center">
+      <Card
+        height="100%"
+        boxShadow="md"
+        width="full"
+        align="center"
+        backgroundColor="whiteAlpha.700"
+      >
         <CardHeader display="flex" alignItems="center" gap={2}>
           {icon}
           <Heading size="lg" color="#005858">

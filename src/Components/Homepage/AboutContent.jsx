@@ -38,7 +38,10 @@ export const getContentForId = (id) => {
             <b>E</b>quality in gender and ethnicity,
           </p>
           <p>
-            <b>D</b>ependability and responsibility safety.
+            <b>D</b>ependability and responsibility,
+          </p>
+          <p>
+            <b>S</b>afety.
           </p>
         </Box>
       );
