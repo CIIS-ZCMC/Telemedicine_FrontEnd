@@ -6,56 +6,67 @@ import doc_irene from "../../assets/doctor/doc_irene.png";
 import doc_jessa from "../../assets/doctor/doc_jessa.png";
 import doc_ben from "../../assets/doctor/doc_ben.png";
 import doc_erwin from "../../assets/doctor/doc_erwin.png";
+import doc_cheng from "../../assets/doctor/doc_cheng.png";
+import doc_pat from "../../assets/doctor/doc_pat.png";
+import doc_maali from "../../assets/doctor/doc_maali.png";
+import doc_juljani from "../../assets/doctor/doc_juljani.png";
 
 const doctors = [
   {
+    id: 0,
+    img: doc_cheng,
+    name: "Dr. Marichelle H. Valeros",
+    title: "Medical Officer IV",
+    spec: "Deputy Head - Telemedicine",
+  },
+  {
     id: 1,
-    img: doc_irene,
+    img: doc_pat,
     name: "Dr. Patricia Katherine D. Cabato",
     title: "Medical Officer IV",
     spec: "Internal Medicine",
   },
   {
     id: 2,
-    img: doc_jessa,
-    name: "Dr. Sitti Sophia A. Jupli, FPCP",
-    title: "Medical Officer III",
-    spec: "Internal Medicine",
-  },
-  {
-    id: 3,
     img: doc_ben,
     name: "Dr. Ben Jason H. Caranay",
     title: "Medical Officer IV",
     spec: "Pediatrics",
   },
   {
-    id: 4,
+    id: 3,
     img: doc_erwin,
     name: "Dr. Erwin M. Barrios",
     title: "Medical Officer IV",
     spec: "Pediatrics",
   },
   {
-    id: 5,
-    img: doc_jessa,
+    id: 4,
+    img: doc_irene,
     name: "Dr. Aireen Marie C. Sta. Teresa",
     title: "Medical Officer IV",
     spec: "OB-Gyne",
   },
   {
+    id: 5,
+    img: doc_juljani,
+    name: "Dr. Ma. Fe P. Sarsoza-Juljani",
+    title: "Medical Officer IV",
+    spec: "General Practitioner",
+  },
+  {
     id: 6,
-    img: doc_jessa,
+    img: doc_maali,
     name: "Dr. Ruby A. Maali",
     title: "Medical Officer III",
     spec: "OB-Gyne",
   },
   {
     id: 7,
-    img: doc_ben,
-    name: "Dr. Ma. Fe P. Sarsoza-Juljani",
-    title: "Medical Officer IV",
-    spec: "General Practitioner",
+    img: doc_jessa,
+    name: "Dr. Sitti Sophia A. Jupli, FPCP",
+    title: "Medical Officer III",
+    spec: "Internal Medicine",
   },
   {
     id: 8,

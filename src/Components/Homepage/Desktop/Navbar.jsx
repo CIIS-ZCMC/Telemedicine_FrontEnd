@@ -1,8 +1,10 @@
-import { Flex, HStack, Link, Text } from "@chakra-ui/react";
+import { Flex, HStack, IconButton, Link, Text } from "@chakra-ui/react";
 import LogoHeader from "../LogoHeader";
 import ButtonComponent from "../ButtonComponent";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { HiArrowUp } from "react-icons/hi";
 
 const navItem = [
   {
@@ -31,6 +33,9 @@ function Navbar({ currentSection, handleSelectionClick }) {
   const [isSticky, setIsSticky] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
   const sectionRefs = useRef([]);
+  const [displayBtn, setDisplayBtn] = useState(false);
+
+  let navigate = useNavigate();
 
   const handleClick = (item) => {
     setActiveItem(item.href);
@@ -41,6 +46,7 @@ function Navbar({ currentSection, handleSelectionClick }) {
     const handleScroll = () => {
       const offset = window.scrollY;
       setIsSticky(offset > 0);
+      setDisplayBtn(offset > 0);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -50,9 +56,18 @@ function Navbar({ currentSection, handleSelectionClick }) {
     };
   }, []);
 
+  const handleBacktoTop = (id) => {
+    const element = document.querySelector(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+
+    console.log(element);
+  };
+
   useEffect(() => {
     setActiveItem(currentSection);
-  }, [currentSection]);
+  }, [currentSection, displayBtn]);
   return (
     <div>
       <Flex
@@ -98,10 +113,38 @@ function Navbar({ currentSection, handleSelectionClick }) {
             text="Register"
             bgColor="#2EACAC"
             variant="solid"
+            action={() => {
+              navigate("/register");
+            }}
             borderRadius={50}
           />
         </HStack>
       </Flex>
+
+      {displayBtn ? (
+        <div
+          style={{
+            maxHeight: "100vh",
+            position: "fixed",
+            right: 60,
+            bottom: 50,
+            opacity: 0.9,
+          }}
+        >
+          <IconButton
+            colorScheme="teal"
+            aria-label="Back to Top"
+            size="lg"
+            variant="solid"
+            onClick={() => {
+              handleBacktoTop("#home");
+            }}
+            icon={<HiArrowUp />}
+          />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
