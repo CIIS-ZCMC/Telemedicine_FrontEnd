@@ -80,7 +80,7 @@ function DesktopView() {
         style={{
           backgroundColor: "#f5fdfd",
           height: "100vh",
-          paddingTop: 80,
+          paddingTop: 110,
         }}
       >
         <ContactUs />
