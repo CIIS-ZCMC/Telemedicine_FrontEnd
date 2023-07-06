@@ -124,9 +124,8 @@ const VideoCall2 = () => {
   };
 
   let createAnswer = async (MemberId, offer) => {
-    await createPeerConnection(MemberId);
-
     await peerConnection.setRemoteDescription(offer);
+    await createPeerConnection(MemberId);
 
     let answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
