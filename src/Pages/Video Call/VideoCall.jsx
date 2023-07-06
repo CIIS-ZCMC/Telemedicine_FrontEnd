@@ -85,7 +85,6 @@ const VideoCall = () => {
     peerConnection.ontrack = (event) => {
       event.streams[0].getTracks().forEach((track) => {
         remoteStream.addTrack(track);
-        console.log("Remote Stream add Track Success");
       });
     };
 
@@ -108,38 +107,59 @@ const VideoCall = () => {
   let createOffer = async (MemberId) => {
     await createPeerConnection(MemberId);
 
-    let offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
+    peerConnection
+      .createOffer()
+      .then((offer) => {
+        peerConnection.setLocalDescription(offer);
+        return offer;
+      })
+      .then((offer) => {
+        client.sendMessageToPeer(
+          {
+            text: JSON.stringify({
+              type: "offer",
+              offer: offer,
+            }),
+          },
+          MemberId
+        );
 
-    console.log("Offer: ", offer);
-
-    client.sendMessageToPeer(
-      { text: JSON.stringify({ type: "offer", offer: offer }) },
-      MemberId
-    );
+        console.log("Sending Offer: ", offer);
+      })
+      .catch((err) => {
+        console.log(`Error in createOffer function: ${err}`);
+      });
   };
 
   let createAnswer = async (MemberId, offer) => {
-    try {
-      console.log("create Answer function display: ", offer);
-      await createPeerConnection(MemberId);
+    console.log("create Answer function display: ", offer);
+    await createPeerConnection(MemberId);
 
-      await peerConnection.setRemoteDescription(offer);
+    await peerConnection.setRemoteDescription(offer);
 
-      let answer = await peerConnection.createAnswer();
-      await peerConnection.setLocalDescription(answer);
+    console.log("Adding answer in Asus: ", offer);
+    peerConnection
+      .createAnswer()
+      .then(async (answer) => {
+        peerConnection.setLocalDescription(answer);
+        return answer;
+      })
+      .then((answer) => {
+        client.sendMessageToPeer(
+          {
+            text: JSON.stringify({
+              type: "answer",
+              answer: answer,
+            }),
+          },
+          MemberId
+        );
 
-      console.log("Answer: ", answer);
-
-      client.sendMessageToPeer(
-        {
-          text: JSON.stringify({ type: "answer", answer: answer }),
-        },
-        MemberId
-      );
-    } catch (err) {
-      console.log(`Error in line 131: ${err}`);
-    }
+        console.log("Sending answer FROM ASUS: ", answer);
+      })
+      .catch((err) => {
+        console.log(`Error in createAnswer function: ${err}`);
+      });
   };
 
   let handleUserJoined = async (MemberId) => {

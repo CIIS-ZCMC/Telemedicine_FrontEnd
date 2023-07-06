@@ -116,36 +116,58 @@ const VideoCall2 = () => {
   let createOffer = async (MemberId) => {
     await createPeerConnection(MemberId);
 
-    let offer = await peerConnection.createOffer();
-    peerConnection.setLocalDescription(offer);
+    peerConnection
+      .createOffer()
+      .then((offer) => {
+        peerConnection.setLocalDescription(offer);
+        return offer;
+      })
+      .then((offer) => {
+        client.sendMessageToPeer(
+          {
+            text: JSON.stringify({
+              type: "offer",
+              offer: offer,
+            }),
+          },
+          MemberId
+        );
 
-    client.sendMessageToPeer(
-      { text: JSON.stringify({ type: "offer", offer: offer }) },
-      MemberId
-    );
-    console.log("Sending Offer: ", offer);
+        console.log("Sending Offer: ", offer);
+      })
+      .catch((err) => {
+        console.log(`Error in createOffer function: ${err}`);
+      });
   };
 
   let createAnswer = async (MemberId, offer) => {
     console.log("Offer has been received: ", offer);
     await createPeerConnection(MemberId);
-    peerConnection.setRemoteDescription(offer);
+    await peerConnection.setRemoteDescription(offer);
+
     console.log("Adding answer in Asus: ", offer);
+    peerConnection
+      .createAnswer()
+      .then(async (answer) => {
+        peerConnection.setLocalDescription(answer);
+        return answer;
+      })
+      .then((answer) => {
+        client.sendMessageToPeer(
+          {
+            text: JSON.stringify({
+              type: "answer",
+              answer: answer,
+            }),
+          },
+          MemberId
+        );
 
-    let answer = await peerConnection.createAnswer();
-    peerConnection.setLocalDescription(answer);
-
-    client.sendMessageToPeer(
-      {
-        text: JSON.stringify({
-          type: "answer",
-          answer: answer,
-        }),
-      },
-      MemberId
-    );
-
-    console.log("Sending answer: ", answer);
+        console.log("Sending answer FROM ASUS: ", answer);
+      })
+      .catch((err) => {
+        console.log(`Error in createAnswer function: ${err}`);
+      });
   };
 
   let addAnswer = async (answer) => {
