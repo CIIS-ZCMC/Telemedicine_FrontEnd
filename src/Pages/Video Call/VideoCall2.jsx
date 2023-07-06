@@ -48,6 +48,7 @@ const VideoCall2 = () => {
   let handleMessageFromPeer = async (message, MemberId) => {
     message = JSON.parse(message.text);
     console.log("Message: ", message);
+    console.log(`handleMessageFromPeer: ${MemberId}`);
 
     if (message.type === "offer") {
       await createAnswer(MemberId, message.offer);
@@ -55,6 +56,7 @@ const VideoCall2 = () => {
 
     if (message.type === "answer") {
       await addAnswer(message.answer);
+      console.log("Answer Received: ", message.answer);
     }
 
     if (message.type === "candidate") {
@@ -97,7 +99,7 @@ const VideoCall2 = () => {
 
     peerConnection.onicecandidate = async (event) => {
       if (event.candidate) {
-        console.log("New ICE CANDIDATE: ", event.candidate);
+        // console.log("New ICE CANDIDATE: ", event.candidate);
         client.sendMessageToPeer(
           {
             text: JSON.stringify({
@@ -115,20 +117,23 @@ const VideoCall2 = () => {
     await createPeerConnection(MemberId);
 
     let offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
+    peerConnection.setLocalDescription(offer);
 
     client.sendMessageToPeer(
       { text: JSON.stringify({ type: "offer", offer: offer }) },
       MemberId
     );
+    console.log("Sending Offer: ", offer);
   };
 
   let createAnswer = async (MemberId, offer) => {
+    console.log("Offer has been received: ", offer);
     await createPeerConnection(MemberId);
-    await peerConnection.setRemoteDescription(offer);
+    peerConnection.setRemoteDescription(offer);
+    console.log("Adding answer in Asus: ", offer);
 
     let answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
+    peerConnection.setLocalDescription(answer);
 
     client.sendMessageToPeer(
       {
@@ -139,11 +144,17 @@ const VideoCall2 = () => {
       },
       MemberId
     );
+
+    console.log("Sending answer: ", answer);
   };
 
   let addAnswer = async (answer) => {
     if (!peerConnection.currentRemoteDescription) {
+      if (answer === null) {
+        console.log("Answer is null");
+      }
       peerConnection.setRemoteDescription(answer);
+      console.log("Adding answer in Acer: ", answer);
     }
   };
 
