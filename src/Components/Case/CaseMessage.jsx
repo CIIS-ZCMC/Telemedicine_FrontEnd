@@ -3,44 +3,41 @@ import { Box, Text } from "@chakra-ui/react";
 import moment from "moment/moment";
 import MessageComponent from "./MessageComponent";
 import PropTypes from "prop-types";
-import { io } from "socket.io-client";
+import { initializeMessageID, socket } from "../../API/socket_connection";
+import AnimationCaseMessage from "../../Pages/Loading Animation/Consult/Message/AnimationCaseMessage";
 
 const CaseMessage = ({ id, date }) => {
-  const [fetch, setFetch] = useState(true);
   const messageRef = useRef(null);
-  const [message, setMessage] = useState(null);
+  const [firstRender, setFirstRender] = useState(true);
+  const [messages, setMessage] = useState([]);
+  const [messagesUI, setMessageUI] = useState([]);
 
   useEffect(() => {
-    const socket = io("http://localhost:8573");
+    initializeMessageID(id);
 
-    // Listen for the "todos" event
-    socket.on("connect", () => {
-      console.log("Connected to the server.");
-
-      // Send a message to the server
-      socket.emit("message", id);
+    socket.on("message", (data) => {
+      setMessage(data);
     });
-
-    socket.on("message", (message) => {
-      setMessage(message);
-    });
-
-    return () => {
-      socket.disconnect();
-      console.log("Socket disconnected.");
-    };
-  }, []);
+  });
 
   useEffect(() => {
-    if (fetch) {
-      messageRef.current?.scrollIntoView();
+    if (messagesUI.length !== messages.length) {
+      setFirstRender(true);
+      setMessageUI(
+        messages.map((value, index) => {
+          return <MessageComponent key={index} {...value} />;
+        })
+      );
     }
 
-    return () => setFetch(false);
-  }, [fetch, message]);
+    if (firstRender && messages !== null) {
+      messageRef.current?.scrollIntoView();
+      setFirstRender(false);
+    }
+  }, [messages]);
 
-  if (message === null) {
-    return <Box>Loading</Box>;
+  if (messages === null) {
+    return <AnimationCaseMessage />;
   }
 
   return (
@@ -57,9 +54,7 @@ const CaseMessage = ({ id, date }) => {
         </Text>
       </Box>
       <Box mt="3rem" scrollBehavior="smooth">
-        {message.map((value, index) => {
-          return <MessageComponent key={index} {...value} />;
-        })}
+        {messagesUI.map((messageUI) => messageUI)}
       </Box>
       <Box h={0} ref={messageRef} />
     </Box>
@@ -67,8 +62,8 @@ const CaseMessage = ({ id, date }) => {
 };
 
 CaseMessage.propTypes = {
-  id: PropTypes.string,
-  date: PropTypes.date,
+  id: PropTypes.number,
+  date: PropTypes.object,
 };
 
 export default CaseMessage;

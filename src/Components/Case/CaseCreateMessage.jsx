@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Box, Button, Textarea, useToast } from "@chakra-ui/react";
+import { Box, Button, Textarea, useToast, Flex } from "@chakra-ui/react";
 import { IoMdAddCircle, IoMdSend } from "react-icons/io";
 import { toastposition, toastvariant } from "../../Pages/Packages";
 import { PostRequest } from "../../API/api";
 import { Message } from "../../API/Paths";
 import "../../Style/Consult.css";
 import Files from "../Files";
+// import { BsFillCameraVideoFill } from "react-icons/bs";
 import PropTypes from "prop-types";
 
 const CaseCreateMessage = ({ id, setFetchMessage }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [message, setMessage] = useState("");
+  const [lines, setLines] = useState(1);
   const toast = useToast();
   const Max_Count = 5;
 
@@ -36,8 +38,33 @@ const CaseCreateMessage = ({ id, setFetchMessage }) => {
     }
   };
 
+  const onChange = (e) => {
+    const value = e.target.value;
+
+    const totalLines = value.split("\n");
+    setLines(totalLines.length);
+
+    setMessage(value);
+  };
+
   const handleFileEvent = (e) => {
     const chosenFiles = Array.prototype.slice.call(e.target.files);
+
+    // Process each chosen file
+    chosenFiles.forEach((file) => {
+      const reader = new FileReader();
+
+      // FileReader onload event handler
+      reader.onload = (event) => {
+        const filePath = event.target.result;
+        console.log(filePath);
+        // Perform further processing or upload the file with the complete path
+      };
+
+      // Read the file as data URL
+      reader.readAsDataURL(file);
+    });
+
     handleFileUpload(chosenFiles);
   };
 
@@ -72,96 +99,88 @@ const CaseCreateMessage = ({ id, setFetchMessage }) => {
         setSelectedFiles([]);
         setMessage("");
         setFetchMessage(true);
+        setLines(1);
       })
       .catch((err) => {
-        let messageErr = "";
         switch (err) {
           case 400:
-            messageErr = "Can't complete process. Try again later.";
+            console.log("Can't complete process. Try again later.");
             break;
           default:
-            messageErr = "Can't upload rigth now. try again later.";
+            console.log("Can't upload rigth now. try again later.");
             break;
         }
-        toast({
-          title: messageErr,
-          position: toastposition,
-          variant: toastvariant,
-          status: "error",
-          isClosable: true,
-        });
+        // toast({
+        //   title: messageErr,
+        //   position: toastposition,
+        //   variant: toastvariant,
+        //   status: "error",
+        //   isClosable: true,
+        // });
       });
   };
 
   return (
     <Box>
+      <Files
+        selectedFiles={selectedFiles}
+        setSelectedFiles={setSelectedFiles}
+      />
       <Box
         w="100%"
         h={["5rem", "5rem", "7.8rem", "4.8rem"]}
-        m={4}
         display="flex"
         flexDirection="column"
       >
-        <Files selectedFiles={selectedFiles} />
         <Box
-          w={["89%", "89%", "37%", "37%"]}
-          h={["3rem", "3rem", "4rem", "4rem"]}
+          w={["100%", "100%", "100%", "40%"]}
+          h={[`3rem`, "3rem", "4rem", `${lines * 2 + 6}%`]}
           bg="white"
           p={2}
-          mr={4}
-          mb={5}
-          mt={2}
           bottom="0%"
           position="fixed"
           display="flex"
           columnGap={5}
-          rounded={8}
           boxShadow="lg"
           alignItems="center"
           className="message"
           overflow="hidden"
         >
-          <Button
-            leftIcon={<IoMdAddCircle size={40} />}
-            bg="transparent"
-            color="gray"
-            w={[50, 50, 100, 100]}
-            rounded={100}
-            _hover={{
-              bg: "transparent",
-            }}
-            _active={{
-              bg: "transparent",
-            }}
-            className="message-button-plus"
-            onClick={() => {
-              document.getElementById("file").click();
-            }}
-          />
-          <input
-            type={"file"}
-            id="file"
-            name="image"
-            style={{ display: "none" }}
-            multiple={true}
-            onChange={handleFileEvent}
-          />
-          <Box
-            h={message.includes("\n") ? "3rem" : "2rem"}
-            className="message-input-container"
-          >
-            <Textarea
-              size="sm"
-              variant="flushed"
-              placeholder="Type here."
-              focusBorderColor="white"
-              className="message-input"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+          <Flex>
+            <Box ml={5}>
+              <IoMdAddCircle
+                color="gray"
+                size={35}
+                onClick={() => {
+                  document.getElementById("file").click();
+                }}
+              />
+            </Box>
+            <input
+              type={"file"}
+              id="file"
+              name="image"
+              style={{ display: "none" }}
+              multiple={true}
+              onChange={handleFileEvent}
             />
-          </Box>
+          </Flex>
+          <Textarea
+            backgroundColor="rgb(243, 242, 242)"
+            focusBorderColor="white"
+            placeholder="Type here."
+            size="lg"
+            variant="flushed"
+            p={5}
+            rounded={30}
+            value={message}
+            style={{ height: `100%` }}
+            onChange={(e) => onChange(e)}
+            rows={lines}
+            resize="none"
+            overflow="hidden"
+          />
           <Button
-            leftIcon={<IoMdSend size={30} />}
             bg="transparent"
             w={[50, 50, 100, 100]}
             color={!!message || selectedFiles.length !== 0 ? "green" : "gray"}
@@ -173,9 +192,11 @@ const CaseCreateMessage = ({ id, setFetchMessage }) => {
             _active={{
               bg: "transparent",
             }}
-            className="message-button-send"
+            mr={5}
             onClick={(e) => handleSendMessage(e)}
-          />
+          >
+            <IoMdSend size={30} />
+          </Button>
         </Box>
       </Box>
     </Box>
@@ -183,7 +204,7 @@ const CaseCreateMessage = ({ id, setFetchMessage }) => {
 };
 
 CaseCreateMessage.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   setFetchMessage: PropTypes.bool,
 };
 

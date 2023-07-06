@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet, Navigate } from "react-router-dom";
+import { Routes, Route, Outlet, Navigate, useLocation } from "react-router-dom";
 import PageNotFound from "../404/PageNotFound";
 import Credits from "../Pages/credits/credits";
 import AdminAuthentication from "../Pages/Admin_Authentication";
@@ -23,6 +23,7 @@ import axios from "axios";
 import About from "../Components/Homepage/Desktop/About";
 import Services from "../Components/Homepage/Desktop/Services";
 import Home from "../Pages/Home";
+import VideoCall2 from "../Pages/Video Call/VideoCall2";
 
 const LoginPage = lazy(() => import("../Pages/Login"));
 const RegisterPage = lazy(() => import("../Pages/Registration"));
@@ -30,13 +31,15 @@ const RegisterPage = lazy(() => import("../Pages/Registration"));
 const ProtectedRoutes = () => {
   const { user } = useAuth();
 
-  return user === null ? <Navigate to="/home" replace /> : <Outlet />;
+  return user !== null ? <Outlet /> : <Navigate to="/home" />;
 };
 
 const AnimatedRoute = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const { setUser } = useAuth();
   const [fetch, setFetch] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleFetch = useCallback(
     (token) => {
@@ -49,8 +52,8 @@ const AnimatedRoute = () => {
 
           const { data } = res;
           setUser(data);
-          console.log("Called navigate dashboard");
-          if (fetch) {
+
+          if (fetch && !location.pathname.includes("room")) {
             navigate("/", { replace: true });
           }
         })
@@ -62,9 +65,12 @@ const AnimatedRoute = () => {
           }
           setUser(null);
         })
-        .finally(() => setFetch(false));
+        .finally(() => {
+          setFetch(false);
+          setIsLoading(false);
+        });
     },
-    [setUser, navigate, setFetch, fetch]
+    [setUser, navigate, setFetch, fetch, location.pathname]
   );
 
   useEffect(() => {
@@ -73,71 +79,75 @@ const AnimatedRoute = () => {
     if (fetch) {
       handleFetch(cancelTokenSource.token);
     }
-
     return () => cancelTokenSource.cancel("Request canceled by the user.");
   }, [handleFetch, fetch]);
 
   return (
     <AnimatePresence>
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route element={<ProtectedRoutes />}>
-            <Route
-              path="/*"
-              exact
-              element={
-                <>
-                  <Layout>
-                    <Routes>
-                      {RouteData.path.map((data) => {
-                        return (
-                          <Route
-                            key={data.index}
-                            path={data.href}
-                            element={data.element}
-                          />
-                        );
-                      })}
-                      <Route path="/MyAccount" element={<MyAccount />} />
-                    </Routes>
-                  </Layout>
-                </>
-              }
-            />
-            <Route path="/case-view" element={<Consult />} />
-            <Route
-              path="/case/form"
-              element={
-                <CaseProvider>
-                  <CaseForm />
-                </CaseProvider>
-              }
-            />
-            <Route
-              path="/patients/form"
-              element={
-                <PatientProvider>
-                  <PatientForm />
-                </PatientProvider>
-              }
-            />
-          </Route>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route element={<ProtectedRoutes location={location.pathname} />}>
+              <Route
+                path="/*"
+                exact
+                element={
+                  <>
+                    <Layout>
+                      <Routes>
+                        {RouteData.path.map((data) => {
+                          return (
+                            <Route
+                              key={data.index}
+                              path={data.href}
+                              element={data.element}
+                            />
+                          );
+                        })}
+                        <Route path="/MyAccount" element={<MyAccount />} />
+                      </Routes>
+                    </Layout>
+                  </>
+                }
+              />
+              <Route path="/case-view" element={<Consult />} />
+              <Route
+                path="/case/form"
+                element={
+                  <CaseProvider>
+                    <CaseForm />
+                  </CaseProvider>
+                }
+              />
+              <Route
+                path="/patients/form"
+                element={
+                  <PatientProvider>
+                    <PatientForm />
+                  </PatientProvider>
+                }
+              />
+            </Route>
 
-          {/* <Route path="/logins" element={<LoginDummy />} /> */}
-          <Route path="/home" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/admin" element={<AdminAuthentication />} />
-          <Route path="/account-recovery" element={<PasswordRecovery />} />
-          <Route path="/account" element={<AccountRegistration />} />
+            {/* <Route path="/logins" element={<LoginDummy />} /> */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/admin" element={<AdminAuthentication />} />
+            <Route path="/account-recovery" element={<PasswordRecovery />} />
+            <Route path="/room/:id" element={<VideoCall2 />} />
+            <Route path="/account" element={<AccountRegistration />} />
 
-          {/* catch all */}
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="/credits" element={<Credits />} />
-        </Routes>
-      </Suspense>
+            {/* catch all */}
+            <Route path="*" element={<PageNotFound />} />
+            <Route path="/credits" element={<Credits />} />
+          </Routes>
+        </Suspense>
+      )}
     </AnimatePresence>
   );
 };

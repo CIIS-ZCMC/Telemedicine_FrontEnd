@@ -18,6 +18,7 @@ import { PutRequest } from "../../API/api";
 import { Case } from "../../API/Paths";
 import useAuth from "../../Hooks/AuthContext";
 import PropTypes from "prop-types";
+import { unsubscribeFromMessages } from "../../API/socket_connection";
 
 const ConsultHeader = ({ id, isPendingStatus, onOpen }) => {
   const { user } = useAuth();
@@ -32,6 +33,7 @@ const ConsultHeader = ({ id, isPendingStatus, onOpen }) => {
 
   const handleBack = (e) => {
     e.preventDefault();
+    unsubscribeFromMessages();
     navigate(-1);
   };
 
