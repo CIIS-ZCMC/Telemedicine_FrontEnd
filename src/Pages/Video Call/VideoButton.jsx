@@ -19,13 +19,13 @@ const VideoButton = ({ caseId }) => {
     window.open(url, "_blank", windowFeatures);
   };
 
-  useEffect(() => {
-    // socket.on("activeCall", (data) => {
-    //   if (data !== null && data !== undefined && data) {
-    //     setHasCall(true);
-    //   }
-    // });
-  }, []);
+  // useEffect(() => {
+  //   // socket.on("activeCall", (data) => {
+  //   //   if (data !== null && data !== undefined && data) {
+  //   //     setHasCall(true);
+  //   //   }
+  //   // });
+  // }, []);
 
   return (
     <Button
