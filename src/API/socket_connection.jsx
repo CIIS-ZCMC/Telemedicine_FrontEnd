@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io("https://zcmc-telemedicine.online");
+const socket = io("https://zcmc-development.online");
 // const socket = io("http://192.168.137.188:8573");
 // const socket = io("http://192.168.137.117:8573");
 
