@@ -94,9 +94,7 @@ const VideoCall2 = () => {
         remoteStream.addTrack(track);
       });
     };
-  };
 
-  let createIceCandidate = async (MemberId) => {
     peerConnection.onicecandidate = async (event) => {
       if (event.candidate) {
         console.log("New ICE CANDIDATE: ", event.candidate);
@@ -119,8 +117,6 @@ const VideoCall2 = () => {
     let offer = await peerConnection.createOffer();
     await peerConnection.setLocalDescription(offer);
 
-    await createIceCandidate(MemberId);
-
     client.sendMessageToPeer(
       { text: JSON.stringify({ type: "offer", offer: offer }) },
       MemberId
@@ -130,8 +126,6 @@ const VideoCall2 = () => {
   let createAnswer = async (MemberId, offer) => {
     await createPeerConnection(MemberId);
     await peerConnection.setRemoteDescription(offer);
-
-    await createIceCandidate(MemberId);
 
     let answer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(answer);
