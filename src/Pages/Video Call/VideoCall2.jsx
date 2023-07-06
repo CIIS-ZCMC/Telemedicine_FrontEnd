@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
 import AgoraRTM from "agora-rtm-sdk";
+import adapter from "webrtc-adapter";
 
 const VideoCall2 = () => {
   const APP_ID = "8bd76e2530884e51bce45d79b862c431";
