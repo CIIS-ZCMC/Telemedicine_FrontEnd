@@ -162,7 +162,6 @@ const VideoCall2 = () => {
 
   return (
     <Box display="grid" gridTemplateColumns="1fr 1fr" gap="2rem">
-      Test
       <video
         className="video-player"
         id="user-1"
