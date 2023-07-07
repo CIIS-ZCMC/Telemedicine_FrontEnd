@@ -17,7 +17,7 @@ function MobileView(props) {
   };
   return (
     <div>
-      <Container maxW="container.lg" py={10}>
+      <Container maxW="container.lg" py={4}>
         <MobileNavbar handleSelectionClick={scrollToSection} />
       </Container>
 
