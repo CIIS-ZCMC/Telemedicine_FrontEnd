@@ -1,7 +1,10 @@
-import { Flex, Link, VStack, Text, Container } from "@chakra-ui/react";
+import { Flex, Link, VStack, Text, Container, HStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import LogoHeader from "../LogoHeader";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import ButtonComponent from "../ButtonComponent";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router";
 
 const navItem = [
   {
@@ -39,13 +42,13 @@ function MobileNavbar({ handleSelectionClick }) {
     // console.log(isMenuOpen);
     setIsMenuOpen(!isMenuOpen);
   };
-
+  let navigate = useNavigate();
   const menuContainerStyle = {
     position: "fixed",
     top: 0,
     left: 0,
     height: "100vh",
-    width: isMenuOpen ? "50%" : "0",
+    width: isMenuOpen ? "100%" : "0",
     overflow: "hidden",
     transition: "width 0.3s ease",
     zIndex: isMenuOpen ? 999 : -1,
@@ -70,15 +73,23 @@ function MobileNavbar({ handleSelectionClick }) {
       >
         <LogoHeader />
         <Link onClick={handleMenuToggle}>
-          {isMenuOpen ? (
-            <CloseIcon boxSize={3} />
-          ) : (
-            <HamburgerIcon sx={{ boxSize: 25 }} />
-          )}
+          <HamburgerIcon sx={{ boxSize: 25 }} />
         </Link>
       </Flex>
 
       <div style={menuContainerStyle}>
+        <Link
+          onClick={handleMenuToggle}
+          sx={{
+            position: "absolute",
+            top: 3.5,
+            right: 10,
+            zIndex: 1000,
+          }}
+        >
+          <CloseIcon sx={{ boxSize: 3 }} />
+        </Link>
+
         {isMenuOpen && (
           <VStack gap={10} pt={20}>
             {navItem.map((item) => {
@@ -98,6 +109,19 @@ function MobileNavbar({ handleSelectionClick }) {
                 </>
               );
             })}
+            <Link href="/login">Sign in</Link>
+            <HStack gap={4} fontSize={15}>
+              <ButtonComponent
+                icon={<ArrowForwardIcon />}
+                text="Register"
+                bgColor="#2EACAC"
+                variant="solid"
+                action={() => {
+                  navigate("/register");
+                }}
+                borderRadius={50}
+              />
+            </HStack>
           </VStack>
         )}
       </div>
