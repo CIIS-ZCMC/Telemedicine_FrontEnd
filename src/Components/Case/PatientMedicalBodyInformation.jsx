@@ -24,7 +24,7 @@ const PatientMedicalBodyInformation = ({ value, title, icon }) => {
 PatientMedicalBodyInformation.propTypes = {
   value: PropTypes.string,
   title: PropTypes.string,
-  icon: PropTypes.icon,
+  icon: PropTypes.object,
 };
 
 export default PatientMedicalBodyInformation;

@@ -4,6 +4,7 @@ import CaseParaclinicalFiles from "./CaseParaclinicalFiles";
 import BodyInformation from "./BodyInformation";
 import CaseMainInformation from "./CaseMainInformation";
 import CaseReferrerInformation from "./CaseRefererinformation";
+import "../../Style/hide_scroll_bar.css";
 import PropTypes from "prop-types";
 
 const CaseInformation = ({ id, caseCollection }) => {
@@ -14,6 +15,7 @@ const CaseInformation = ({ id, caseCollection }) => {
         overflow={"auto"}
         pt={10}
         pb={[0, 0, 10, 10]}
+        className="scrollbar-hide"
       >
         <CaseReferrerInformation {...caseCollection} />
         <PatientProfile id={id} />

@@ -7,10 +7,14 @@ import ConsultHeader from "../Components/Case/ConsultHeader";
 import CaseInformation from "../Components/Case/CaseInformation";
 import PostSpecializationModal from "../Components/PostSpecializationModal";
 import Message from "../Components/Message/Messsage";
+import { connectToSocket } from "../API/socket_connection";
+import AnimationConsultHeader from "./Loading Animation/Consult/AnimationConsultHeader";
+import AnimationCaseInformation from "./Loading Animation/Consult/Case Information/AnimationCaseInformation";
 
 const Consult = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [caseCollection, setCaseCollection] = useState(null);
+  const [connectSocket, setConnectSocket] = useState(true);
   const location = useLocation();
 
   const state = useState(location.state);
@@ -24,7 +28,6 @@ const Consult = () => {
         return res.data;
       })
       .then((res) => {
-        console.log(res.data);
         setCaseCollection(res.data);
       })
       .catch((err) => {
@@ -34,14 +37,17 @@ const Consult = () => {
 
   useEffect(() => {
     if (caseCollection === null) {
-      console.log("test");
       handleFetchCase();
     }
   }, [caseCollection, handleFetchCase]);
 
-  if (caseCollection === null) {
-    return <Box>Loading </Box>;
-  }
+  useEffect(() => {
+    if (connectSocket) {
+      connectToSocket();
+    }
+
+    return () => setConnectSocket(false);
+  }, [connectSocket]);
 
   return (
     <>
@@ -50,17 +56,27 @@ const Consult = () => {
         overflow={["visible", "visible", "hidden", "hidden"]}
         flexDirection={["column", "column", "row", "row"]}
       >
-        <Box w="inherit" flex={8}>
-          <ConsultHeader id={state[0]} onOpen={onOpen} />
-          <CaseInformation caseCollection={caseCollection} id={state[0]} />
+        <Box w="inherit" h={500} flex={8}>
+          {caseCollection === null ? (
+            <AnimationConsultHeader />
+          ) : (
+            <ConsultHeader id={state[0]} onOpen={onOpen} />
+          )}
+          {caseCollection === null ? (
+            <AnimationCaseInformation />
+          ) : (
+            <CaseInformation caseCollection={caseCollection} id={state[0]} />
+          )}
         </Box>
-        <Message id={state[0]} date={caseCollection.date} />
+        <Message id={state[0]} caseCollection={caseCollection} />
       </Flex>
-      <PostSpecializationModal
-        onClose={onClose}
-        isOpen={isOpen}
-        caseID={state[0]}
-      />
+      {caseCollection === null ? null : (
+        <PostSpecializationModal
+          onClose={onClose}
+          isOpen={isOpen}
+          caseID={state[0]}
+        />
+      )}
     </>
   );
 };

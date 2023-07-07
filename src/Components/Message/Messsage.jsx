@@ -1,12 +1,14 @@
 import { Box, Heading } from "@chakra-ui/react";
 import CaseCreateMessage from "../Case/CaseCreateMessage";
 import CaseMessage from "../Case/CaseMessage";
+import AnimationCaseMessage from "../../Pages/Loading Animation/Consult/Message/AnimationCaseMessage";
+import VideoButton from "../../Pages/Video Call/VideoButton";
 import PropTypes from "prop-types";
 
-const MessageComponentHeader = () => {
+const MessageComponentHeader = ({ caseId }) => {
   return (
     <Box
-      w="inheirt"
+      w="inherit"
       h={["3rem", "3rem", "4rem", "4rem"]}
       bg="#edeff3"
       boxShadow="lg"
@@ -18,11 +20,16 @@ const MessageComponentHeader = () => {
       <Heading size={["sm", "sm", "md", "md"]} color="green">
         {"Case Chat".toLocaleUpperCase()}
       </Heading>
+      <VideoButton caseId={caseId} />
     </Box>
   );
 };
 
-const Message = ({ id, date }) => {
+MessageComponentHeader.propTypes = {
+  caseId: PropTypes.number,
+};
+
+const Message = ({ id, caseCollection }) => {
   return (
     <Box
       w="inherit"
@@ -33,8 +40,12 @@ const Message = ({ id, date }) => {
       display="flex"
       flexDirection="column"
     >
-      <MessageComponentHeader />
-      <CaseMessage id={id} date={date} />
+      <MessageComponentHeader caseId={id} />
+      {caseCollection === null ? (
+        <AnimationCaseMessage />
+      ) : (
+        <CaseMessage id={id} date={caseCollection.date} />
+      )}
       <CaseCreateMessage id={id} />
     </Box>
   );
@@ -42,7 +53,7 @@ const Message = ({ id, date }) => {
 
 Message.propTypes = {
   id: PropTypes.string,
-  date: PropTypes.date,
+  caseCollection: PropTypes.object,
 };
 
 export default Message;

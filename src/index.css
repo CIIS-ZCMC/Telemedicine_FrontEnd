@@ -18,12 +18,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(114, 172, 131);
+  background: teal;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(76, 179, 105);
+  background: teal;
   transform: scale(2);
 }
 

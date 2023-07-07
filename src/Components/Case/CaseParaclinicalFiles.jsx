@@ -14,7 +14,8 @@ import { MdVideoLibrary } from "react-icons/md";
 import PropTypes from "prop-types";
 
 const CaseParaclinicalFiles = ({ id }) => {
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   function retrieveExtension(value, isIcon) {
     const splitString = value.split("/");
@@ -82,6 +83,10 @@ const CaseParaclinicalFiles = ({ id }) => {
           throw new Error("Bad response.", { cause: res });
         }
 
+        if (res.data === null) {
+          return;
+        }
+
         setFiles(res.data);
       })
       .catch((err) => {
@@ -99,7 +104,17 @@ const CaseParaclinicalFiles = ({ id }) => {
             break;
         }
       });
+
+    return () => setLoading(false);
   }, []);
+
+  if (loading) {
+    return null;
+  }
+
+  if (files === null) {
+    return null;
+  }
 
   return (
     <Box w="inherit" h="6rem" mt={5} display="flex" columnGap={5}>
