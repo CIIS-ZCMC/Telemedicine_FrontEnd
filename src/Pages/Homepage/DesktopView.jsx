@@ -31,7 +31,7 @@ function DesktopView() {
         const sectTop = section.offsetTop;
         const sectHeight = section.clientHeight;
         const sect = sectTop - sectHeight / 3;
-        if (pageYOffset >= sect) {
+        if (window.pageYOffset >= sect) {
           current = section.getAttribute("id");
         }
       });
