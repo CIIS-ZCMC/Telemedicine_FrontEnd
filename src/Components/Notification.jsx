@@ -13,7 +13,7 @@ import { useState, useCallback } from "react";
 import { GetRequest } from "../API/api";
 import { Case } from "../API/Paths";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/UserHook";
 import { HiBellAlert, HiOutlineBellAlert } from "react-icons/hi2";
 import PropTypes from "prop-types";
 
@@ -61,9 +61,7 @@ MenuItemComponent.propTypes = {
 
 const Notification = () => {
   const navigate = useNavigate();
-  const {
-    user: { user_role },
-  } = useAuth();
+  const { user } = useUser();
   const [fetch, setFetch] = useState(true);
   const [cases, setCases] = useState([]);
 
@@ -122,7 +120,7 @@ const Notification = () => {
   const filtered = cases.filter((filter) =>
     filter.cases_status === 2
       ? null
-      : user_role !== "External Doctor"
+      : user.user_role !== "External Doctor"
       ? filter.info !== 1
       : filter.info === 1
   );

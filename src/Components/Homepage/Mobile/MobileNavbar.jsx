@@ -1,7 +1,8 @@
-import { Flex, Link, VStack, Text, Container } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Box, Flex, Link, VStack, Text } from "@chakra-ui/react";
+import { useState } from "react";
 import LogoHeader from "../LogoHeader";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import PropTypes from "prop-types";
 
 const navItem = [
   {
@@ -81,9 +82,9 @@ function MobileNavbar({ handleSelectionClick }) {
       <div style={menuContainerStyle}>
         {isMenuOpen && (
           <VStack gap={10} pt={20}>
-            {navItem.map((item) => {
+            {navItem.map((item, index) => {
               return (
-                <>
+                <Box key={index}>
                   <Text
                     fontSize={15}
                     fontWeight={item.href === activeItem ? 600 : 400}
@@ -95,7 +96,7 @@ function MobileNavbar({ handleSelectionClick }) {
                   >
                     {item.name}
                   </Text>
-                </>
+                </Box>
               );
             })}
           </VStack>
@@ -104,5 +105,9 @@ function MobileNavbar({ handleSelectionClick }) {
     </>
   );
 }
+
+MobileNavbar.propTypes = {
+  handleSelectionClick: PropTypes.func,
+};
 
 export default MobileNavbar;

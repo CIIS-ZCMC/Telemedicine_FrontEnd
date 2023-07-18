@@ -1,15 +1,8 @@
-import React from "react";
 import TitleHeader from "../TitleHeader";
 import CarouselDoctors from "../CarouselDoctors";
-import {
-  Box,
-  Center,
-  Container,
-  HStack,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
 
-function MobileDoctors(props) {
+function MobileDoctors() {
   const size = useBreakpointValue({ base: 1, sm: 1, md: 2, lg: 2 });
   return (
     <div>

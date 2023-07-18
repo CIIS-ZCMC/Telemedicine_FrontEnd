@@ -1,5 +1,4 @@
 import { Container } from "@chakra-ui/react";
-import React from "react";
 import MobileNavbar from "../../Components/Homepage/Mobile/MobileNavbar";
 import MobileBanner from "../../Components/Homepage/Mobile/MobileBanner";
 import MobileAbout from "../../Components/Homepage/Mobile/MobileAbout";
@@ -8,7 +7,7 @@ import MobileDoctors from "../../Components/Homepage/Mobile/MobileDoctors";
 import MobileContactUs from "../../Components/Homepage/Mobile/MobileContactUs";
 import MobileFooter from "../../Components/Homepage/Mobile/MobileFooter";
 
-function MobileView(props) {
+function MobileView() {
   const scrollToSection = (id) => {
     const element = document.querySelector(id);
     if (element) {

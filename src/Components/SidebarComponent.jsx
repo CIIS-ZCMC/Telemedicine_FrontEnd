@@ -3,7 +3,7 @@ import { Image, Flex, Box, Heading, Text } from "@chakra-ui/react";
 import RouteData from "../Routes/RouteData";
 import { useNavigate } from "react-router-dom";
 import "../Style/Sidebar.css";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/UserHook";
 import PropTypes from "prop-types";
 import logo from "../assets/zcmc_logo.png";
 
@@ -96,7 +96,7 @@ MenuItemComponent.propTypes = {
 
 const SidebarComponent = ({ collapsed }) => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const theme = "light";
 

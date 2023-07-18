@@ -1,7 +1,6 @@
-import React from "react";
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
 
-function MobileFooter(props) {
+function MobileFooter() {
   return (
     <div>
       <Flex

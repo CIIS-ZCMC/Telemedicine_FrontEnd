@@ -1,11 +1,11 @@
 import { Box, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const CaseMainInformationComponent = ({ header, data }) => {
+const CaseMainInformationComponent = ({ title, width, data }) => {
   return (
     <Box mt={5}>
       <Box
-        maxW={[250, 250, 350, 350]}
+        maxW={width}
         pl={2}
         pt={1}
         bg="gray"
@@ -13,7 +13,7 @@ const CaseMainInformationComponent = ({ header, data }) => {
         borderTopLeftRadius={8}
         borderTopRightRadius={30}
       >
-        <Text fontSize={[12, 12, 18, 18]}>{header.toLocaleUpperCase()}</Text>
+        <Text fontSize={[12, 12, 18, 18]}>{title}</Text>
       </Box>
       <Box
         border="1px solid gray"
@@ -28,8 +28,9 @@ const CaseMainInformationComponent = ({ header, data }) => {
 };
 
 CaseMainInformationComponent.propTypes = {
-  header: PropTypes.string,
+  title: PropTypes.string,
   data: PropTypes.object,
+  width: PropTypes.number,
 };
 
 export default CaseMainInformationComponent;

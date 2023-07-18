@@ -1,17 +1,7 @@
-import React from "react";
 import TitleHeader from "../TitleHeader";
-import {
-  Box,
-  Container,
-  HStack,
-  IconButton,
-  Text,
-  VStack,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Text, useBreakpointValue } from "@chakra-ui/react";
 import logo from "../../../assets/telemed_logo.png";
-import { HiLocationMarker, HiMail, HiUserGroup } from "react-icons/hi";
-import MobileFooter from "./MobileFooter";
+import { HiLocationMarker, HiMail } from "react-icons/hi";
 
 const contactInfo = [
   {
@@ -57,7 +47,7 @@ const contactInfo = [
   },
 ];
 
-function MobileContactUs(props) {
+function MobileContactUs() {
   const stack = useBreakpointValue({
     base: "block",
     sm: "flex",
@@ -81,23 +71,21 @@ function MobileContactUs(props) {
       >
         {contactInfo.map((info) => {
           return (
-            <>
-              <Box
-                // bgColor="white"
-                bgColor="#d2f3f3"
-                p={3}
-                borderRadius={10}
-                key={info.content.toString()}
-                boxShadow="base"
-                width={stack === "block" ? "full" : info.width}
-                mt={stack === "block" ? 3 : 0}
-              >
-                <Box mb={2} align="left">
-                  {info.icon}
-                </Box>
-                {info.content}
+            <Box
+              // bgColor="white"
+              bgColor="#d2f3f3"
+              p={3}
+              borderRadius={10}
+              key={info.content.toString()}
+              boxShadow="base"
+              width={stack === "block" ? "full" : info.width}
+              mt={stack === "block" ? 3 : 0}
+            >
+              <Box mb={2} align="left">
+                {info.icon}
               </Box>
-            </>
+              {info.content}
+            </Box>
           );
         })}
       </Box>

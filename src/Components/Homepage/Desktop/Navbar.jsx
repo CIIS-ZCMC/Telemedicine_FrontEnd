@@ -1,10 +1,11 @@
 import { Flex, HStack, IconButton, Link, Text } from "@chakra-ui/react";
 import LogoHeader from "../LogoHeader";
 import ButtonComponent from "../ButtonComponent";
-import { ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons";
-import { useEffect, useState, useRef } from "react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiArrowUp } from "react-icons/hi";
+import PropTypes from "prop-types";
 
 const navItem = [
   {
@@ -32,7 +33,7 @@ const navItem = [
 function Navbar({ currentSection, handleSelectionClick }) {
   const [isSticky, setIsSticky] = useState(false);
   const [activeItem, setActiveItem] = useState("home");
-  const sectionRefs = useRef([]);
+  // const sectionRefs = useRef([]);
   const [displayBtn, setDisplayBtn] = useState(false);
 
   let navigate = useNavigate();
@@ -87,21 +88,20 @@ function Navbar({ currentSection, handleSelectionClick }) {
       >
         <LogoHeader />
         <HStack gap={10}>
-          {navItem.map((item) => {
+          {navItem.map((item, index) => {
             return (
-              <>
-                <Text
-                  fontSize={15}
-                  fontWeight={item.href === activeItem ? 600 : 400}
-                  color={item.href === activeItem ? "teal" : ""}
-                  // borderBottom={item.active ? "1px solid teal" : "none"}
-                  // borderBottomWidth={2}
-                  onClick={() => handleClick(item)}
-                  cursor="pointer"
-                >
-                  {item.name}
-                </Text>
-              </>
+              <Text
+                key={index}
+                fontSize={15}
+                fontWeight={item.href === activeItem ? 600 : 400}
+                color={item.href === activeItem ? "teal" : ""}
+                // borderBottom={item.active ? "1px solid teal" : "none"}
+                // borderBottomWidth={2}
+                onClick={() => handleClick(item)}
+                cursor="pointer"
+              >
+                {item.name}
+              </Text>
             );
           })}
         </HStack>
@@ -148,5 +148,10 @@ function Navbar({ currentSection, handleSelectionClick }) {
     </div>
   );
 }
+
+Navbar.propTypes = {
+  currentSection: PropTypes.string,
+  handleSelectionClick: PropTypes.func,
+};
 
 export default Navbar;

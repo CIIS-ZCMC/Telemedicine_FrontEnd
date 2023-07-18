@@ -11,6 +11,39 @@ import { GiBodyHeight } from "react-icons/gi";
 import PatientMedicalBodyInformation from "./PatientMedicalBodyInformation";
 import PropTypes from "prop-types";
 
+const iconSize = 24;
+
+const bodyInformation = [
+  {
+    title: "Temperature",
+    icon: <FaTemperatureLow size={iconSize} color="skyblue" />,
+  },
+  {
+    title: "Respiratory Rate",
+    icon: <FaLungs size={iconSize} color="green" />,
+  },
+  {
+    title: "Heart Rate",
+    icon: <FaHeartbeat size={iconSize} color="red" />,
+  },
+  {
+    title: "Blood Pressure",
+    icon: <MdBloodtype size={iconSize} color="darkred" />,
+  },
+  {
+    title: "Respiratory Rate",
+    icon: <SiOxygen size={iconSize} color="darkgreen" />,
+  },
+  {
+    title: "Heart Rate",
+    icon: <FaWeight size={iconSize} color="gray" />,
+  },
+  {
+    title: "Blood Pressure",
+    icon: <GiBodyHeight size={iconSize} color="gray" />,
+  },
+];
+
 const BodyInformation = ({
   cases_Temperature,
   cases_Respiratory,
@@ -22,41 +55,21 @@ const BodyInformation = ({
 }) => {
   return (
     <Box w="inherit" display="flex" flexWrap="wrap" columnGap={5} rowGap={5}>
-      <PatientMedicalBodyInformation
-        title="Temperature"
-        value={cases_Temperature}
-        icon={<FaTemperatureLow size="24" color="skyblue" />}
-      />
-      <PatientMedicalBodyInformation
-        title="Respiratory Rate"
-        value={cases_Respiratory}
-        icon={<FaLungs size="24" color="green" />}
-      />
-      <PatientMedicalBodyInformation
-        title="Heart Rate"
-        value={cases_Heart}
-        icon={<FaHeartbeat size="24" color="red" />}
-      />
-      <PatientMedicalBodyInformation
-        title="Blood Pressure"
-        value={cases_Blood}
-        icon={<MdBloodtype size="24" color="darkred" />}
-      />
-      <PatientMedicalBodyInformation
-        title="Oxygen Saturation"
-        value={cases_Oxygen}
-        icon={<SiOxygen size="24" color="darkgreen" />}
-      />
-      <PatientMedicalBodyInformation
-        title="Weight"
-        value={cases_Weight}
-        icon={<FaWeight size="24" color="gray" />}
-      />
-      <PatientMedicalBodyInformation
-        title="Height"
-        value={cases_Height}
-        icon={<GiBodyHeight size="24" color="gray" />}
-      />
+      {[
+        cases_Temperature,
+        cases_Respiratory,
+        cases_Heart,
+        cases_Blood,
+        cases_Oxygen,
+        cases_Weight,
+        cases_Height,
+      ].map((value, index) => (
+        <PatientMedicalBodyInformation
+          key={index}
+          {...bodyInformation[index]}
+          value={value}
+        />
+      ))}
     </Box>
   );
 };

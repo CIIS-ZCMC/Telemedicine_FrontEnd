@@ -43,11 +43,12 @@ ButtonComponent.propTypes = {
   text: PropTypes.string,
   variant: PropTypes.string,
   bgColor: PropTypes.string,
-  borderRadius: PropTypes.integer,
+  borderRadius: PropTypes.number,
   color: PropTypes.string,
-  fontSize: PropTypes.float,
-  paddingX: PropTypes.float,
-  paddingY: PropTypes.float,
+  fontSize: PropTypes.string,
+  paddingX: PropTypes.number,
+  paddingY: PropTypes.number,
+  action: PropTypes.func,
 };
 
 export default ButtonComponent;

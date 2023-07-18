@@ -2,7 +2,7 @@ import { Avatar, Badge, Box, Text, Tr, Td, Flex } from "@chakra-ui/react";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
 import CustomViewButton from "../Modal/CustomViewModal";
-import useAuth from "../../Hooks/AuthContext";
+import useUser from "../../Hooks/UserHook";
 import PropTypes from "prop-types";
 import Actions from "../Actions";
 import avatageImage from "../../assets/default_profile.png";
@@ -17,7 +17,7 @@ const TableRow = ({
   prepareRow,
   props,
 }) => {
-  const { user } = useAuth();
+  const { user } = useUser();
   const navigate = useNavigate();
   const { user_role } = user;
 

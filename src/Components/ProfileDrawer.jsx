@@ -18,11 +18,11 @@ import {
   MenuItem,
 } from "@chakra-ui/react";
 import { AiOutlineUser, AiOutlineCheckCircle } from "react-icons/ai";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/UserHook";
 import profile from "../assets/default_profile.png";
 
 const ProfileDrawer = () => {
-  const { user } = useAuth();
+  const { user } = useUser();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 

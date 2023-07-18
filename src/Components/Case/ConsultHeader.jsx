@@ -16,12 +16,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { PutRequest } from "../../API/api";
 import { Case } from "../../API/Paths";
-import useAuth from "../../Hooks/AuthContext";
+import useUser from "../../Hooks/UserHook";
 import PropTypes from "prop-types";
 import { unsubscribeFromMessages } from "../../API/socket_connection";
 
 const ConsultHeader = ({ id, isPendingStatus, onOpen }) => {
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const [isPending, setIsPending] = useState(
     isPendingStatus === 0 ? true : false

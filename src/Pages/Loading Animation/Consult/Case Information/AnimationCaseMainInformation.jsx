@@ -1,11 +1,42 @@
 import { Box, Text, Skeleton } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const AnimationCaseMainInformationComponent = ({ header }) => {
+const caseInfoData = [
+  {
+    title: "CHIEF COMPLAINT",
+    width: ["10rem", "10rem", "10rem", "13rem"],
+  },
+  {
+    title: "PERTINENT HISTORY OF PRESENT ILLNESS",
+    width: ["10rem", "10rem", "10rem", "25rem"],
+  },
+  {
+    title: "PERTINENT PAST MEDICAL HISTORY",
+    width: ["10rem", "10rem", "10rem", "22rem"],
+  },
+  {
+    title: "PERTINENT PE FINDINGS",
+    width: ["10rem", "10rem", "10rem", "16rem"],
+  },
+  {
+    title: "WORKING IMPRESSION",
+    width: ["10rem", "10rem", "10rem", "16rem"],
+  },
+  {
+    title: "INITIAL MANAGEMENT DONE",
+    width: ["10rem", "10rem", "10rem", "18rem"],
+  },
+  {
+    title: "REASON FOR REFERRAL",
+    width: ["10rem", "10rem", "10rem", "16rem"],
+  },
+];
+
+const AnimationCaseMainInformationComponent = ({ title, width }) => {
   return (
     <Box mt={5}>
       <Box
-        maxW={[250, 250, 350, 350]}
+        maxW={width}
         pl={2}
         pt={1}
         bg="gray"
@@ -13,7 +44,7 @@ const AnimationCaseMainInformationComponent = ({ header }) => {
         borderTopLeftRadius={8}
         borderTopRightRadius={30}
       >
-        <Text fontSize={[12, 12, 18, 18]}>{header.toLocaleUpperCase()}</Text>
+        <Text fontSize={[12, 12, 18, 18]}>{title.toLocaleUpperCase()}</Text>
       </Box>
       <Box
         border="1px solid gray"
@@ -28,25 +59,16 @@ const AnimationCaseMainInformationComponent = ({ header }) => {
 };
 
 AnimationCaseMainInformationComponent.propTypes = {
-  header: PropTypes.string,
+  title: PropTypes.string,
+  width: PropTypes.number,
 };
 
 const AnimationCaseMainInformation = () => {
   return (
     <Box>
-      <AnimationCaseMainInformationComponent header={"Chief Complaint"} />
-      <AnimationCaseMainInformationComponent
-        header={"Pertinent History of Present Illness"}
-      />
-      <AnimationCaseMainInformationComponent
-        header={"Pertinent Past Medical History"}
-      />
-      <AnimationCaseMainInformationComponent header={"Pertinent PE Findings"} />
-      <AnimationCaseMainInformationComponent header={"Working Impression"} />
-      <AnimationCaseMainInformationComponent
-        header={"Initial Management Done"}
-      />
-      <AnimationCaseMainInformationComponent header={"Reason for Referral"} />
+      {caseInfoData.map((value, index) => (
+        <AnimationCaseMainInformationComponent key={index} {...value} />
+      ))}
     </Box>
   );
 };

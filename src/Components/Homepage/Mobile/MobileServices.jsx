@@ -1,12 +1,11 @@
-import React from "react";
 import CardServices from "../CardServices";
 import TitleHeader from "../TitleHeader";
 import im from "../../../assets/Icons/im.png";
 import ob from "../../../assets/Icons/ob.png";
 import pedia from "../../../assets/Icons/pedia.png";
-import { useBreakpointValue, Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import { useBreakpointValue, Box, SimpleGrid } from "@chakra-ui/react";
 
-function MobileServices(props) {
+function MobileServices() {
   const servicesData = [
     {
       title: "Internal Medicine",
@@ -42,8 +41,8 @@ function MobileServices(props) {
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center" p={5}>
         <SimpleGrid spacing={20} columns={1} mt="150px" align="center">
-          {servicesData.map((item) => (
-            <>
+          {servicesData.map((item, index) => (
+            <Box key={index}>
               <CardServices
                 title={item.title}
                 img={item.img}
@@ -51,7 +50,7 @@ function MobileServices(props) {
                 desc={item.desc}
                 width={width}
               />
-            </>
+            </Box>
           ))}
         </SimpleGrid>
       </Box>

@@ -116,7 +116,7 @@ Actions.propTypes = {
   row: PropTypes.integer,
   data: PropTypes.object,
   user: PropTypes.object,
-  id: PropTypes.string,
+  id: PropTypes.number,
 };
 
 export default Actions;

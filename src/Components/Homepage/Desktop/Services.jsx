@@ -1,12 +1,11 @@
-import React from "react";
 import TitleHeader from "../TitleHeader";
-import { Container, Text, Box, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 import CardServices from "../CardServices";
 import im from "../../../assets/Icons/im.png";
 import ob from "../../../assets/Icons/ob.png";
 import pedia from "../../../assets/Icons/pedia.png";
 
-function Services(props) {
+function Services() {
   const servicesData = [
     {
       title: "Internal Medicine",
@@ -43,15 +42,14 @@ function Services(props) {
         px={40}
       >
         <SimpleGrid spacing={10} templateColumns="repeat(3, 1fr)" px={40}>
-          {servicesData.map((item) => (
-            <>
-              <CardServices
-                title={item.title}
-                img={item.img}
-                color={item.color}
-                desc={item.desc}
-              />
-            </>
+          {servicesData.map((item, index) => (
+            <CardServices
+              key={index}
+              title={item.title}
+              img={item.img}
+              color={item.color}
+              desc={item.desc}
+            />
           ))}
         </SimpleGrid>
       </Box>

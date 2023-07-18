@@ -54,15 +54,16 @@ const PatientProfile = ({ id }) => {
 
   return (
     <Box
-      h="inheirt"
+      h="22%"
       display="flex"
       flexDirection={["column", "column", "row", "row"]}
       columnGap={8}
       alignItems="start"
       p={2}
+      mb={5}
     >
       <Box
-        w={"100%"}
+        h="100%"
         display="flex"
         justifyContent={["center", "center", "start", "start"]}
         p={[2, 2, 0, 0]}

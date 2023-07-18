@@ -1,9 +1,11 @@
 import { Box, Button, IconButton, Menu, MenuButton } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { IoArrowBackOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 import "../../../Style/Consult.css";
 
 const AnimationConsultHeader = () => {
+  const navigate = useNavigate();
   return (
     <Box
       w="inherit"
@@ -25,6 +27,7 @@ const AnimationConsultHeader = () => {
         icon={<IoArrowBackOutline fontSize={25} />}
         rounded={25}
         _hover={{ color: "green", boxShadow: "lg" }}
+        onClick={() => navigate(-1)}
       />
 
       <Box fontWeight={800} display="flex" columnGap={5} alignItems="center">

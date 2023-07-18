@@ -1,18 +1,7 @@
-import {
-  Box,
-  Divider,
-  Flex,
-  Grid,
-  GridItem,
-  HStack,
-  Image,
-  Text,
-} from "@chakra-ui/react";
-import React from "react";
+import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import doc_kunting from "../../../assets/doctor/doc_kunting.png";
 import ButtonComponent from "../ButtonComponent";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import bgImage2 from "../../../assets/3.png";
 
 const Headings = () => {
   return (
@@ -60,7 +49,7 @@ const Headings = () => {
     </Box>
   );
 };
-function Banner(props) {
+function Banner() {
   return (
     <>
       <Flex justifyContent="space-around" alignItems="center">

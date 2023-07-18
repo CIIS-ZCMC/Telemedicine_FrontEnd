@@ -20,7 +20,7 @@ import {
   useToast,
   Center,
 } from "@chakra-ui/react";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/UserHook";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoKeySharp } from "react-icons/io5";
 import { MdOutlineFileUpload } from "react-icons/md";
@@ -33,7 +33,7 @@ import profile from "../assets/default_profile.png";
 
 const MyAccount = () => {
   const toast = useToast();
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

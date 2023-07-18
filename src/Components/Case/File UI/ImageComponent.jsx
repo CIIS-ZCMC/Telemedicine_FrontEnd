@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ImageComponent = ({ file }) => {
   return (
-    <Box w={250} h={250} overflow={"hidden"} bg="transparent" rounded={5}>
+    <Box w={250} h={250} overflow={"hidden"} bg="transparent" rounded={8}>
       <a href={`http://${file}`} target="_blank" rel="noreferrer">
         <Image src={`http://${file}`} />
       </a>

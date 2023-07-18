@@ -2,34 +2,35 @@ import { useState } from "react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import CustomFormController from "../Components/customs/CustomFormController";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../Hooks/AuthContext";
-import {
-  Flex,
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Center,
-  Text,
-  Heading,
-  IconButton,
-} from "@chakra-ui/react";
-import AuthBackground from "../Components/AuthModule/AuthBackground";
+import { Flex, Box, Button, Center, Text } from "@chakra-ui/react";
 import AuthHeader from "../Components/AuthModule/AuthHeader";
 import AuthFooter from "../Components/AuthModule/AuthFooter";
-import { Auth } from "../API/Paths";
-import { PostRequest } from "../API/api";
-import { IoMdSad, IoMdClose } from "react-icons/io";
+import PropTypes from "prop-types";
+import useUser from "../Hooks/UserHook";
 import "../Style/auth.css";
+
+const CustomIcon = ({ icon }) => {
+  return (
+    <Box w={8} h={4} mt={6} mb={6} borderRight={"1px solid rgba(0,0,0,0.2)"}>
+      <Center>{icon}</Center>
+    </Box>
+  );
+};
+
+CustomIcon.propTypes = {
+  icon: PropTypes.object,
+};
 
 const Login = () => {
   const navigate = useNavigate();
+  const { signIn } = useUser();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
-  const { setUser } = useAuth();
+  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
   const handleReset = () => {
     setName("");
@@ -47,58 +48,37 @@ const Login = () => {
 
     let form = new FormData();
     form.append("name", name.trim());
-    form.append("password", password);
+    form.append("password", password.trim());
 
-    PostRequest({ url: `${Auth}/signin` }, form)
-      .then((res) => {
-        const {
-          statusText,
-          data: { data },
-        } = res;
-        if (!statusText === "OK") {
-          throw new Error("Bad response.", { cause: res });
-        }
+    signIn(form, (status, feedback) => {
+      switch (status) {
+        case 200:
+          handleReset();
+          navigate(feedback);
+          break;
+        case 302:
+          handleReset();
+          navigate("/account", { state: feedback });
+          break;
+        case 403:
+          setFeedback(feedback);
+          break;
+        case 401:
+          setPassword("");
+          setPasswordErrorMessage(feedback);
+          break;
+        case 404:
+          setName("");
+          setPassword("");
+          setEmailErrorMessage(feedback);
+          break;
+        default:
+          setFeedback("Please try again later.");
+          break;
+      }
 
-        sessionStorage.setItem("token", data.token);
-        setUser(data);
-        navigate("/");
-        handleReset();
-      })
-      .catch((err) => {
-        const {
-          response: {
-            status,
-            data: { message, data },
-          },
-        } = err;
-
-        switch (status) {
-          case 302:
-            navigate("/account", { state: data });
-            break;
-          case 400:
-            setFeedback(message);
-            break;
-          case 401:
-            setFeedback(message);
-            break;
-          case 403:
-            setFeedback(message);
-            break;
-          case 404:
-            setFeedback(message);
-            break;
-          default:
-            setFeedback("Please try again later.");
-            break;
-        }
-      });
-    setLoading(false);
-  };
-
-  const handleNavigateToRegister = (e) => {
-    e.preventDefault();
-    navigate("/register");
+      setLoading(false);
+    });
   };
 
   const handleNavigateToRecovery = (e) => {
@@ -111,195 +91,124 @@ const Login = () => {
       <Box
         w={"100%"}
         h={"100vh"}
-        bg={"rgba(0,0,0,0.1)"}
-        position={"absolute"}
-        backgroundImage={"linear-gradient(#B0F3F1,#FFCFDF)"}
+        bg={["white", "white", "rgba(0,0,0,0.04)", "rgba(0,0,0,0.04)"]}
       >
-        <Box
-          display={["block", "block", "none", "none"]}
-          textAlign="center"
-          pt={3}
-          pb={2}
-          letterSpacing={4}
-        >
-          <Heading size={"lg"} color="teal">
-            ZCMC REGIONAL TELEMEDICINE CENTER
-          </Heading>
-        </Box>
-        <Box
-          w={["100%", "100%", "70%", "60%"]}
-          h={["80%", "80%", "60%", "70%"]}
-          left={"50%"}
-          top={"50%"}
-          transform="translate(-50%, -50%)"
-          position={"absolute"}
-          boxShadow={["none", "none", "2xl", "2xl"]}
-          rounded={15}
-          overflow={"hidden"}
-        >
-          <Grid
-            templateRows={"repeat(1, 1fr)"}
-            templateColumns="repeat(12, 1fr)"
+        <Center h="100vh">
+          <Box
+            w={"30rem"}
+            h={["30rem", "40rem", "30rem", "30rem"]}
+            bg={["transparent", "transparent", "white", "white"]}
+            rounded={10}
+            boxShadow={["none", "none", "lg", "lg"]}
+            overflow="hidden"
           >
-            <GridItem rowSpan={1} colSpan={[12, 12, 12, 7]}>
-              <AuthBackground />
-            </GridItem>
-            <GridItem rowSpan={[1, 1, 1, 0]} colSpan={[12, 12, 12, 5]}>
-              <Box
-                w={"100%"}
-                h={"100%"}
-                bg={[
-                  "transparent",
-                  "transparent",
-                  "whiteAlpha.900",
-                  "whiteAlpha.600",
-                ]}
-              >
-                <Flex
-                  flexDirection={"column"}
-                  justifyContent={"space-between"}
-                  pl={10}
-                  pt={[2, 2, 0, 8]}
-                  pr={10}
-                  pb={3}
-                  h={["70vh", "70vh", "40vh", "70vh"]}
+            <Flex
+              h="inherit"
+              flexDirection={"column"}
+              justifyContent={"space-between"}
+              pl={10}
+              pt={[2, 2, 5, 8]}
+              pr={10}
+              pb={3}
+            >
+              <AuthHeader title="Sign In" />
+              {feedback === "" ? null : (
+                <Box
+                  h={"10%"}
+                  pl={2}
+                  pr={2}
+                  rounded={5}
+                  color="red"
+                  display={feedback === "2" ? "none" : "block"}
                 >
-                  <AuthHeader title="Sign In" />
-                  <Box
-                    w={"inherit"}
-                    h={"inherit"}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    mt={feedback === "" ? "2rem" : "1.1rem"}
+                  <Center h="100%">
+                    <Text fontSize={[12, 12, 14, 14]}>{feedback}</Text>
+                  </Center>
+                </Box>
+              )}
+              <Box
+                w={"inherit"}
+                display={"flex"}
+                flexDirection={"column"}
+                mt={feedback === "" ? "2rem" : "1.1rem"}
+              >
+                <CustomFormController
+                  isSignup={false}
+                  type={"text"}
+                  value={name}
+                  setValue={setName}
+                  placeholder={"Username"}
+                  mt={5}
+                  errorMessage={emailErrorMessage}
+                  setErrorMessage={setEmailErrorMessage}
+                  isRequired={false}
+                >
+                  <CustomIcon icon={<FaUserAlt color="teal" size={15} />} />
+                </CustomFormController>
+                <CustomFormController
+                  isSignup={false}
+                  type={"password"}
+                  value={password}
+                  setValue={setPassword}
+                  placeholder={"Password"}
+                  errorMessage={passwordErrorMessage}
+                  setErrorMessage={setPasswordErrorMessage}
+                  mt={3}
+                  isRequired={false}
+                >
+                  <CustomIcon icon={<FaLock color="teal" size={15} />} />
+                </CustomFormController>
+                <Button
+                  color={"blackAlpha.500"}
+                  bg="transparent"
+                  mt={[4, 4, 6, 8]}
+                  _hover={{
+                    bg: "transparent",
+                    color: "blackAlpha.700",
+                  }}
+                  _active={{ bg: "white", color: "gray" }}
+                  onClick={(e) => handleNavigateToRecovery(e)}
+                >
+                  <Text fontWeight={400} fontSize={[13, 13, 14, 14]}>
+                    Forgot password?
+                  </Text>
+                </Button>
+                <Flex
+                  w="100%"
+                  columnGap={5}
+                  rowGap={3}
+                  mt={[4, 4, 4, 8]}
+                  flexDirection={["column", "column", "row", "row"]}
+                >
+                  <Button
+                    w="inherit"
+                    isLoading={loading}
+                    loadingText={"Signing In"}
+                    bg={"teal"}
+                    color={"white"}
+                    _hover={{ bg: "teal" }}
+                    onClick={(e) => handleSignin(e)}
+                    disabled={name === "" || password === ""}
                   >
-                    <Box
-                      bg="red"
-                      pl={2}
-                      pr={2}
-                      rounded={5}
-                      color="white"
-                      display={feedback === "" ? "none" : "block"}
-                    >
-                      <Flex
-                        justifyContent="space-between"
-                        alignItems="center"
-                        columnGap={2}
-                      >
-                        <Flex alignItems="center" columnGap={2}>
-                          <IoMdSad size={25} />
-                          <Text fontSize={[12, 12, 14, 14]}>{feedback}</Text>
-                        </Flex>
-                        <IconButton
-                          bg="red"
-                          _hover={{ bg: "red" }}
-                          _active={{ bg: "red" }}
-                          icon={<IoMdClose size={30} />}
-                          onClick={() => setFeedback("")}
-                        />
-                      </Flex>
-                    </Box>
-                    <CustomFormController
-                      isSignup={false}
-                      type={"text"}
-                      title={""}
-                      value={name}
-                      setValue={setName}
-                      placeholder={"Username"}
-                      mt={5}
-                      isRequired={false}
-                    >
-                      <Box
-                        w={8}
-                        h={4}
-                        mt={6}
-                        mb={6}
-                        borderRight={"1px solid rgba(0,0,0,0.2)"}
-                      >
-                        <Center>
-                          <FaUserAlt color="teal" size={15} />
-                        </Center>
-                      </Box>
-                    </CustomFormController>
-                    <CustomFormController
-                      isSignup={false}
-                      type={"password"}
-                      title={""}
-                      value={password}
-                      setValue={setPassword}
-                      placeholder={"Password"}
-                      mt={3}
-                      isRequired={false}
-                    >
-                      <Box
-                        w={8}
-                        h={4}
-                        mt={6}
-                        mb={6}
-                        borderRight={"1px solid rgba(0,0,0,0.2)"}
-                      >
-                        <Center>
-                          <FaLock color="teal" size={15} />
-                        </Center>
-                      </Box>
-                    </CustomFormController>
-                    <Button
-                      color={"blackAlpha.500"}
-                      bg="transparent"
-                      mt={[4, 4, 6, 8]}
-                      _hover={{
-                        bg: "transparent",
-                        color: "blackAlpha.700",
-                      }}
-                      _active={{ bg: "white", color: "gray" }}
-                      onClick={(e) => handleNavigateToRecovery(e)}
-                    >
-                      <Text fontWeight={400} fontSize={14}>
-                        Forgot password?
-                      </Text>
-                    </Button>
-                    <Flex
-                      w="100%"
-                      columnGap={5}
-                      rowGap={3}
-                      mt={[4, 4, 4, 8]}
-                      flexDirection={[
-                        "column",
-                        "column",
-                        "row-reverse",
-                        "column",
-                      ]}
-                    >
-                      <Button
-                        w="inherit"
-                        isLoading={loading}
-                        loadingText={"Signing In"}
-                        bg={"teal"}
-                        color={"white"}
-                        _hover={{ bg: "teal" }}
-                        onClick={(e) => handleSignin(e)}
-                        disabled={name === "" || password === ""}
-                      >
-                        <Text fontSize={[12, 12, 14, 14]}>Login</Text>
-                      </Button>
-                      <Button
-                        w="inherit"
-                        bg={"gray"}
-                        color={"white"}
-                        _hover={{
-                          bg: "darkorange",
-                        }}
-                        onClick={(e) => handleNavigateToRegister(e)}
-                      >
-                        <Text fontSize={[12, 12, 14, 14]}>Create account?</Text>
-                      </Button>
-                    </Flex>
-                  </Box>
-                  <AuthFooter />
+                    <Text fontSize={[12, 12, 14, 14]}>Login</Text>
+                  </Button>
+                  <Button
+                    w="inherit"
+                    bg={"gray.400"}
+                    color={"white"}
+                    _hover={{
+                      bg: "gray",
+                    }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <Text fontSize={[12, 12, 14, 14]}>Back</Text>
+                  </Button>
                 </Flex>
               </Box>
-            </GridItem>
-          </Grid>
-        </Box>
+              <AuthFooter />
+            </Flex>
+          </Box>
+        </Center>
       </Box>
     </>
   );
