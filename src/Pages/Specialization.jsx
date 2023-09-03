@@ -28,7 +28,7 @@ const Specializations = () => {
       console.log(err);
     }
   }, [specializations]);
-  //SearchFilter
+
   const filtered = specializations.filter(
     (filter) =>
       filter.title.toLowerCase().includes(search.toLowerCase()) ||

@@ -23,10 +23,10 @@ import SelectionComponention from "../../Components/Selection/SelectionComponent
 import ProfileDetails from "./ProfileDetails";
 import ProfileMyChats from "./ProfileMyChats";
 import PropTypes from "prop-types";
-import useUser from "../../Hooks/UserHook";
+import useUser from "../../Hooks/useUserHook";
 import useProfile from "../../Hooks/Profile.Hook";
-import useHospital from "../../Hooks/HospitalHook";
-import useSpecialization from "../../Hooks/SpecializationHook";
+import useHospital from "../../Hooks/useHospitalHook";
+import useSpecialization from "../../Hooks/useSpecializationHook";
 import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 

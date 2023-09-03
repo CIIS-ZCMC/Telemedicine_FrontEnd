@@ -21,19 +21,19 @@ const Hospitals = () => {
     },
     {
       Header: "NAME",
-      accessor: "hospital_Name",
+      accessor: "name",
     },
     {
       Header: "STREET",
-      accessor: "hospital_Street",
+      accessor: "street",
     },
     {
       Header: "BARANGAY",
-      accessor: "hospital_Barangay",
+      accessor: "barangay",
     },
     {
       Header: "CITY",
-      accessor: "hospital_City",
+      accessor: "city",
     },
     {
       Header: "ACTION",

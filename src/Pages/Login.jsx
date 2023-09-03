@@ -6,7 +6,7 @@ import { Flex, Box, Button, Center, Text } from "@chakra-ui/react";
 import AuthHeader from "../Components/AuthModule/AuthHeader";
 import AuthFooter from "../Components/AuthModule/AuthFooter";
 import PropTypes from "prop-types";
-import useUser from "../Hooks/UserHook";
+import useUser from "../Hooks/useUserHook";
 import "../Style/auth.css";
 
 const CustomIcon = ({ icon }) => {
@@ -24,8 +24,8 @@ CustomIcon.propTypes = {
 const Login = () => {
   const navigate = useNavigate();
   const { signIn } = useUser();
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("tristan.zcmc@gmail.com");
+  const [password, setPassword] = useState("telemed@123");
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
@@ -33,7 +33,7 @@ const Login = () => {
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
 
   const handleReset = () => {
-    setName("");
+    setEmail("");
     setPassword("");
   };
 
@@ -47,7 +47,7 @@ const Login = () => {
     setLoading(true);
 
     let form = new FormData();
-    form.append("name", name.trim());
+    form.append("email", email.trim());
     form.append("password", password.trim());
 
     signIn(form, (status, feedback) => {
@@ -68,7 +68,7 @@ const Login = () => {
           setPasswordErrorMessage(feedback);
           break;
         case 404:
-          setName("");
+          setEmail("");
           setPassword("");
           setEmailErrorMessage(feedback);
           break;
@@ -135,8 +135,8 @@ const Login = () => {
                 <CustomFormController
                   isSignup={false}
                   type={"text"}
-                  value={name}
-                  setValue={setName}
+                  value={email}
+                  setValue={setEmail}
                   placeholder={"Username"}
                   mt={5}
                   errorMessage={emailErrorMessage}

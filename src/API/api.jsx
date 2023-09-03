@@ -1,26 +1,17 @@
 import axios from "axios";
 
 let baseURL = "http://localhost:8000/api/";
-// let baseURL = "http://192.168.137.188:8000/api/";
-// let baseURL = "http://192.168.137.117:8000/api/";
 // let baseURL = "https://zcmc-development.online/api/";
 // let baseURL = "/api/";
 
 const api = new axios.create({
   baseURL: baseURL,
   withCredentials: true,
+  crossDomain: true,
   headers: {
     Accept: "application/json",
     "content-type": "application/json",
   },
-});
-
-// This will rebuild the api instance of Axios
-// To Include and the token if exist.
-api.interceptors.request.use(function (config) {
-  const token = sessionStorage.getItem("token");
-  config.headers.Authorization = `Bearer ${token}`;
-  return config;
 });
 
 //Reusable Get Module

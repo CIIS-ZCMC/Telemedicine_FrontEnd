@@ -2,7 +2,7 @@ import { Avatar, Badge, Box, Text, Tr, Td, Flex } from "@chakra-ui/react";
 import moment from "moment/moment";
 import { useNavigate } from "react-router-dom";
 import CustomViewButton from "../Modal/CustomViewModal";
-import useUser from "../../Hooks/UserHook";
+import useUser from "../../Hooks/useUserHook";
 import PropTypes from "prop-types";
 import Actions from "../Actions";
 import avatageImage from "../../assets/default_profile.png";

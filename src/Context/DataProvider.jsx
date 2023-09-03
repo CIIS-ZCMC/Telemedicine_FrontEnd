@@ -184,14 +184,14 @@ export const DataProvider = ({ children }) => {
       });
   };
 
-  useEffect(() => {
-    requestSanctumCSRF();
-    if (fetch) {
-      setFetch(false);
-      // getHospitals();
-      // getspecializations();
-    }
-  }, [fetch]);
+  // useEffect(() => {
+  //   requestSanctumCSRF();
+  //   if (fetch) {
+  //     setFetch(false);
+  //     // getHospitals();
+  //     // getspecializations();
+  //   }
+  // }, [fetch]);
 
   const resetState = () => {
     setName("");

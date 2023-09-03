@@ -1,4 +1,28 @@
+import SystemLogo from "../assets/zcmc_logo.png";
+import {
+  FaUsers,
+  FaUserFriends,
+  FaHospitalUser,
+  FaRegHospital,
+} from "react-icons/fa";
+import { MdSpaceDashboard } from "react-icons/md";
+import { FaUserMd } from "react-icons/fa";
+import { BsArchive } from "react-icons/bs";
+import { GiSkills } from "react-icons/gi";
+import { TbFileReport } from "react-icons/tb";
+import { RiFileListFill } from "react-icons/ri";
 import { create } from "zustand";
+
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import Doctors from "../Pages/Doctor/Doctor";
+import User from "../Pages/User/User";
+import Patients from "../Pages/Patient";
+import Cases from "../Pages/Case";
+import Archived from "../Pages/Archived";
+import Hospital from "../Pages/Hospital/Hospital";
+import Specialization from "../Pages/Specialization/Specialization";
+import Report from "../Pages/Report/Report";
+import History from "../Pages/History/History";
 
 const morning = [
   "Good morning",
@@ -137,8 +161,111 @@ const night = [
   "Relax your mind and let sleep embrace you",
 ];
 
+const routesDetails = [
+  {
+    path: "/",
+    icon: <MdSpaceDashboard id="dashboard-icon" />,
+    label: "Dashboard",
+    element: <Dashboard />,
+    access: [1, 2, 3, 4, 5],
+    hasBadge: false,
+    badgeValue: 0,
+  },
+  {
+    path: "/doctors",
+    icon: <FaUserMd id="dashboard-icon" />,
+    label: "Doctors",
+    element: <Doctors />,
+    access: [1, 2, 3, 4],
+    hasBadge: true,
+    badgeValue: 7,
+  },
+  {
+    path: "/users",
+    icon: <FaUsers id="dashboard-icon" />,
+    label: "Users",
+    element: <User />,
+    access: [1],
+    hasBadge: true,
+    badgeValue: 13,
+  },
+  {
+    path: "/patients",
+    icon: <FaUserFriends id="dashboard-icon" />,
+    label: "Patients",
+    element: <Patients />,
+    access: [4],
+    hasBadge: false,
+    badgeValue: 0,
+  },
+  {
+    path: "/case",
+    icon: <FaHospitalUser id="dashboard-icon" />,
+    label: "Active Case",
+    element: <Cases />,
+    access: [2, 3, 4, 5],
+    hasBadge: true,
+    badgeValue: 12,
+  },
+  {
+    path: "/archived",
+    icon: <BsArchive id="dashboard-icon" />,
+    label: "Archived",
+    element: <Archived />,
+    access: [2, 3, 4, 5],
+    hasBadge: true,
+    badgeValue: 11,
+  },
+  {
+    path: "/hospital",
+    icon: <FaRegHospital id="dashboard-icon" />,
+    label: "Hospital",
+    element: <Hospital />,
+    access: [1, 2],
+    hasBadge: false,
+    badgeValue: 0,
+  },
+  {
+    path: "/specialization",
+    icon: <GiSkills id="dashboard-icon" />,
+    label: "Specialization",
+    element: <Specialization />,
+    access: [1, 2],
+    hasBadge: false,
+    badgeValue: 0,
+  },
+  {
+    path: "/report",
+    icon: <TbFileReport id="dashboard-icon" />,
+    label: "Report",
+    element: <Report />,
+    access: [1],
+    hasBadge: false,
+    badgeValue: 0,
+  },
+  {
+    path: "/history-logs",
+    icon: <RiFileListFill id="dashboard-icon" />,
+    label: "History Logs",
+    element: <History />,
+    access: [1],
+    hasBadge: false,
+    badgeValue: 0,
+  },
+];
+
 const useThemeHook = create((set) => ({
+  systemLogo: SystemLogo,
+  owner: "Medical Center, Z.C",
+  systemName: "TELEMEDICINE",
+  primary: "teal",
+  fontColor: "#616b71",
   pageHeader: "Dashboard",
+  getFilteredRoutes: (userRole) => {
+    return userRole === null
+      ? routesDetails
+      : routesDetails.filter((route) => route.access.includes(userRole));
+  },
   contentDescription: "List of Active cases",
   setPage: (form) => set(() => ({ pageHeader: form })),
   greetings: () => {

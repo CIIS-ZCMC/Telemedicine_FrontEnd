@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { FiSettings } from "react-icons/fi";
 import { BiCodeBlock } from "react-icons/bi";
-import "../Style/App.css";
-import "../Style/Sidebar.css";
+import "../../Style/App.css";
+import "../../Style/Sidebar.css";
 import {
   Box,
   Avatar,
@@ -19,16 +19,17 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
 import { AiOutlineLogout } from "react-icons/ai";
-import useAuth from "../Hooks/AuthContext";
+import useAuth from "../../Hooks/AuthContext";
 import { useNavigate } from "react-router-dom";
 // import Notification from "./Notification";
-import profile from "../assets/default_profile.png";
+import profile from "../../assets/default_profile.png";
 // import UpdateProfile from "./UpdateProfile";
-import { BsSearch, BsBell } from "react-icons/bs";
-import { BiMessageDetail } from "react-icons/bi";
-import useUser from "../Hooks/UserHook";
-import useCase from "../Hooks/useCase";
-import useThemeHook from "../Hooks/ThemeHook";
+import { BsSearch } from "react-icons/bs";
+import useUser from "../../Hooks/useUserHook";
+import useCase from "../../Hooks/useCase";
+import useThemeHook from "../../Hooks/useThemeHook";
+import Messages from "./Messages";
+import Notification from "./Notification";
 import PropTypes from "prop-types";
 
 const MenuComponent = () => {
@@ -247,17 +248,13 @@ const Homeheader = ({ action, collapsed }) => {
         <Heading size="lg">{pageHeader.toLocaleUpperCase()}</Heading>
         <Flex columnGap="1.5rem" alignItems="center">
           <SearchComponent />
-          <BiMessageDetail size={24} />
-          <BsBell size={24} />
+          <Messages />
+          <Notification />
+          {/* <BsPersonCircle size={24} /> */}
         </Flex>
       </Flex>
-      <Flex
-        w="inherit"
-        justifyContent="space-between"
-        alignItems="center"
-        mt={3}
-      >
-        <Text fontSize={16} fontWeight={500}>
+      <Flex w="inherit" justifyContent="space-between" alignItems="center">
+        <Text fontSize={16} fontWeight={500} mt={3}>
           {`${greetings()}.`}
         </Text>
         <RealTimeClock />

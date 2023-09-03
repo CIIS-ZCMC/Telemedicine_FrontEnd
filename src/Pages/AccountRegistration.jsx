@@ -9,7 +9,7 @@ import AuthHeader from "../Components/AuthModule/AuthHeader";
 import AuthFooter from "../Components/AuthModule/AuthFooter";
 import { useLocation } from "react-router-dom";
 import CustomFormController from "../Components/customs/CustomFormController";
-import useUser from "../Hooks/UserHook";
+import useUser from "../Hooks/useUserHook";
 
 const AccountRegistration = () => {
   const { registerAccount } = useUser();

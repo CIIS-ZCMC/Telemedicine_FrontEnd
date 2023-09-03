@@ -7,9 +7,7 @@ const useCase = create((set) => ({
   activeCases: [],
   archiveCases: [],
   search: "",
-  setSearch: (form) => {
-    set(() => ({ search: form }));
-  },
+  setSearch: (form) => set(() => ({ search: form })),
   initialize: (collection, callBack) => {
     const data = localStorage.getItem(collection);
     if (collection === "active") {

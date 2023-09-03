@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem, Container } from "@chakra-ui/react";
 import DashboardCard from "../Components/DashboardCard";
-import useUser from "../Hooks/UserHook";
+import useUser from "../Hooks/useUserHook";
 import { DashboardCardStructureData } from "./ComponentData/DashboardCardData";
 import ExternalDoctorLineGraph from "../Components/ExternalDoctorGraph/ExternalDoctorLineGraph";
 import ExternalDoctorPieGraph from "../Components/ExternalDoctorGraph/ExternalDoctorPieGraph";

@@ -7,7 +7,7 @@ import AuthFooter from "../Components/AuthModule/AuthFooter";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import PropTypes from "prop-types";
-import useUser from "../Hooks/UserHook";
+import useUser from "../Hooks/useUserHook";
 
 const CustomIcon = ({ icon }) => {
   return (

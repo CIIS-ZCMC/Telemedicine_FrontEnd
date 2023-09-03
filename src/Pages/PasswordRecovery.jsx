@@ -7,7 +7,7 @@ import { MdEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import RecoveryCode from "./User/RecoveryCode";
 import NewPassword from "./User/NewPassword";
-import useUser from "../Hooks/UserHook";
+import useUser from "../Hooks/useUserHook";
 import "../Style/App.css";
 
 const PasswordRecovery = () => {

@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { PutRequest } from "../../API/api";
 import { Case } from "../../API/Paths";
-import useUser from "../../Hooks/UserHook";
+import useUser from "../../Hooks/useUserHook";
 import PropTypes from "prop-types";
 import { unsubscribeFromMessages } from "../../API/socket_connection";
 

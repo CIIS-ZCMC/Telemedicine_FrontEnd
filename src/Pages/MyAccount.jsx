@@ -20,7 +20,7 @@ import {
   useToast,
   Center,
 } from "@chakra-ui/react";
-import useUser from "../Hooks/UserHook";
+import useUser from "../Hooks/useUserHook";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoKeySharp } from "react-icons/io5";
 import { MdOutlineFileUpload } from "react-icons/md";

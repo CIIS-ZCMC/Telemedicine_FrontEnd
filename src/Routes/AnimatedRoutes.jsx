@@ -1,21 +1,23 @@
+import axios from "axios";
 import { Routes, Route, Outlet, Navigate, useLocation } from "react-router-dom";
-import Layout from "../Pages/Layout";
+import Layout from "../Layout/Layout";
 import MyAccount from "../Pages/MyAccount";
 import PatientForm from "../Pages/Patient SubCollection/PatientForm";
 import CaseForm from "../Pages/Case SubCollection/CaseForm";
 import { CaseProvider } from "../Pages/Case SubCollection/CaseProvider";
-import RouteData from "./RouteData";
 import Consult from "../Pages/Consult";
 import { PatientProvider } from "../Pages/Patient SubCollection/PatientProvider";
 import Loader from "../Pages/Loader";
 import { useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { lazy, Suspense, useEffect, useState, useCallback } from "react";
+import Calendar from "../Pages/Calendar/Calendar";
 import PasswordRecovery from "../Pages/PasswordRecovery";
-import axios from "axios";
 import VideoCall2 from "../Pages/Video Call/VideoCall2";
-import useUser from "../Hooks/UserHook";
+import useUser from "../Hooks/useUserHook";
 import Profile from "../Pages/Profile/Profile";
+import useThemeHook from "../Hooks/useThemeHook";
+import useUserHook from "../Hooks/useUserHook";
 
 const LoginPage = lazy(() => import("../Pages/Login"));
 const RegisterPage = lazy(() => import("../Pages/Registration"));
@@ -33,11 +35,12 @@ const ProtectedRoutes = () => {
 };
 
 const AnimatedRoute = () => {
+  const { users } = useUserHook();
+  const { getFilteredRoutes } = useThemeHook();
   const { validateToken } = useUser();
   const location = useLocation();
   const navigate = useNavigate();
   const [fetch, setFetch] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
 
   const handleValidateToken = useCallback(
     async (token) => {
@@ -47,7 +50,6 @@ const AnimatedRoute = () => {
         }
 
         setFetch(false);
-        setIsLoading(false);
       });
     },
     [validateToken, navigate]
@@ -59,7 +61,7 @@ const AnimatedRoute = () => {
     if (fetch) {
       handleValidateToken(cancelTokenSource.token);
     }
-    return () => cancelTokenSource.cancel("Request canceled by the user.");
+    return () => cancelTokenSource.cancel();
   }, [fetch, handleValidateToken]);
 
   return (
@@ -74,17 +76,12 @@ const AnimatedRoute = () => {
                 <>
                   <Layout>
                     <Routes>
-                      {RouteData.path.map((data) => {
-                        return (
-                          <Route
-                            key={data.index}
-                            path={data.href}
-                            element={data.element}
-                          />
-                        );
-                      })}
+                      {getFilteredRoutes(users?.role).map((route, index) => (
+                        <Route key={index} {...route} />
+                      ))}
                       <Route path="/MyAccount" element={<MyAccount />} />
                       <Route path="/profile" element={<Profile />} />
+                      <Route path="/my-calendar" element={<Calendar />} />
                     </Routes>
                   </Layout>
                 </>
