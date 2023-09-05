@@ -36,7 +36,7 @@ function MobileServices() {
   const width = useBreakpointValue({ base: 300, sm: 300, md: 400, lg: 400 });
   return (
     <div style={{ backgroundColor: "#f5fdfd" }}>
-      <Box pt={10}>
+      <Box pt={40}>
         <TitleHeader title="Services" sub_title="Explore Our Services" />
       </Box>
       <Box display="flex" alignItems="center" justifyContent="center" p={5}>

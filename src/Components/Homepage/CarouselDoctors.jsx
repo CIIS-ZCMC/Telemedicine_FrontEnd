@@ -10,6 +10,7 @@ import doc_cheng from "../../assets/doctor/doc_cheng.png";
 import doc_pat from "../../assets/doctor/doc_pat.png";
 import doc_maali from "../../assets/doctor/doc_maali.png";
 import doc_juljani from "../../assets/doctor/doc_juljani.png";
+import doc_sitti from "../../assets/doctor/doc_sitti.png";
 import PropTypes from "prop-types";
 
 const doctors = [
@@ -64,7 +65,7 @@ const doctors = [
   },
   {
     id: 7,
-    img: doc_jessa,
+    img: doc_sitti,
     name: "Dr. Sitti Sophia A. Jupli, FPCP",
     title: "Medical Officer III",
     spec: "Internal Medicine",
