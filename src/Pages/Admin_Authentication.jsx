@@ -5,8 +5,8 @@ import CustomFormController from "../Components/customs/CustomFormController";
 import useAuth from "../Hooks/AuthContext";
 import "../Style/App.css";
 import { Flex, Box, Button, Grid, GridItem, Center } from "@chakra-ui/react";
-import { PostRequest } from "../API/api";
-import { Auth } from "../API/Paths";
+import { PostRequest } from "../Services/api";
+import { Auth } from "../Services/Paths";
 
 const AdminAuthentication = () => {
   const {

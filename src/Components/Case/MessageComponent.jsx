@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Box, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 import moment from "moment/moment";
 import MessageFile from "./MessageFile";
 import PropTypes from "prop-types";
@@ -10,27 +10,29 @@ const FileList = (prop) => {
 
     if (files.length > 1) {
       return (
-        <Box
-          w="inherit"
-          display="flex"
-          flexWrap="wrap"
-          flexDirection="row"
-          columnGap={3}
-        >
-          {files.map((file, index) => {
-            let desctuctureFileURL = file.split("/");
-            return (
-              <MessageFile
-                key={index}
-                file={file}
-                filename={
-                  file === null
-                    ? "File Missing."
-                    : desctuctureFileURL[desctuctureFileURL.length - 1]
-                }
-              />
-            );
-          })}
+        <Box ml={"5rem"} float={prop.PK_hospital_ID === 1 ? "right" : "left"}>
+          <Box ml={"5rem"}>
+            <Flex
+              flexWrap="wrap"
+              flexDir={prop.PK_hospital_ID === 1 ? "row-reverse" : "row"}
+              columnGap={3}
+            >
+              {files.map((file, index) => {
+                let desctuctureFileURL = file.split("/");
+                return (
+                  <MessageFile
+                    key={index}
+                    file={file}
+                    filename={
+                      file === null
+                        ? "File Missing."
+                        : desctuctureFileURL[desctuctureFileURL.length - 1]
+                    }
+                  />
+                );
+              })}
+            </Flex>
+          </Box>
         </Box>
       );
     }
@@ -39,11 +41,19 @@ const FileList = (prop) => {
       let desctuctureFileURL = prop.files.split("/");
 
       return (
-        <Box w="inherit" display="flex" flexWrap="wrap" columnGap={3}>
-          <MessageFile
-            file={prop.files}
-            filename={desctuctureFileURL[desctuctureFileURL.length - 1]}
-          />
+        <Box ml={"5rem"} float={prop.PK_hospital_ID === 1 ? "right" : "left"}>
+          <Box mr={"5.6rem"}>
+            <Flex
+              flexWrap="wrap"
+              flexDir={prop.PK_hospital_ID === 1 ? "row-reverse" : "row"}
+              columnGap={3}
+            >
+              <MessageFile
+                file={prop.files}
+                filename={desctuctureFileURL[desctuctureFileURL.length - 1]}
+              />
+            </Flex>
+          </Box>
         </Box>
       );
     }
@@ -77,9 +87,9 @@ const MessageComponent = ({
       flexDirection="column"
       float={PK_hospital_ID === 1 ? "right" : "left"}
     >
-      <Box ml={"5rem"} float={PK_hospital_ID === 1 ? "right" : "left"}>
-        {fileNames === null ? null : <FileList files={fileNames} />}
-      </Box>
+      {fileNames === null ? null : (
+        <FileList files={fileNames} PK_hospital_ID={PK_hospital_ID} />
+      )}
       <Box
         display="flex"
         flexDirection={PK_hospital_ID === 1 ? "row-reverse" : "row"}

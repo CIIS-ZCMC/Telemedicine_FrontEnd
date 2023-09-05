@@ -46,14 +46,14 @@ function Carousel({ carouselItems }) {
           fontSize="20px"
         />
         <SimpleGrid templateColumns="repeat(1, 1fr)" p={20}>
-          {carouselItems.slice(startIdx, startIdx + 1).map((item) => (
-            <>
+          {carouselItems.slice(startIdx, startIdx + 1).map((item, index) => (
+            <Box key={index}>
               <CardComponent
                 icon={item.icon}
                 title={item.title}
                 content={getContentForId(item.id)}
               />
-            </>
+            </Box>
           ))}
         </SimpleGrid>
 
@@ -76,6 +76,6 @@ function Carousel({ carouselItems }) {
 }
 
 Carousel.propTypes = {
-  carouselItems: PropTypes.object,
+  carouselItems: PropTypes.array,
 };
 export default Carousel;

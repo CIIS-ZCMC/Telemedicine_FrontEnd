@@ -7,7 +7,7 @@ import CustomModal from "../Components/CustomModal";
 import { toastposition, toastvariant } from "../Pages/Packages";
 import CustomFormController from "../Components/customs/CustomFormController";
 import useAuth from "../Hooks/AuthContext";
-import { PostRequest } from "../API/api";
+import { PostRequest } from "../Services/api";
 import PropTypes from "prop-types";
 
 const NewDoctor = ({ isOpen, onClose, users }) => {

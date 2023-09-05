@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { IoVideocam } from "react-icons/io5";
-import { socket } from "../../API/socket_connection";
+import { socket } from "../../Services/socket_connection";
 import PropTypes from "prop-types";
 
 const VideoButton = ({ caseId }) => {
   const [hasCall, setHasCall] = useState(false);
 
   const openVideoCallWindow = () => {
-    const url = `https://zcmc-development.online/room/${encodeURIComponent(
+    const url = `http://192.168.137.188:5173/room/${encodeURIComponent(
       caseId
     )}`;
     const width = window.innerWidth * 0.6;

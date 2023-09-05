@@ -1,10 +1,8 @@
-import { Box, Divider, Flex, HStack, Image, Text } from "@chakra-ui/react";
-import React from "react";
-import doc_kunting from "../../../assets/doctor/doc_kunting.png";
+import { Box, Divider, HStack, Text } from "@chakra-ui/react";
 import ButtonComponent from "../ButtonComponent";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
-function MobileBanner(props) {
+function MobileBanner() {
   return (
     <Box>
       <Text fontSize="2.5em" sx={{ fontWeight: "bolder" }} letterSpacing={1.5}>
@@ -50,17 +48,18 @@ function MobileBanner(props) {
     </Box>
   );
 }
-function Banner(props) {
-  return (
-    <>
-      <Flex justifyContent="space-around" alignItems="center">
-        <Headings />
-        <Box>
-          <Image src={doc_kunting} width={430} />
-        </Box>
-      </Flex>
-    </>
-  );
-}
+
+// function Banner(props) {
+//   return (
+//     <>
+//       <Flex justifyContent="space-around" alignItems="center">
+//         <Headings />
+//         <Box>
+//           <Image src={doc_kunting} width={430} />
+//         </Box>
+//       </Flex>
+//     </>
+//   );
+// }
 
 export default MobileBanner;

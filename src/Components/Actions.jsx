@@ -1,7 +1,7 @@
 import { IconButton } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { PutRequest } from "../API/api";
-import { User } from "../API/Paths";
+import { PutRequest } from "../Services/api";
+import { User } from "../Services/Paths";
 import { BiReset } from "react-icons/bi";
 import { MdOutlineMessage } from "react-icons/md";
 
@@ -116,7 +116,7 @@ Actions.propTypes = {
   row: PropTypes.integer,
   data: PropTypes.object,
   user: PropTypes.object,
-  id: PropTypes.string,
+  id: PropTypes.number,
 };
 
 export default Actions;

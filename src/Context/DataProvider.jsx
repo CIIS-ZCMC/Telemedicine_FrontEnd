@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
-import { GetRequest, PostRequest } from "../API/api";
-import { Auth, Case } from "../API/Paths";
+import { GetRequest, PostRequest } from "../Services/api";
+import { Auth, Case } from "../Services/Paths";
 import axios from "axios";
 
 const csrf = new axios.create({
@@ -184,14 +184,14 @@ export const DataProvider = ({ children }) => {
       });
   };
 
-  useEffect(() => {
-    requestSanctumCSRF();
-    if (fetch) {
-      setFetch(false);
-      // getHospitals();
-      // getspecializations();
-    }
-  }, [fetch]);
+  // useEffect(() => {
+  //   requestSanctumCSRF();
+  //   if (fetch) {
+  //     setFetch(false);
+  //     // getHospitals();
+  //     // getspecializations();
+  //   }
+  // }, [fetch]);
 
   const resetState = () => {
     setName("");

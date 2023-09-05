@@ -6,8 +6,8 @@ import TextFormController from "../Components/TextFormController";
 import CustomModal from "../Components/CustomModal";
 import { useToast } from "@chakra-ui/react";
 import useAuth from "../Hooks/AuthContext";
-import { PostRequest } from "../API/api";
-import { Hospital } from "../API/Paths";
+import { PostRequest } from "../Services/api";
+import { Hospital } from "../Services/Paths";
 import PropTypes from "prop-types";
 
 const NewHospital = ({ isOpen, onClose, fetch }) => {

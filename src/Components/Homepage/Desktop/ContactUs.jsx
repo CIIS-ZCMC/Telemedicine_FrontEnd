@@ -1,8 +1,7 @@
-import React from "react";
 import TitleHeader from "../TitleHeader";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import logo from "../../../assets/telemed_logo.png";
-import { HiLocationMarker, HiMail, HiUserGroup } from "react-icons/hi";
+import { HiLocationMarker, HiMail } from "react-icons/hi";
 import zcmc from "../../../assets/zcmc_loc.png";
 
 const contactInfo = [
@@ -46,7 +45,7 @@ const contactInfo = [
   },
 ];
 
-function ContactUs(props) {
+function ContactUs() {
   return (
     <div>
       <Box>
@@ -85,24 +84,23 @@ function ContactUs(props) {
                 <Text fontSize={14}>Zamboanga City Medical Center</Text>
               </Box>
             </Box> */}
-            {contactInfo.map((info) => {
+            {contactInfo.map((info, index) => {
               return (
-                <>
-                  <Box
-                    // bgColor="white"
-                    bgColor="#d2f3f3"
-                    p={5}
-                    width="full"
-                    borderRadius={10}
-                    key={info.content.toString()}
-                    boxShadow="base"
-                  >
-                    <Box mb={3} align="left">
-                      {info.icon}
-                    </Box>
-                    {info.content}
+                <Box
+                  // bgColor="white"
+                  bgColor="#d2f3f3"
+                  p={5}
+                  width="full"
+                  borderRadius={10}
+                  key={index}
+                  // key={info.content.toString()} [OBJECT GIVEN]
+                  boxShadow="base"
+                >
+                  <Box mb={3} align="left">
+                    {info.icon}
                   </Box>
-                </>
+                  {info.content}
+                </Box>
               );
             })}
           </VStack>

@@ -1,14 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Flex, IconButton } from "@chakra-ui/react";
-// import { socket } from "../../API/socket_connection";
+// import { socket } from "../../Services/socket_connection";
 import { HiVideoCameraSlash, HiVideoCamera } from "react-icons/hi2";
 import { AiFillAudio, AiOutlineAudioMuted } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import AgoraRTM from "agora-rtm-sdk";
 
+/**
+ * Audio and Video token for testing
+ * 007eJxTYLD6vPNTno+XA9fmye31W7/s8Llcl35mKrtJcXlF9YuZx3coMFimmCeZWxiYpFqmGZkYWJgnppglGaUlG5ulGJsapZiY5k5fntIQyMgQb3GRhZEBAkF8FoaS1OISBgYAzj4hFg==
+ *
+ * Chat App Temp Token
+ * 007eJxTYDjLK3n67FJ/hwivKdPOTs2fkewjMKGU4UXuoh1zN5a0LfulwGCZYp5kbmFgkmqZZmRiYGGemGKWZJSWbGyWYmxqlGJienzG8pSGQEYGteIKRkYGVgZGBiYGEJ+BAQC1zR5X
+ *
+ * Chat User Temp Token
+ * 007eJxTYDD4H/rwk4z4/4NcaUy5zO+YTlw9s2dGemtivelrq7O+BocUGCxTzJPMLQxMUi3TjEwMLMwTU8ySjNKSjc1SjE2NUkxMeWYsT2kIZGRYULCWhZGBlYGRgYkBxGdgAACsLh4H
+ */
+
 const VideoCall = () => {
-  const APP_ID = "8bd76e2530884e51bce45d79b862c431";
+  const APP_ID = "9d7b7804e9f24087ad6b2fc36d352d45";
   let token = null;
   const uid = `${Math.floor(Math.random() * 10000)}`;
 

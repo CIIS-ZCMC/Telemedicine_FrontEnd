@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Image, IconButton, Text, HStack } from "@chakra-ui/react";
+import { Box, IconButton, Text, HStack } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import DoctorTile from "./DoctorTile";
 import doc_irene from "../../assets/doctor/doc_irene.png";
@@ -10,6 +10,8 @@ import doc_cheng from "../../assets/doctor/doc_cheng.png";
 import doc_pat from "../../assets/doctor/doc_pat.png";
 import doc_maali from "../../assets/doctor/doc_maali.png";
 import doc_juljani from "../../assets/doctor/doc_juljani.png";
+import doc_sitti from "../../assets/doctor/doc_sitti.png";
+import PropTypes from "prop-types";
 
 const doctors = [
   {
@@ -63,7 +65,7 @@ const doctors = [
   },
   {
     id: 7,
-    img: doc_jessa,
+    img: doc_sitti,
     name: "Dr. Sitti Sophia A. Jupli, FPCP",
     title: "Medical Officer III",
     spec: "Internal Medicine",
@@ -152,5 +154,9 @@ function Carousel({ size }) {
     </div>
   );
 }
+
+Carousel.propTypes = {
+  size: PropTypes.number,
+};
 
 export default Carousel;

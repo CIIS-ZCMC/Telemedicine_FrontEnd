@@ -1,28 +1,28 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Center,
-  Flex,
-  Text,
-  Grid,
-  GridItem,
-  Heading,
-} from "@chakra-ui/react";
+import { Box, Button, Center, Flex, Text } from "@chakra-ui/react";
 import CustomFormController from "../Components/customs/CustomFormController";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PostRequest } from "../API/api";
-import { Auth } from "../API/Paths";
 import AuthHeader from "../Components/AuthModule/AuthHeader";
-import AuthBackground from "../Components/AuthModule/AuthBackground";
 import AuthFooter from "../Components/AuthModule/AuthFooter";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { HiEmojiSad } from "react-icons/hi";
-import { IoClose } from "react-icons/io5";
+import PropTypes from "prop-types";
+import useUser from "../Hooks/useUserHook";
+
+const CustomIcon = ({ icon }) => {
+  return (
+    <Box w={8} h={4} mt={6} mb={6} borderRight={"1px solid rgba(0,0,0,0.2)"}>
+      <Center>{icon}</Center>
+    </Box>
+  );
+};
+
+CustomIcon.propTypes = {
+  icon: PropTypes.object,
+};
 
 const Registration = () => {
+  const { signUp } = useUser();
   const navigate = useNavigate();
 
   const defaultProfileURL = `${window.location.origin}/default_profile.png`;
@@ -34,8 +34,10 @@ const Registration = () => {
 
   const [feedback, setFeedback] = useState("");
 
-  const emailExc = useState("");
-  const passExc = useState("");
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -58,53 +60,37 @@ const Registration = () => {
     setLoading(true);
 
     if (validatePasword) {
-      let bodyForm = new FormData();
-      bodyForm.append("name", username);
-      bodyForm.append("email", email);
-      bodyForm.append("password", password);
-      bodyForm.append("url", defaultProfileURL);
+      let form = new FormData();
+      form.append("name", username.trim());
+      form.append("email", email.trim());
+      form.append("password", password.trim());
+      form.append("url", defaultProfileURL);
 
-      PostRequest({ url: `${Auth}/signup` }, bodyForm)
-        .then((res) => res.data)
-        .then((res) => {
-          if (!res.statusText === "OK") {
-            throw new Error("Bad response", { cause: res });
-          }
-
-          navigate("/account", {
-            replace: true,
-            state: { id: res.data, password: password, message: "" },
-          });
-          reset();
-          setLoading(false);
-        })
-        .catch((err) => {
-          const {
-            response: {
-              status,
-              data: { message },
-            },
-          } = err;
-
-          switch (status) {
-            case 400:
-              setFeedback(message);
-              break;
-            case 409:
-              setFeedback(message);
-              break;
-            default:
-              setFeedback(message);
-              break;
-          }
-          setLoading(false);
-        });
+      signUp(form, (status, feedback) => {
+        switch (status) {
+          case 200:
+            navigate("/account", {
+              replace: true,
+              state: { id: feedback, password: password, message: "" },
+            });
+            reset();
+            break;
+          case 400:
+            setFeedback("Please check your inputs.");
+            break;
+          default:
+            setFeedback("Please try again later.");
+            break;
+        }
+        setLoading(false);
+      });
+      return;
     }
-  };
 
-  const handleNavigate = (e) => {
-    e.preventDefault();
-    navigate("/login");
+    setPassword("");
+    setConfirmPassword("");
+    setPasswordError("Password doesn't match.");
+    setConfirmPasswordError("Password doesn't match.");
   };
 
   return (
@@ -112,237 +98,149 @@ const Registration = () => {
       <Box
         w={"100%"}
         h={"100vh"}
-        bg={"rgba(0,0,0,0.1)"}
-        position={"absolute"}
-        backgroundImage={"linear-gradient(#B0F3F1,#FFCFDF)"}
+        bg={["white", "white", "rgba(0,0,0,0.04)", "rgba(0,0,0,0.04)"]}
       >
-        <Box
-          display={["block", "block", "none", "none"]}
-          textAlign="center"
-          pt={3}
-          pb={2}
-          letterSpacing={4}
-        >
-          <Heading size={"lg"} color="teal">
-            ZCMC REGIONAL TELEMEDICINE CENTER
-          </Heading>
-        </Box>
-        <Box
-          w={["100%", "100%", "70%", "60%"]}
-          h={["80%", "80%", "70%", "70%"]}
-          left={"50%"}
-          top={"50%"}
-          transform="translate(-50%, -50%)"
-          position={"absolute"}
-          boxShadow={["none", "none", "2xl", "2xl"]}
-          rounded={15}
-          overflow={"hidden"}
-        >
-          <Grid
-            templateRows={"repeat(1, 1fr)"}
-            templateColumns="repeat(12, 1fr)"
+        <Center h="100vh">
+          <Box
+            w={"30rem"}
+            h={"35rem"}
+            bg={["transparent", "transparent", "white", "white"]}
+            rounded={10}
+            boxShadow={["none", "none", "lg", "lg"]}
+            overflow="hidden"
           >
-            <GridItem rowSpan={1} colSpan={[12, 12, 12, 7]}>
-              <AuthBackground />
-            </GridItem>
-            <GridItem rowSpan={[1, 1, 1, 0]} colSpan={[12, 12, 12, 5]}>
-              <Box
-                w={"100%"}
-                h={"100%"}
-                bg={[
-                  "transparent",
-                  "transparent",
-                  "whiteAlpha.900",
-                  "whiteAlpha.600",
-                ]}
-              >
-                <Flex
-                  flexDirection={"column"}
-                  justifyContent={"space-between"}
-                  pl={10}
-                  pt={[2, 2, 0, 8]}
-                  pr={10}
-                  pb={3}
-                  h={["70vh", "70vh", "50vh", "70vh"]}
+            <Flex
+              h="inherit"
+              flexDirection={"column"}
+              justifyContent={"space-between"}
+              pl={10}
+              pt={[2, 2, 5, 8]}
+              pr={10}
+              pb={3}
+            >
+              <AuthHeader title={"Sign up"} />
+              {feedback === "" ? null : (
+                <Box
+                  h={"10%"}
+                  pl={2}
+                  pr={2}
+                  rounded={5}
+                  color="red"
+                  display={feedback === "2" ? "none" : "block"}
                 >
-                  <AuthHeader title={"Sign up"} />
-                  <Box
-                    w={"inherit"}
-                    h={"inherit"}
-                    display={"flex"}
-                    flexDirection={"column"}
-                    mt={"1rem"}
+                  <Center h="100%">
+                    <Text fontSize={[12, 12, 14, 14]}>{feedback}</Text>
+                  </Center>
+                </Box>
+              )}
+              <Box
+                w={"inherit"}
+                h={"inherit"}
+                display={"flex"}
+                flexDirection={"column"}
+                mt={"1rem"}
+              >
+                <CustomFormController
+                  isSignup={false}
+                  type={"text"}
+                  title={""}
+                  value={username}
+                  setValue={setUsername}
+                  placeholder={"Username"}
+                  errorMessage={nameError}
+                  setEmailError={setNameError}
+                  isError={false}
+                  mt={5}
+                  isRequired={false}
+                >
+                  <CustomIcon icon={<FaUserAlt color="teal" size={15} />} />
+                </CustomFormController>
+                <CustomFormController
+                  isSignup={false}
+                  type={"text"}
+                  title={""}
+                  value={email}
+                  setValue={setEmail}
+                  placeholder={"Email"}
+                  errorMessage={emailError}
+                  setErrorMessage={setEmailError}
+                  isError={false}
+                  mt={3}
+                  isRequired={false}
+                >
+                  <CustomIcon icon={<MdEmail color="teal" size={15} />} />
+                </CustomFormController>
+                <CustomFormController
+                  isSignup={false}
+                  type={"password"}
+                  title={""}
+                  value={password}
+                  setValue={setPassword}
+                  placeholder={"Password"}
+                  errorMessage={passwordError}
+                  setErrorMessage={setPasswordError}
+                  isError={false}
+                  mt={3}
+                  isRequired={false}
+                >
+                  <CustomIcon icon={<FaLock color="teal" size={15} />} />
+                </CustomFormController>
+                <CustomFormController
+                  isSignup={false}
+                  type={"password"}
+                  title={""}
+                  value={confirmPassword}
+                  setValue={setConfirmPassword}
+                  placeholder={"Confirm password"}
+                  errorMessage={confirmPasswordError}
+                  setErrorMessage={setConfirmPassword}
+                  isError={false}
+                  mt={3}
+                  isRequired={false}
+                >
+                  <CustomIcon icon={<FaLock color="teal" size={15} />} />
+                </CustomFormController>
+                <Flex
+                  w="100%"
+                  columnGap={5}
+                  rowGap={3}
+                  mt={[10, 10, 12, 14]}
+                  flexDirection={["column", "column", "row", "row"]}
+                >
+                  <Button
+                    w="inherit"
+                    isLoading={loading}
+                    loadingText={"Signing In"}
+                    bg={"teal"}
+                    color={"white"}
+                    _hover={{ bg: "teal" }}
+                    onClick={(e) => handleSignup(e)}
+                    disabled={
+                      username === "" ||
+                      email === "" ||
+                      password === "" ||
+                      password !== confirmPassword
+                    }
                   >
-                    <Box
-                      bg="red"
-                      pl={2}
-                      pr={2}
-                      rounded={5}
-                      color="white"
-                      display={feedback === "" ? "none" : "block"}
-                    >
-                      <Flex
-                        justifyContent="space-between"
-                        alignItems="center"
-                        columnGap={2}
-                      >
-                        <Flex alignItems="center" columnGap={2}>
-                          <HiEmojiSad size={25} />
-                          <Text fontSize={[12, 12, 14, 14]}>{feedback}</Text>
-                        </Flex>
-                        <IconButton
-                          bg="red"
-                          _hover={{ bg: "red" }}
-                          _active={{ bg: "red" }}
-                          icon={<IoClose size={30} />}
-                          onClick={() => setFeedback("")}
-                        />
-                      </Flex>
-                    </Box>
-                    <CustomFormController
-                      isSignup={false}
-                      type={"text"}
-                      title={""}
-                      value={username}
-                      setValue={setUsername}
-                      placeholder={"Username"}
-                      errorMessage={emailExc}
-                      isError={false}
-                      mt={5}
-                      isRequired={false}
-                    >
-                      <Box
-                        w={8}
-                        h={4}
-                        mt={6}
-                        mb={6}
-                        borderRight={"1px solid rgba(0,0,0,0.2)"}
-                      >
-                        <Center>
-                          <FaUserAlt color="teal" size={15} />
-                        </Center>
-                      </Box>
-                    </CustomFormController>
-                    <CustomFormController
-                      isSignup={false}
-                      type={"text"}
-                      title={""}
-                      value={email}
-                      setValue={setEmail}
-                      placeholder={"Email"}
-                      errorMessage={emailExc}
-                      isError={false}
-                      mt={3}
-                      isRequired={false}
-                    >
-                      <Box
-                        w={8}
-                        h={4}
-                        mt={6}
-                        mb={6}
-                        borderRight={"1px solid rgba(0,0,0,0.2)"}
-                      >
-                        <Center>
-                          <MdEmail color="teal" size={15} />
-                        </Center>
-                      </Box>
-                    </CustomFormController>
-                    <CustomFormController
-                      isSignup={false}
-                      type={"password"}
-                      title={""}
-                      value={password}
-                      setValue={setPassword}
-                      placeholder={"Password"}
-                      errorMessage={passExc}
-                      isError={false}
-                      mt={3}
-                      isRequired={false}
-                    >
-                      <Box
-                        w={8}
-                        h={4}
-                        mt={6}
-                        mb={6}
-                        borderRight={"1px solid rgba(0,0,0,0.2)"}
-                      >
-                        <Center>
-                          <FaLock color="teal" size={15} />
-                        </Center>
-                      </Box>
-                    </CustomFormController>
-                    <CustomFormController
-                      isSignup={false}
-                      type={"password"}
-                      title={""}
-                      value={confirmPassword}
-                      setValue={setConfirmPassword}
-                      placeholder={"Confirm password"}
-                      errorMessage={passExc}
-                      isError={false}
-                      mt={3}
-                      isRequired={false}
-                    >
-                      <Box
-                        w={8}
-                        h={4}
-                        mt={6}
-                        mb={6}
-                        borderRight={"1px solid rgba(0,0,0,0.2)"}
-                      >
-                        <Center>
-                          <FaLock color="teal" size={15} />
-                        </Center>
-                      </Box>
-                    </CustomFormController>
-                    <Flex
-                      w="100%"
-                      columnGap={5}
-                      rowGap={3}
-                      mt={[10, 10, 12, 14]}
-                      flexDirection={[
-                        "column",
-                        "column",
-                        "row-reverse",
-                        "column",
-                      ]}
-                    >
-                      <Button
-                        w="inherit"
-                        isLoading={loading}
-                        loadingText={"Signing In"}
-                        bg={"teal"}
-                        color={"white"}
-                        _hover={{ bg: "teal" }}
-                        onClick={(e) => handleSignup(e)}
-                        disabled={
-                          username === "" ||
-                          email === "" ||
-                          password === "" ||
-                          password !== confirmPassword
-                        }
-                      >
-                        <Text fontSize={[12, 12, 14, 14]}>Register</Text>
-                      </Button>
-                      <Button
-                        w="inherit"
-                        bg={"gray"}
-                        color={"white"}
-                        _hover={{
-                          bg: "darkorange",
-                        }}
-                        onClick={(e) => handleNavigate(e)}
-                      >
-                        <Text fontSize={[12, 12, 14, 14]}>Sign In</Text>
-                      </Button>
-                    </Flex>
-                  </Box>
-                  <AuthFooter />
+                    <Text fontSize={[12, 12, 14, 14]}>Register</Text>
+                  </Button>
+                  <Button
+                    w="inherit"
+                    bg={"gray"}
+                    color={"white"}
+                    _hover={{
+                      bg: "darkorange",
+                    }}
+                    onClick={() => navigate(-1)}
+                  >
+                    <Text fontSize={[12, 12, 14, 14]}>Back</Text>
+                  </Button>
                 </Flex>
               </Box>
-            </GridItem>
-          </Grid>
-        </Box>
+              <AuthFooter />
+            </Flex>
+          </Box>
+        </Center>
       </Box>
     </>
   );

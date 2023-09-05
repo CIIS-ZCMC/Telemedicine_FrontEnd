@@ -7,35 +7,46 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import "../../Style/App.css";
 import PropTypes from "prop-types";
 
 const CustomFormController = ({
   isSignup,
-  title,
+  title = "",
   type,
   value,
   placeholder,
   setValue,
-  isError,
+  errorMessage,
+  setErrorMessage,
   children,
   mt,
   isRequired,
 }) => {
   const [show, setShow] = React.useState(false);
 
+  const onChange = (e) => {
+    e.preventDefault();
+    if (errorMessage !== "") {
+      setErrorMessage("");
+    }
+    setValue(e.target.value);
+  };
+
   return (
     <>
       <FormControl
         marginTop={mt}
-        isInvalid={isError}
+        isInvalid={errorMessage !== ""}
         border={"red"}
         isRequired={isRequired}
       >
         <FormLabel fontSize={"14"} fontWeight="500" color={"#272727"}>
           {title}
         </FormLabel>
+
         <InputGroup>
           {isSignup ? null : (
             <InputLeftElement pointerEvents="none">{children}</InputLeftElement>
@@ -49,7 +60,7 @@ const CustomFormController = ({
             bg="white"
             boxShadow="sm"
             focusBorderColor={"rgba(0, 128, 128,0.5)"}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => onChange(e)}
           />
           {type === "password" ? (
             <InputRightElement width="3rem" onClick={() => setShow(!show)}>
@@ -61,6 +72,7 @@ const CustomFormController = ({
             </InputRightElement>
           ) : null}
         </InputGroup>
+        <FormErrorMessage>{errorMessage}</FormErrorMessage>
       </FormControl>
     </>
   );
@@ -72,10 +84,11 @@ CustomFormController.propTypes = {
   type: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  setValue: PropTypes.function,
-  isError: PropTypes.bool,
+  setValue: PropTypes.func,
+  errorMessage: PropTypes.string,
+  setErrorMessage: PropTypes.func,
   children: PropTypes.object,
-  mt: PropTypes.float,
+  mt: PropTypes.number,
   isRequired: PropTypes.bool,
 };
 

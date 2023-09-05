@@ -3,8 +3,8 @@ import "../Style/App.css";
 import { useState, useEffect } from "react";
 import CustomTablePaginate from "../Components/CustomTablePaginate";
 import useAuth from "../Hooks/AuthContext";
-import { GetRequest } from "../API/api";
-import { Specialization, User } from "../API/Paths";
+import { GetRequest } from "../Services/api";
+import { Specialization, User } from "../Services/Paths";
 import NewUser from "../Components/NewUser";
 
 const Users = () => {

@@ -13,8 +13,8 @@ import CustomModal from "../Components/CustomModal";
 import TextFormController from "../Components/TextFormController";
 import { useToast } from "@chakra-ui/react";
 import moment from "moment";
-import { PostRequest } from "../API/api";
-import { Reports } from "../API/Paths";
+import { PostRequest } from "../Services/api";
+import { Reports } from "../Services/Paths";
 import PropTypes from "prop-types";
 
 const NewReport = ({ isOpen, onClose, fetch, SpecializationData }) => {

@@ -14,7 +14,7 @@ import {
   Box,
   Button,
 } from "@chakra-ui/react";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/useUserHook";
 // import SearchNotFound from './SearchNotFound';
 import "../Style/Table.css";
 import TableRow from "./Table/TableRow";
@@ -57,7 +57,7 @@ const CustomTablePaginate = ({
     },
     usePagination
   );
-  const { user } = useAuth();
+  const { user } = useUser();
 
   return (
     <Box>

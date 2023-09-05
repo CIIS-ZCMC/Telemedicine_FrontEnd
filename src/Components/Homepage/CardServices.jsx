@@ -74,7 +74,9 @@ function CardServices({ title, img, color, desc, width }) {
 CardServices.propTypes = {
   title: PropTypes.string,
   img: PropTypes.string,
-  color: PropTypes.color,
+  color: PropTypes.string,
+  desc: PropTypes.string,
+  width: PropTypes.number,
 };
 
 export default CardServices;

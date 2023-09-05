@@ -1,19 +1,16 @@
-import { Box, Center, Container, IconButton } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Container } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import Navbar from "../../Components/Homepage/Desktop/Navbar";
 import Banner from "../../Components/Homepage/Desktop/Banner";
 import About from "../../Components/Homepage/Desktop/About";
 import Doctors from "../../Components/Homepage/Desktop/Doctors";
 import Services from "../../Components/Homepage/Desktop/Services";
 import ContactUs from "../../Components/Homepage/Desktop/ContactUs";
-import bg from "../../assets/3.png";
-import { BiGame } from "react-icons/bi";
 import Footer from "../../Components/Homepage/Desktop/Footer";
-import { HiArrowUp } from "react-icons/hi";
 
 function DesktopView() {
   const [currSection, setCurrSection] = useState("");
-  const [displayBtn, setDisplayBtn] = useState(true);
+  // const [displayBtn, setDisplayBtn] = useState(true);
 
   const scrollToSection = (id) => {
     const element = document.querySelector(id);

@@ -3,8 +3,8 @@ import "../Style/App.css";
 import { useEffect, useState } from "react";
 import CustomTablePaginate from "../Components/CustomTablePaginate";
 import useAuth from "../Hooks/AuthContext";
-import { GetRequest } from "../API/api";
-import { Hospital } from "../API/Paths";
+import { GetRequest } from "../Services/api";
+import { Hospital } from "../Services/Paths";
 import NewHospital from "../Components/NewHospital";
 
 const Hospitals = () => {
@@ -21,19 +21,19 @@ const Hospitals = () => {
     },
     {
       Header: "NAME",
-      accessor: "hospital_Name",
+      accessor: "name",
     },
     {
       Header: "STREET",
-      accessor: "hospital_Street",
+      accessor: "street",
     },
     {
       Header: "BARANGAY",
-      accessor: "hospital_Barangay",
+      accessor: "barangay",
     },
     {
       Header: "CITY",
-      accessor: "hospital_City",
+      accessor: "city",
     },
     {
       Header: "ACTION",

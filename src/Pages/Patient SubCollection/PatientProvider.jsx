@@ -2,8 +2,8 @@ import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import { toastposition, toastvariant } from "../Packages";
-import { PostRequest, PutRequest } from "../../API/api";
-import { Patient } from "../../API/Paths";
+import { PostRequest, PutRequest } from "../../Services/api";
+import { Patient } from "../../Services/Paths";
 
 const PatientContext = createContext({});
 

@@ -3,8 +3,8 @@ import { useToast } from "@chakra-ui/react";
 import { toastposition, toastvariant } from "../Pages/Packages";
 import CustomModal from "../Components/CustomModal";
 import { SelectionSpecialization } from "../Components/CustomSelection";
-import { Specialization } from "../API/Paths";
-import { PutRequest } from "../API/api";
+import { Specialization } from "../Services/Paths";
+import { PutRequest } from "../Services/api";
 import PropTypes from "prop-types";
 
 const PostSpecializationModal = ({ isOpen, onClose, caseID }) => {

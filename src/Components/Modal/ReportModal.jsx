@@ -12,8 +12,8 @@ import { toastposition, toastvariant } from "../../Pages/Packages";
 import TextFormController from "../TextFormController";
 import CustomModal from "../CustomModal";
 import moment from "moment";
-import { Reports } from "../../API/Paths";
-import { PutRequest } from "../../API/api";
+import { Reports } from "../../Services/Paths";
+import { PutRequest } from "../../Services/api";
 import PropTypes from "prop-types";
 
 const ReportModal = ({

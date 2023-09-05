@@ -3,9 +3,10 @@ import { Image, Flex, Box, Heading, Text } from "@chakra-ui/react";
 import RouteData from "../Routes/RouteData";
 import { useNavigate } from "react-router-dom";
 import "../Style/Sidebar.css";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/useUserHook";
 import PropTypes from "prop-types";
 import logo from "../assets/zcmc_logo.png";
+import useThemeHook from "../Hooks/ThemeHook";
 
 const SidebarDividerHeader = ({ data, header, collapsed }) => {
   return (
@@ -63,7 +64,7 @@ SidebarHeader.propTypes = {
   collapsed: PropTypes.integer,
 };
 
-const MenuItemComponent = ({ child, click, title, path }) => {
+const MenuItemComponent = ({ icon, click, label, path }) => {
   return (
     <MenuItem
       icon={
@@ -74,36 +75,38 @@ const MenuItemComponent = ({ child, click, title, path }) => {
           rounded={5}
           className="menu-item-icon"
         >
-          {child}
+          {icon}
         </Box>
       }
       className="menu-item"
       onClick={(e) => click(e, path)}
     >
       <Text width="full" className="menu-item-text">
-        {title}
+        {label}
       </Text>
     </MenuItem>
   );
 };
 
 MenuItemComponent.propTypes = {
-  child: PropTypes.object,
+  icon: PropTypes.object,
   click: PropTypes.function,
-  title: PropTypes.string,
+  label: PropTypes.string,
   path: PropTypes.string,
 };
 
 const SidebarComponent = ({ collapsed }) => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { setPage } = useThemeHook();
+  const { user } = useUser();
 
   const theme = "light";
 
-  const handleClick = (e, path) => {
+  function handleNavigate(e, path, title) {
     e.preventDefault();
     navigate(path);
-  };
+    setPage(title);
+  }
 
   const themes = {
     light: {
@@ -222,10 +225,8 @@ const SidebarComponent = ({ collapsed }) => {
                   ) : null}
                   <MenuItemComponent
                     key={data.index}
-                    title={data.label}
-                    path={data.href}
-                    child={data.icon}
-                    click={(e) => handleClick(e, data.href)}
+                    {...data}
+                    click={(e) => handleNavigate(e, data.href, data.label)}
                   />
                 </>
               );

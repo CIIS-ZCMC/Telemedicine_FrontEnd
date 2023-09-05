@@ -1,8 +1,8 @@
 import useCase from "./CaseContext";
 import { Box } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { GetRequest } from "../../API/api";
-import { Patient } from "../../API/Paths";
+import { GetRequest } from "../../Services/api";
+import { Patient } from "../../Services/Paths";
 import { CustomPatient } from "./CustomPatient";
 import PropTypes from "prop-types";
 import CustomSelect from "./CustomSelect";

@@ -3,8 +3,8 @@ import { AiOutlineInfoCircle, AiOutlineDelete } from "react-icons/ai";
 import { BsDownload } from "react-icons/bs";
 import { ChevronDownIcon, AddIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
-import { PutRequest } from "../API/api";
-import { Case } from "../API/Paths";
+import { PutRequest } from "../Services/api";
+import { Case } from "../Services/Paths";
 import {
   Box,
   Text,

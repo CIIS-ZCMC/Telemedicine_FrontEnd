@@ -1,12 +1,11 @@
-import React from "react";
 import Carousel from "../Carousel";
-import { Box, Image, useBreakpointValue } from "@chakra-ui/react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
 import bgImage2 from "../../../assets/3.png";
 import TitleHeader from "../TitleHeader";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { BiBarChartAlt, BiTrophy } from "react-icons/bi";
 
-function MobileAbout(props) {
+function MobileAbout() {
   const carouselItems = [
     {
       id: 1,

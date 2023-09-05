@@ -21,6 +21,17 @@ function App() {
       heading: `'Poppins', sans-serif`,
       body: `'Poppins', sans-serif`,
     },
+    components: {
+      Button: {
+        variants: {
+          hoveredBox: {
+            "&:hover Box": {
+              display: "block",
+            },
+          },
+        },
+      },
+    },
   });
 
   return (

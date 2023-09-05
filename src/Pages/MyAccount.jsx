@@ -20,20 +20,20 @@ import {
   useToast,
   Center,
 } from "@chakra-ui/react";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/useUserHook";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { IoKeySharp } from "react-icons/io5";
 import { MdOutlineFileUpload } from "react-icons/md";
 import CustomFormController from "../Components/customs/CustomFormController";
 import { toastposition, toastvariant } from "./Packages";
 import { FaLock } from "react-icons/fa";
-import { PostRequest } from "../API/api";
-import { User } from "../API/Paths";
+import { PostRequest } from "../Services/api";
+import { User } from "../Services/Paths";
 import profile from "../assets/default_profile.png";
 
 const MyAccount = () => {
   const toast = useToast();
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

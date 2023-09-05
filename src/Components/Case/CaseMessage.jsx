@@ -3,7 +3,7 @@ import { Box, Text } from "@chakra-ui/react";
 import moment from "moment/moment";
 import MessageComponent from "./MessageComponent";
 import PropTypes from "prop-types";
-import { initializeMessageID, socket } from "../../API/socket_connection";
+import { initializeMessageID, socket } from "../../Services/socket_connection";
 import AnimationCaseMessage from "../../Pages/Loading Animation/Consult/Message/AnimationCaseMessage";
 
 const CaseMessage = ({ id, date }) => {

@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem, Container } from "@chakra-ui/react";
 import DashboardCard from "../Components/DashboardCard";
-import useAuth from "../Hooks/AuthContext";
+import useUser from "../Hooks/useUserHook";
 import { DashboardCardStructureData } from "./ComponentData/DashboardCardData";
 import ExternalDoctorLineGraph from "../Components/ExternalDoctorGraph/ExternalDoctorLineGraph";
 import ExternalDoctorPieGraph from "../Components/ExternalDoctorGraph/ExternalDoctorPieGraph";
@@ -52,7 +52,7 @@ const ExternalGraphs = () => {
 };
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user } = useUser();
   const queryClient = new QueryClient();
 
   const handleCardBaseRole = (title) => {
@@ -72,9 +72,9 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <Box width="100%" height="100%">
       <QueryClientProvider client={queryClient}>
-        <Box mt={10}>
+        <Box>
           <Container maxW={"container.xxl"} mt={"2rem"} mb={"1rem"}>
             <Grid
               templateColumns={[
@@ -117,7 +117,7 @@ const Dashboard = () => {
           )}
         </Box>
       </QueryClientProvider>
-    </>
+    </Box>
   );
 };
 

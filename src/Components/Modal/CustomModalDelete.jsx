@@ -17,7 +17,7 @@ import {
 import useAuth from "../../Hooks/AuthContext";
 import { useToast } from "@chakra-ui/react";
 import { toastvariant, toastposition } from "../../Pages/Packages";
-import { DeleteRequest } from "../../API/api";
+import { DeleteRequest } from "../../Services/api";
 import {
   Hospital,
   Reports,

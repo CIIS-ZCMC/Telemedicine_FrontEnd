@@ -1,6 +1,4 @@
-import React from "react";
-import DoctorTile from "../DoctorTile";
-import { Box, Center, Container, HStack } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import TitleHeader from "../TitleHeader";
 import CarouselDoctors from "../CarouselDoctors";

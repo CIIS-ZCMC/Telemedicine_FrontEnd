@@ -1,8 +1,8 @@
 import { Text, Heading, Box, Image } from "@chakra-ui/react";
 import moment from "moment";
 import { useEffect, useState, useCallback } from "react";
-import { GetRequest } from "../../API/api";
-import { Patient } from "../../API/Paths";
+import { GetRequest } from "../../Services/api";
+import { Patient } from "../../Services/Paths";
 import PropTypes from "prop-types";
 import profileF from "../../assets/female_default_profile.jpg";
 import profileM from "../../assets/male_default_profile.jpg";
@@ -54,15 +54,16 @@ const PatientProfile = ({ id }) => {
 
   return (
     <Box
-      h="inheirt"
+      h="22%"
       display="flex"
       flexDirection={["column", "column", "row", "row"]}
       columnGap={8}
       alignItems="start"
       p={2}
+      mb={5}
     >
       <Box
-        w={"100%"}
+        h="100%"
         display="flex"
         justifyContent={["center", "center", "start", "start"]}
         p={[2, 2, 0, 0]}

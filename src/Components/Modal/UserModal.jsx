@@ -3,8 +3,8 @@ import { useToast, Select, FormControl, FormLabel } from "@chakra-ui/react";
 import { toastposition, toastvariant } from "../../Pages/Packages";
 import CustomModal from "../CustomModal";
 import TextFormController from "../TextFormController";
-import { PutRequest } from "../../API/api";
-import { User } from "../../API/Paths";
+import { PutRequest } from "../../Services/api";
+import { User } from "../../Services/Paths";
 import PropTypes from "prop-types";
 
 const UserModal = ({ title, isOpen, onClose, data, fetch }) => {

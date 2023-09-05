@@ -1,17 +1,8 @@
 import { useState, useEffect } from "react";
 import { Box, IconButton, Image } from "@chakra-ui/react";
 import { IoCloseSharp } from "react-icons/io5";
-import { BsImageFill } from "react-icons/bs";
-import { MdVideoLibrary } from "react-icons/md";
-import { RiFolderMusicFill, RiCloseCircleFill } from "react-icons/ri";
+import {  RiCloseCircleFill } from "react-icons/ri";
 
-import {
-  AiFillFileWord,
-  AiFillFilePpt,
-  AiFillFilePdf,
-  AiFillFileExcel,
-  AiFillFileUnknown,
-} from "react-icons/ai";
 import "../Style/Consult.css";
 import PropTypes from "prop-types";
 

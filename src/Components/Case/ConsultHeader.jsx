@@ -14,14 +14,14 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import "../../Style/Consult.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
-import { PutRequest } from "../../API/api";
-import { Case } from "../../API/Paths";
-import useAuth from "../../Hooks/AuthContext";
+import { PutRequest } from "../../Services/api";
+import { Case } from "../../Services/Paths";
+import useUser from "../../Hooks/useUserHook";
 import PropTypes from "prop-types";
-import { unsubscribeFromMessages } from "../../API/socket_connection";
+import { unsubscribeFromMessages } from "../../Services/socket_connection";
 
 const ConsultHeader = ({ id, isPendingStatus, onOpen }) => {
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const [isPending, setIsPending] = useState(
     isPendingStatus === 0 ? true : false

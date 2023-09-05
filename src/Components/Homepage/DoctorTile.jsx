@@ -73,8 +73,8 @@ const DoctorTile = ({ img, name, title, spec }) => {
 DoctorTile.propTypes = {
   img: PropTypes.string,
   title: PropTypes.string,
-  name: PropTypes.color,
-  spec: PropTypes.color,
+  name: PropTypes.string,
+  spec: PropTypes.string,
 };
 
 export default DoctorTile;

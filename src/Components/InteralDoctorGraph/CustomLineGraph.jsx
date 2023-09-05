@@ -20,7 +20,7 @@ const CustomLineGraph = () => {
 
   useEffect(() => {
     getChartData();
-  }, [getChartData]);
+  }, []);
 
   return (
     <Box p={[0, 0, 4, 4]}>

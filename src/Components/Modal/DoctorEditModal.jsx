@@ -4,7 +4,7 @@ import { useToast } from "@chakra-ui/react";
 import { toastposition, toastvariant } from "../../Pages/Packages";
 import TextFormController from "../TextFormController";
 import CustomModal from "../CustomModal";
-import { PutRequest } from "../../API/api";
+import { PutRequest } from "../../Services/api";
 import PropTypes from "prop-types";
 
 const DoctorEditModal = ({ isOpen, onClose, data, fetch, row }) => {
