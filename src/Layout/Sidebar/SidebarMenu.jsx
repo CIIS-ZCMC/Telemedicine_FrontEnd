@@ -76,11 +76,11 @@ const SidebarMenu = () => {
 
   const [selected, setSelected] = useState(0);
   const { setPage, getFilteredRoutes } = useThemeHook();
-  const { users } = useUserHook();
+  const { user } = useUserHook();
 
   return (
     <Box w="inherit" p={0}>
-      {getFilteredRoutes(users.role).map((route, index) => (
+      {getFilteredRoutes(user?.role).map((route, index) => (
         <SidebarMenuItem
           key={index}
           {...route}

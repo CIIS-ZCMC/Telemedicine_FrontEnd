@@ -21,8 +21,8 @@ import { useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { useToast } from "@chakra-ui/react";
 import { toastposition, toastvariant } from "../Pages/Packages";
-import { PostRequest } from "../API/api";
-import { Message } from "../API/Paths";
+import { PostRequest } from "../Services/api";
+import { Message } from "../Services/Paths";
 import PropTypes from "prop-types";
 
 const ConsultSendMessage = ({

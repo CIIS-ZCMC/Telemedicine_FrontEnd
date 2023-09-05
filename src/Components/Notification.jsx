@@ -10,8 +10,8 @@ import {
   MenuItem,
 } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
-import { GetRequest } from "../API/api";
-import { Case } from "../API/Paths";
+import { GetRequest } from "../Services/api";
+import { Case } from "../Services/Paths";
 import { useNavigate } from "react-router-dom";
 import useUser from "../Hooks/UserHook";
 import { HiBellAlert, HiOutlineBellAlert } from "react-icons/hi2";

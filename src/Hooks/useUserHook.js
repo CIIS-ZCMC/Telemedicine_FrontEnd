@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { GetRequest, PostRequest, DeleteRequest } from "../API/api";
-import { Auth, User } from "../API/Paths";
+import { GetRequest, PostRequest, DeleteRequest } from "../Services/api";
+import { Auth } from "../Services/Paths";
 import male from "../assets/male_default_profile.jpg";
 import female from "../assets/female_default_profile.jpg";
 
@@ -51,14 +51,6 @@ const styles = [
 
 const useUserHook = create((set) => ({
   user: null,
-  users: {
-    name: "Tristan jay Amit",
-    position: "Doctor",
-    hospital: "Zamboanga city medical center",
-    skills: "Internal Medicine",
-    url: male,
-    role: 1,
-  },
   usersData: styles,
   search: null,
   setSearch: (value) => set(() => ({ search: value })),
@@ -85,12 +77,16 @@ const useUserHook = create((set) => ({
         callBack(200, "/");
       })
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   validateToken: async (token, callBack) => {
@@ -108,12 +104,16 @@ const useUserHook = create((set) => ({
         callBack(200, "/");
       })
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   signUp: (form, callBack) => {
@@ -129,16 +129,20 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   signOut: (callBack) => {
-    DeleteRequest({ url: `${User}/logout` })
+    DeleteRequest({ url: 'signout' })
       .then((res) => {
         const { statusText } = res;
 
@@ -151,7 +155,6 @@ const useUserHook = create((set) => ({
         const { data } = res.data;
 
         localStorage.clear();
-        sessionStorage.removeItem("token");
         set(() => ({
           user: null,
         }));
@@ -159,12 +162,16 @@ const useUserHook = create((set) => ({
         callBack(200, data);
       })
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   sendRecoveryCode: (form, callBack) => {
@@ -180,12 +187,16 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   validateOTP: (form, callBack) => {
@@ -201,12 +212,16 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   newPassword: (form, callBack) => {
@@ -222,12 +237,16 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   registerAccount: (form, callBack) => {
@@ -242,12 +261,16 @@ const useUserHook = create((set) => ({
       })
       .then(() => callBack(200, "Registered successfully, Wait for approval."))
       .catch((err) => {
-        const {
-          status,
-          data: { message },
-        } = err.response;
-
-        callBack(status, message);
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
       });
   },
   getUserRecord: (token, callBack) => {
@@ -269,15 +292,15 @@ const useUserHook = create((set) => ({
         callBack(200, "success");
       })
       .catch((err) => {
-        try {
+        try{
           const {
             status,
             data: { message },
           } = err.response;
-
+    
           callBack(status, message);
-        } catch (err) {
-          callBack(500, "Something went wrong.");
+        }catch(err){
+          callBack(500, 'Something went wrong.');
         }
       });
   },

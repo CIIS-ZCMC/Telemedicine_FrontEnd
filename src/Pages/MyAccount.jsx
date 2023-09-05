@@ -27,8 +27,8 @@ import { MdOutlineFileUpload } from "react-icons/md";
 import CustomFormController from "../Components/customs/CustomFormController";
 import { toastposition, toastvariant } from "./Packages";
 import { FaLock } from "react-icons/fa";
-import { PostRequest } from "../API/api";
-import { User } from "../API/Paths";
+import { PostRequest } from "../Services/api";
+import { User } from "../Services/Paths";
 import profile from "../assets/default_profile.png";
 
 const MyAccount = () => {

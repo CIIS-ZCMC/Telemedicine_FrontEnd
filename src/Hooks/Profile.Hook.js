@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { DeleteRequest, GetRequest, PutRequest } from "../API/api";
+import { DeleteRequest, GetRequest, PutRequest } from "../Services/api";
 
 const Message = "message";
 const Profile = "profile";

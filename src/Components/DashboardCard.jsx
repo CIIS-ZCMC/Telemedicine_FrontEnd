@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import api from "../API/api";
+import api from "../Services/api";
 import { useRef } from "react";
 import { Text, Box, Heading } from "@chakra-ui/react";
 import "../Style/App.css";

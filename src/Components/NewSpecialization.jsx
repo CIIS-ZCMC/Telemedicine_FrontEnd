@@ -3,8 +3,8 @@ import { toastposition, toastvariant } from "../Pages/Packages";
 import TextFormController from "../Components/TextFormController";
 import CustomModal from "../Components/CustomModal";
 import { useToast } from "@chakra-ui/react";
-import { PostRequest } from "../API/api";
-import { Specialization } from "../API/Paths";
+import { PostRequest } from "../Services/api";
+import { Specialization } from "../Services/Paths";
 import PropTypes from "prop-types";
 
 const NewSpecialization = ({ isOpen, onClose, fetch }) => {

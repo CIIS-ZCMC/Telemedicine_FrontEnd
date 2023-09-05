@@ -3,8 +3,8 @@ import "../Style/App.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomTablePaginate from "../Components/CustomTablePaginate";
-import { GetRequest } from "../API/api";
-import { Patient } from "../API/Paths";
+import { GetRequest } from "../Services/api";
+import { Patient } from "../Services/Paths";
 import useAuth from "../Hooks/AuthContext";
 
 const Patients = () => {

@@ -4,8 +4,8 @@ import { Box, Text, Container, Flex, useDisclosure } from "@chakra-ui/react";
 import { TitleColor } from "./Packages";
 import CustomTablePaginate from "../Components/CustomTablePaginate";
 import { TbFileReport } from "react-icons/tb";
-import { GetRequest } from "../API/api";
-import { Reports, Hospital, Specialization } from "../API/Paths";
+import { GetRequest } from "../Services/api";
+import { Reports, Hospital, Specialization } from "../Services/Paths";
 import NewReport from "../Components/NewReport";
 
 const Report = () => {

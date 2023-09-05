@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GetRequest } from "../API/api";
+import { GetRequest } from "../Services/api";
 import male from "../assets/male_default_profile.jpg";
 import female from "../assets/female_default_profile.jpg";
 

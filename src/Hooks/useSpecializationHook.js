@@ -1,73 +1,21 @@
 import { create } from "zustand";
-import { GetRequest } from "../API/api";
+import api from "../Services/api";
 
-const Specialization = "specialization";
-
-const styles = [
-  {
-    id: 1,
-    name: "Internal Medicine",
-    description: "Internal Medicine is something something etc...",
-    date: "2023-08-21",
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Internal Medicine",
-    description: "Internal Medicine is something something etc...",
-    date: "2023-08-21",
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Internal Medicine",
-    description: "Internal Medicine is something something etc...",
-    date: "2023-08-21",
-    status: "In-Active",
-  },
-  {
-    id: 4,
-    name: "Internal Medicine",
-    description: "Internal Medicine is something something etc...",
-    date: "2023-08-21",
-    status: "Active",
-  },
-  {
-    id: 5,
-    name: "Internal Medicine",
-    description: "Internal Medicine is something something etc...",
-    date: "2023-08-21",
-    status: "Active",
-  },
-  {
-    id: 6,
-    name: "Internal Medicine",
-    description: "Internal Medicine is something something etc...",
-    date: "2023-08-21",
-    status: "In-Active",
-  },
-  {
-    id: 7,
-    name: "Internal Medicine",
-    description: "Internal Medicine is something something etc...",
-    date: "2023-08-21",
-    status: "Active",
-  },
-];
+const SPECIALIZATION_PATH = "specialization";
 
 const useSpecialization = create((set) => ({
-  specializations: styles,
+  specializations: [],
   search: null,
   setSearch: (value) => set(() => ({ search: value })),
-  getSpecialization: (callBack) => {
-    if (localStorage.getItem("specialization")) {
+  getSpecialization: (token, callBack) => {
+    if (localStorage.getItem(SPECIALIZATION_PATH)) {
       set(() => ({
-        specializations: JSON.parse(localStorage.getItem("specialization")),
+        specializations: JSON.parse(localStorage.getItem(SPECIALIZATION_PATH)),
       }));
+      callBack(200, 'success');
       return;
     }
-    GetRequest({ url: `${Specialization}` })
-      .then((res) => {
+    api.get(`${SPECIALIZATION_PATH}s`, {cancelToken: token}).then((res) => {
         const { statusText } = res;
 
         if (statusText !== "OK") {
@@ -78,18 +26,100 @@ const useSpecialization = create((set) => ({
       })
       .then((res) => {
         set(() => ({ specializations: res.data }));
-        localStorage.setItem("specialization", JSON.stringify(res.data));
+        localStorage.setItem(SPECIALIZATION_PATH, JSON.stringify(res.data));
         callBack(200, "Success");
       })
       .catch((err) => {
+        try{
+          const {
+            status,
+            data: { message },
+          } = err.response;
+    
+          callBack(status, message);
+        }catch(err){
+          callBack(500, 'Something went wrong.');
+        }
+      });
+  },
+  registerSpecialization: (form, callBack) => {
+    api.post(SPECIALIZATION_PATH, form)
+    .then((res) => {
+      const {statusText} = res;
+
+      if(statusText !== 'OK')
+      {
+        throw new Error('Bad response.', {cause: res});
+      }
+
+      return res.data;
+    })
+    .then(() => callBack(200, 'success'))
+    .catch((err) => {
+      try{
         const {
           status,
           data: { message },
         } = err.response;
-
+  
         callBack(status, message);
-      });
+      }catch(err){
+        callBack(500, 'Something went wrong.');
+      }
+    })
   },
+  updateSpecialization: (id, form, callBack) => {
+    api.post(SPECIALIZATION_PATH, {params: {id: id}}, form)
+    .then((res) => {
+      const {statusText} = res;
+
+      if(statusText !== 'OK')
+      {
+        throw new Error('Bad response.', {cause: res});
+      }
+
+      return res.data;
+    })
+    .then(() => callBack(200, 'success'))
+    .catch((err) => {
+      try{
+        const {
+          status,
+          data: { message },
+        } = err.response;
+  
+        callBack(status, message);
+      }catch(err){
+        callBack(500, 'Something went wrong.');
+      }
+    })
+  },
+  deleteSpecialization: (id, callBack) => {
+    api.delete(SPECIALIZATION_PATH, {params: {id: id}},)
+    .then((res) => {
+      const {statusText} = res;
+
+      if(statusText !== 'OK')
+      {
+        throw new Error('Bad response.', {cause: res});
+      }
+
+      return res.data;
+    })
+    .then(() => callBack(200, 'success'))
+    .catch((err) => {
+      try{
+        const {
+          status,
+          data: { message },
+        } = err.response;
+  
+        callBack(status, message);
+      }catch(err){
+        callBack(500, 'Something went wrong.');
+      }
+    })
+  }
 }));
 
 export default useSpecialization;

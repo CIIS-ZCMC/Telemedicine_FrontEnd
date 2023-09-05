@@ -2,8 +2,8 @@ import { createContext, useEffect, useState, useCallback } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { toastvariant, toastposition } from "../Packages";
-import { GetRequest, PostRequest, PutRequest } from "../../API/api";
-import { Patient, Specialization, Case } from "../../API/Paths";
+import { GetRequest, PostRequest, PutRequest } from "../../Services/api";
+import { Patient, Specialization, Case } from "../../Services/Paths";
 import useAuth from "../../Hooks/AuthContext";
 
 const CaseContext = createContext({});

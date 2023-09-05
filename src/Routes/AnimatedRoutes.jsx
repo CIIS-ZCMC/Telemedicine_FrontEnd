@@ -35,7 +35,7 @@ const ProtectedRoutes = () => {
 };
 
 const AnimatedRoute = () => {
-  const { users } = useUserHook();
+  const { user } = useUserHook();
   const { getFilteredRoutes } = useThemeHook();
   const { validateToken } = useUser();
   const location = useLocation();
@@ -76,9 +76,9 @@ const AnimatedRoute = () => {
                 <>
                   <Layout>
                     <Routes>
-                      {getFilteredRoutes(users?.role).map((route, index) => (
+                      {user? getFilteredRoutes(user?.role).map((route, index) => (
                         <Route key={index} {...route} />
-                      ))}
+                      )): null}
                       <Route path="/MyAccount" element={<MyAccount />} />
                       <Route path="/profile" element={<Profile />} />
                       <Route path="/my-calendar" element={<Calendar />} />

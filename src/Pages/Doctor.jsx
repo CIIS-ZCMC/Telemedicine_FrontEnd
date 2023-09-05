@@ -3,8 +3,8 @@ import "../Style/App.css";
 import { useState, useMemo, useEffect } from "react";
 import CustomTablePaginate from "../Components/CustomTablePaginate";
 import useAuth from "../Hooks/AuthContext";
-import { GetRequest } from "../API/api";
-import { Specialization, Doctor } from "../API/Paths";
+import { GetRequest } from "../Services/api";
+import { Specialization, Doctor } from "../Services/Paths";
 import NewDoctor from "../Components/NewDoctor";
 
 const Doctors = () => {

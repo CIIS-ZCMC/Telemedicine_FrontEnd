@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { IoVideocam } from "react-icons/io5";
-import { socket } from "../../API/socket_connection";
+import { socket } from "../../Services/socket_connection";
 import PropTypes from "prop-types";
 
 const VideoButton = ({ caseId }) => {

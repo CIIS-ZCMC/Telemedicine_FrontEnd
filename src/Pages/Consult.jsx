@@ -1,13 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { Box, Flex, useDisclosure } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
-import { Case } from "../API/Paths";
-import { GetRequest } from "../API/api";
+import { Case } from "../Services/Paths";
+import { GetRequest } from "../Services/api";
 import ConsultHeader from "../Components/Case/ConsultHeader";
 import CaseInformation from "../Components/Case/CaseInformation";
 import PostSpecializationModal from "../Components/PostSpecializationModal";
 import Message from "../Components/Message/Messsage";
-import { connectToSocket } from "../API/socket_connection";
+import { connectToSocket } from "../Services/socket_connection";
 import AnimationConsultHeader from "./Loading Animation/Consult/AnimationConsultHeader";
 import AnimationCaseInformation from "./Loading Animation/Consult/Case Information/AnimationCaseInformation";
 

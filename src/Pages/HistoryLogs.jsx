@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Box, Container } from "@chakra-ui/react";
 import CustomTablePaginate from "../Components/CustomTablePaginate";
-import { Log } from "../API/Paths";
-import { GetRequest } from "../API/api";
+import { Log } from "../Services/Paths";
+import { GetRequest } from "../Services/api";
 
 const HistoryLogs = () => {
   const [search, setSearch] = useState("");

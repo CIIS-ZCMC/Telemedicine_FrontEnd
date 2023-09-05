@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GetRequest } from "../API/api";
+import { GetRequest } from "../Services/api";
 
 const Message = "message";
 

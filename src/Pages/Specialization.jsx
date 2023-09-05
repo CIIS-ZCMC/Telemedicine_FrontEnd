@@ -2,8 +2,8 @@ import { useEffect, useCallback } from "react";
 import { useState } from "react";
 import { Box, Container, useDisclosure } from "@chakra-ui/react";
 import CustomTablePaginate from "../Components/CustomTablePaginate";
-import { GetRequest } from "../API/api";
-import { Specialization } from "../API/Paths";
+import { GetRequest } from "../Services/api";
+import { Specialization } from "../Services/Paths";
 import useAuth from "../Hooks/AuthContext";
 import NewSpecialization from "../Components/NewSpecialization";
 

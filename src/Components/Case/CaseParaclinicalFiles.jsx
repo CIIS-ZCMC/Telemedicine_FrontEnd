@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { GetRequest } from "../../API/api";
-import { Case } from "../../API/Paths";
+import { GetRequest } from "../../Services/api";
+import { Case } from "../../Services/Paths";
 import {
   AiFillFileWord,
   AiFillFilePpt,

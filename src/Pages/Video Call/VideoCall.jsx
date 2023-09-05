@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Flex, IconButton } from "@chakra-ui/react";
-// import { socket } from "../../API/socket_connection";
+// import { socket } from "../../Services/socket_connection";
 import { HiVideoCameraSlash, HiVideoCamera } from "react-icons/hi2";
 import { AiFillAudio, AiOutlineAudioMuted } from "react-icons/ai";
 import { IoCall } from "react-icons/io5";
