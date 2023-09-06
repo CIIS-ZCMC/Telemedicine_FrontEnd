@@ -1,55 +1,21 @@
 import { create } from "zustand";
-import { GetRequest } from "../Services/api";
+import api from "../Services/api";
 
-const Hospital = "hospitals";
-
-const styles = [
-  {
-    id: 1,
-    name: "Marupok Medical Center",
-    location: "Sintio katangahan, Barangay Madalas Iwan",
-    doctors: 20,
-    cases: 20,
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Marupok Medical Center",
-    location: "Sintio katangahan, Barangay Madalas Iwan",
-    doctors: 20,
-    cases: 25,
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Marupok Medical Center",
-    location: "Sintio katangahan, Barangay Madalas Iwan",
-    doctors: 20,
-    cases: 20,
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Marupok Medical Center",
-    location: "Sintio katangahan, Barangay Madalas Iwan",
-    doctors: 21,
-    cases: 20,
-    status: "Active",
-  },
-];
+const HOSPITAL_PATH = "hospital";
 
 const useHospital = create((set) => ({
-  hospitals: styles,
+  hospitals: [],
   search: null,
   setSearch: (value) => set(() => ({ search: value })),
-  getHospital: (callBack) => {
-    if (localStorage.getItem("hospital")) {
-      set(() => ({ hospitals: JSON.parse(localStorage.get("hospitals")) }));
+  getHospital: (token, callBack) => {
+    if (localStorage.getItem(HOSPITAL_PATH)) {
+      set(() => ({ hospitals: JSON.parse(localStorage.get(HOSPITAL_PATH)) }));
       callBack(200, "Success");
       return;
     }
 
-    GetRequest({ url: `${Hospital}` })
+    api
+      .get(`${HOSPITAL_PATH}s`, { cancelToken: token })
       .then((res) => {
         const { statusText } = res;
 
@@ -71,6 +37,84 @@ const useHospital = create((set) => ({
         } = err.response;
 
         callBack(status, message);
+      });
+  },
+  registerHospital: (form, callBack) => {
+    api
+      .post(HOSPITAL_PATH, form)
+      .then((res) => {
+        const { statusText } = res;
+
+        if (statusText !== "OK") {
+          throw new Error("Bad response.", { cause: res });
+        }
+
+        return res.data;
+      })
+      .then(() => callBack(200, "Success"))
+      .catch((err) => {
+        try {
+          const {
+            status,
+            data: { message },
+          } = err.response;
+
+          callBack(status, message);
+        } catch (err) {
+          callBack(500, "Something went wrong.");
+        }
+      });
+  },
+  updateHospital: (id, form, callBack) => {
+    api
+      .put(HOSPITAL_PATH, { params: { id: id }, data: form })
+      .then((res) => {
+        const { statusText } = res;
+
+        if (statusText !== "OK") {
+          throw new Error("Bad response.", { cause: res });
+        }
+
+        return res.data;
+      })
+      .then(() => callBack(200, "Success"))
+      .catch((err) => {
+        try {
+          const {
+            status,
+            data: { message },
+          } = err.response;
+
+          callBack(status, message);
+        } catch (err) {
+          callBack(500, "Something went wrong.");
+        }
+      });
+  },
+  deleteHospital: (id, callBack) => {
+    api
+      .delete(HOSPITAL_PATH, { params: { id: id } })
+      .then((res) => {
+        const { statusText } = res;
+
+        if (statusText !== "OK") {
+          throw new Error("Bad response.", { cause: res });
+        }
+
+        return res.data;
+      })
+      .then(() => callBack(200, "Success"))
+      .catch((err) => {
+        try {
+          const {
+            status,
+            data: { message },
+          } = err.response;
+
+          callBack(status, message);
+        } catch (err) {
+          callBack(500, "Something went wrong.");
+        }
       });
   },
 }));

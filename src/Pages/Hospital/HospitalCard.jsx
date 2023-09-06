@@ -31,7 +31,18 @@ IconComponent.propTypes = {
   value: PropTypes.string,
 };
 
-const HospitalCard = ({ name, location, doctors, cases }) => {
+const HospitalCard = ({
+  id,
+  name,
+  street,
+  barangay,
+  city,
+  url,
+  doctor,
+  patient,
+  onUpdate,
+  onDelete,
+}) => {
   const [selected, setSelected] = useState("Details");
 
   const buttons = [
@@ -39,24 +50,27 @@ const HospitalCard = ({ name, location, doctors, cases }) => {
       name: "Details",
       icon: <TbListDetails id="bt-icon" size={20} />,
       color: "teal",
+      onClick: () => console.log("click me"),
     },
     {
       name: "Update",
       icon: <AiTwotoneEdit id="bt-icon" size={20} />,
       color: "darkorange",
+      onClick: () => onUpdate(id, name, street, barangay, city),
     },
     {
       name: "Delete",
       icon: <MdDelete id="bt-icon" size={20} />,
       color: "red",
+      onClick: () => onDelete(id),
     },
   ];
 
   return (
     <WrapItem>
       <Box
-        w="16rem"
-        h="19rem"
+        w="18rem"
+        h="22rem"
         rounded={10}
         bg="white"
         boxShadow="lg"
@@ -67,7 +81,7 @@ const HospitalCard = ({ name, location, doctors, cases }) => {
         cursor="pointer"
       >
         <Box h="100%" overflow="hidden">
-          <Image src={hospitalImage} fit="cover" />
+          <Image src={url === null ? hospitalImage : url} fit="cover" />
         </Box>
         <Box
           h="100%"
@@ -78,23 +92,32 @@ const HospitalCard = ({ name, location, doctors, cases }) => {
           flexDirection="column"
           justifyContent="space-between"
         >
-          <Box>
-            <Heading size="xs" mb={2}>
-              {name.toLocaleUpperCase()}
-            </Heading>
-            <Text fontSize={12} mb={5}>
-              {location}
-            </Text>
-            <Flex p={0} pl={2} pr={2} w="100%" justifyContent="start" gap={8}>
+          <Box h="5rem">
+            <Box h={"5.5rem"}>
+              <Heading size="xs" mb={2}>
+                {name.toLocaleUpperCase()}
+              </Heading>
+              <Text fontSize={12} mb={5}>
+                {`${street}, ${barangay}, ${city}`}
+              </Text>
+            </Box>
+            <Flex
+              p={0}
+              pl={2}
+              pr={2}
+              w="100%"
+              justifyContent="space-around"
+              alignItems="center"
+            >
               <IconComponent
                 icon={<BsFillBriefcaseFill size={20} />}
-                label="Case"
-                value={cases}
+                label="Patient"
+                value={patient}
               />
               <IconComponent
                 icon={<BsPersonCircle size={20} />}
                 label="Doctor"
-                value={doctors}
+                value={doctor}
               />
             </Flex>
           </Box>
@@ -116,10 +139,16 @@ const HospitalCard = ({ name, location, doctors, cases }) => {
 };
 
 HospitalCard.propTypes = {
+  id: PropTypes.number,
   name: PropTypes.string,
-  location: PropTypes.string,
-  doctors: PropTypes.number,
-  cases: PropTypes.number,
+  street: PropTypes.string,
+  barangay: PropTypes.string,
+  city: PropTypes.string,
+  url: PropTypes.string,
+  doctor: PropTypes.number,
+  patient: PropTypes.number,
+  onUpdate: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default HospitalCard;

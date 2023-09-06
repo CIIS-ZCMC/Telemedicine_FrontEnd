@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { GetRequest } from "../Services/api";
+import api from "../Services/api";
 
-const Case = "case";
+const CASE_PATH = "case";
 
 const useCase = create((set) => ({
   activeCases: [],
@@ -19,7 +19,8 @@ const useCase = create((set) => ({
     callBack("Archive case collection initilized.");
   },
   getCase: (collection, callBack) => {
-    GetRequest({ url: `${Case}/${collection}` })
+    api
+      .get(`${CASE_PATH}-${collection}`)
       .then((res) => {
         const { statusText } = res;
 

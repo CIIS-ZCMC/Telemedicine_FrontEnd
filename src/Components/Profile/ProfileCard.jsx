@@ -9,6 +9,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { BsFillArchiveFill } from "react-icons/bs";
+import male from "../../assets/male_default_profile.jpg";
+// import female from "../../assets/female_default_profile.jpg";
 import PropTypes from "prop-types";
 
 const ProfileCard = ({
@@ -22,7 +24,7 @@ const ProfileCard = ({
   return (
     <Box p={0} boxShadow="md" borderRadius={10} bg="white" overflow="hidden">
       <Center bg="blackAlpha.100" p={5} pb={2}>
-        <Avatar src={url} name={name} size="2xl" />
+        <Avatar src={url === null ? male : url} name={name} size="2xl" />
       </Center>
       <Box mt={5} fontSize={13} p={5} pt={0}>
         <Heading size="sm">{name}</Heading>

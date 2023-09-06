@@ -1,65 +1,20 @@
 import { create } from "zustand";
-import { GetRequest } from "../Services/api";
-import male from "../assets/male_default_profile.jpg";
-import female from "../assets/female_default_profile.jpg";
+import api from "../Services/api";
 
 const DOCTOR_PATH = "doctor";
 
-const styles = [
-  {
-    id: 1,
-    name: "Dr. Mosimo B. Kagwang",
-    specialization: "Internal Medicine",
-    hospital: "Marupok Center",
-    status: "Approved",
-    url: male,
-  },
-  {
-    id: 2,
-    name: "Dr. Mosimo B. Kagwang",
-    specialization: "Internal Medicine",
-    hospital: "Marupok Center",
-    status: "Pending",
-    url: male,
-  },
-  {
-    id: 3,
-    name: "Dr. Mosimo B. Kagwang",
-    specialization: "Internal Medicine",
-    hospital: "Marupok Center",
-    status: "Approved",
-    url: male,
-  },
-  {
-    id: 4,
-    name: "Dr. Mosimo B. Kagwang",
-    specialization: "Internal Medicine",
-    hospital: "Marupok Center",
-    status: "Pending",
-    url: female,
-  },
-  {
-    id: 5,
-    name: "Dr. Mosimo B. Kagwang",
-    specialization: "Internal Medicine",
-    hospital: "Marupok Center",
-    status: "Approved",
-    url: female,
-  },
-];
-
 const useDoctorHook = create((set) => ({
-  doctors: styles,
+  doctors: [],
   search: null,
   setSearch: (value) => set(() => ({ search: value })),
   getDoctors: (token, callBack) => {
     if (localStorage.getItem(DOCTOR_PATH)) {
-      set(() => ({ messages: JSON.parse(localStorage.get(DOCTOR_PATH)) }));
+      set(() => ({ doctors: JSON.parse(localStorage.getItem(DOCTOR_PATH)) }));
       callBack(200, "Success");
       return;
     }
-
-    GetRequest({ url: `${DOCTOR_PATH}` }, token)
+    api
+      .get(`users`, { cancelToken: token })
       .then((res) => {
         const { statusText } = res;
 
@@ -70,9 +25,10 @@ const useDoctorHook = create((set) => ({
         return res.data;
       })
       .then((res) => {
-        set(() => ({ messages: res.data }));
+        set(() => ({ doctors: res.data }));
         localStorage.setItem(DOCTOR_PATH, JSON.stringify(res.data));
-        callBack(200, "Success");
+
+        callBack(200, "success");
       })
       .catch((err) => {
         try {
@@ -83,8 +39,7 @@ const useDoctorHook = create((set) => ({
 
           callBack(status, message);
         } catch (err) {
-          console.log(err);
-          callBack(500, "Something went wrong.");
+          callBack(500, err);
         }
       });
   },

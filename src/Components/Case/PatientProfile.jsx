@@ -69,9 +69,7 @@ const PatientProfile = ({ id }) => {
         p={[2, 2, 0, 0]}
       >
         <Box w="10rem">
-          <Image
-            src={patient.patients_Gender === "FEMALE" ? profileF : profileM}
-          />
+          <Image src={patient.gender === "FEMALE" ? profileF : profileM} />
         </Box>
       </Box>
       <Box
@@ -85,33 +83,23 @@ const PatientProfile = ({ id }) => {
       >
         <TextDisplay
           title="Name (Last, First Mi)"
-          value={`${patient.patients_LastName}, ${patient.patients_FirstName}  ${patient.patients_MiddleName}.`}
+          value={`${patient.last_name}, ${patient.first_name}  ${patient.middle_name}.`}
         />
         <TextDisplay
           title="Age"
           value={`${
-            new Date().getFullYear() -
-            new Date(patient.patients_Birthday).getFullYear()
-          }yrs (${moment(patient.patients_Birthday).format("L")})`}
+            new Date().getFullYear() - new Date(patient.birthday).getFullYear()
+          }yrs (${moment(patient.birthday).format("L")})`}
         />
-        <TextDisplay title="Sex" value={`${patient.patients_Gender}`} />
-        <TextDisplay
-          title="Civil Status"
-          value={`${patient.patients_CivilStatus}`}
-        />
-        <TextDisplay title="Contact" value={`${patient.patients_Contact}`} />
-        <TextDisplay
-          title="Birth place"
-          value={`${patient.patients_BirthPlace}`}
-        />
-        <TextDisplay
-          title="Ethnicity"
-          value={`${patient.patients_Ethnicity}`}
-        />
-        <TextDisplay title="Dialect" value={`${patient.patients_Dialect}`} />
+        <TextDisplay title="Sex" value={`${patient.gender}`} />
+        <TextDisplay title="Civil Status" value={`${patient.civil_status}`} />
+        <TextDisplay title="Contact" value={`${patient.contact}`} />
+        <TextDisplay title="Birth place" value={`${patient.birthplace}`} />
+        <TextDisplay title="Ethnicity" value={`${patient.ethnicity}`} />
+        <TextDisplay title="Dialect" value={`${patient.dialect}`} />
         <TextDisplay
           title="Address (Street, Barangay, City)"
-          value={`${patient.patients_Street}, ${patient.patients_Barangay}, ${patient.patients_City}`}
+          value={`${patient.street}, ${patient.barangay}, ${patient.city}`}
         />
       </Box>
     </Box>

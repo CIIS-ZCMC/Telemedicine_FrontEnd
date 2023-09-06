@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import {
   Badge,
@@ -17,6 +18,7 @@ import HospitalCardSkeleton from "./HospitalCardSkeleton";
 import HospitalCard from "./HospitalCard";
 import InputCalendarComponent from "../Calendar/InputCalendarComponent";
 import { MdAddCircle } from "react-icons/md";
+import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 
 const Card = ({ title, value, hasDivider }) => {
@@ -52,16 +54,26 @@ Card.propTypes = {
 };
 
 const Hospital = () => {
-  const REGISTER_USER = "Register User";
-  const USER_STATUS = "User Status";
+  const REGISTER_HOSPITAL = "Register Hospital";
+  const UPDATE_HOSPITAL = "Update Hospital";
+  const DELETE_HOSPITAL = "Delete Hospital";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { hospitals, getHospital } = useHospitalHooks();
+  const {
+    hospitals,
+    getHospital,
+    registerHospital,
+    updateHospital,
+    deleteHospital,
+  } = useHospitalHooks();
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState(1);
 
-  const [title, setTitle] = useState("Register User");
+  const [title, setTitle] = useState(REGISTER_HOSPITAL);
 
+  const [hospitalID, setHospitalID] = useState(null);
+
+  const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [street, setStreet] = useState("");
   const [barangay, setBarangay] = useState("");
@@ -119,13 +131,133 @@ const Hospital = () => {
     },
   ];
 
-  function initializeRegisterForm() {
-    setTitle(REGISTER_USER);
+  function onSave(e) {
+    e.preventDefault();
+    switch (title) {
+      case REGISTER_HOSPITAL:
+        registerHospital(
+          {
+            url: url,
+            name: name,
+            street: street,
+            barangay: barangay,
+            city: city,
+          },
+          (status, feedback) => {
+            switch (status) {
+              case 200:
+                clearStates();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: feedback,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                break;
+              default:
+                console.log(feedback);
+                break;
+            }
+          }
+        );
+        break;
+      case UPDATE_HOSPITAL:
+        updateHospital(
+          hospitalID,
+          {
+            url: url,
+            name: name,
+            street: street,
+            barangay: barangay,
+            city: city,
+          },
+          (status, feedback) => {
+            switch (status) {
+              case 200:
+                clearStates();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: feedback,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                break;
+              default:
+                console.log(feedback);
+                break;
+            }
+          }
+        );
+        break;
+      case DELETE_HOSPITAL:
+        deleteHospital(hospitalID, (status, feedback) => {
+          switch (status) {
+            case 200:
+              clearStates();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: feedback,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              break;
+            default:
+              console.log(feedback);
+              break;
+          }
+        });
+        break;
+      default:
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Can't process right now.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        break;
+    }
+  }
+
+  function initializeRegisterForm(e) {
+    e.preventDefault();
+    clearStates();
+    setTitle(REGISTER_HOSPITAL);
     onOpen();
   }
 
+  function onOpenUpdateModal(id, name, street, barangay, city) {
+    clearStates();
+    setHospitalID(id);
+    setTitle(UPDATE_HOSPITAL);
+    setName(name);
+    setStreet(street);
+    setBarangay(barangay);
+    setCity(city);
+    onOpen();
+  }
+
+  function onOpenDeleteModal(id) {
+    setHospitalID(id);
+    setTitle(DELETE_HOSPITAL);
+    onOpen();
+  }
+
+  function clearStates() {
+    setHospitalID(null);
+    setName("");
+    setStreet("");
+    setBarangay("");
+    setCity("");
+  }
+
   useEffect(() => {
-    getHospital((status, feedback) => {
+    const cancelToken = axios.CancelToken.source();
+
+    getHospital(cancelToken.token, (status, feedback) => {
       switch (status) {
         case 200:
           console.log(feedback);
@@ -136,6 +268,8 @@ const Hospital = () => {
       }
       setLoading(false);
     });
+
+    return () => cancelToken.cancel();
   }, []);
 
   function closeModal() {
@@ -195,7 +329,7 @@ const Hospital = () => {
             leftIcon={<MdAddCircle size={24} />}
             size="sm"
             _hover={{ bg: "teal" }}
-            onClick={() => initializeRegisterForm()}
+            onClick={(e) => initializeRegisterForm(e)}
           >
             Add Hospital
           </Button>
@@ -217,8 +351,13 @@ const Hospital = () => {
         </Flex>
       </Flex>
       <Wrap p={7} pl={0} pr={0} spacing="2.2rem">
-        {hospitals.map((hospital, index) => (
-          <HospitalCard key={index} {...hospital} />
+        {hospitals.map((hospital) => (
+          <HospitalCard
+            key={hospital.id}
+            {...hospital}
+            onUpdate={onOpenUpdateModal}
+            onDelete={onOpenDeleteModal}
+          />
         ))}
       </Wrap>
       <ModalComponent
@@ -234,21 +373,21 @@ const Hospital = () => {
               size="sm"
               bg={"teal"}
               color="white"
-              onClick={() => console.log("click me")}
+              onClick={(e) => onSave(e)}
             >
               Save
             </Button>
           </Flex>
         }
       >
-        {title === USER_STATUS ? (
-          <Text> {"You're about to approved this account."} </Text>
-        ) : (
+        {title === REGISTER_HOSPITAL || title === UPDATE_HOSPITAL ? (
           <Box>
             {formStyle.map((value, index) => (
               <InputCalendarComponent key={index} {...value} />
             ))}
           </Box>
+        ) : (
+          <Text>{"You're about to delete this record. "} </Text>
         )}
       </ModalComponent>
     </Box>

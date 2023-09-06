@@ -128,9 +128,6 @@ const Doctor = () => {
         case 200:
           console.log("Success");
           break;
-        case 401:
-          console.log(feedBack);
-          break;
         default:
           console.log(feedBack);
       }
@@ -158,7 +155,7 @@ const Doctor = () => {
   useEffect(() => {
     const cancelTokenSource = axios.CancelToken.source();
     if (loading) {
-      initializeDoctorData(cancelTokenSource);
+      initializeDoctorData(cancelTokenSource.token);
     }
 
     return () => cancelTokenSource.cancel();

@@ -5,11 +5,10 @@ import { BsPersonCircle } from "react-icons/bs";
 import PropTypes from "prop-types";
 
 const CaseReferrerInformation = ({
-  profile_FirstName,
-  profile_LastName,
-  case_number,
+  name,
+  case_no,
   specialization,
-  hospital_Name,
+  hospital,
 }) => {
   return (
     <Box
@@ -27,13 +26,13 @@ const CaseReferrerInformation = ({
       <Box display="flex" columnGap={3}>
         <BsPersonCircle color="green" size="25" />
         <Text fontSize={18} fontWeight={600} color="green">
-          {`${profile_FirstName} ${profile_LastName}`}
+          {name}
         </Text>
       </Box>
       <Box display="flex" columnGap={3}>
         <FaBriefcaseMedical color="green" size="23" />
         <Text fontSize={18} fontWeight={600} color="green">
-          CASE #{case_number}
+          CASE #{case_no}
         </Text>
       </Box>
       <Box display="flex" columnGap={3}>
@@ -45,7 +44,7 @@ const CaseReferrerInformation = ({
       <Box display="flex" columnGap={3}>
         <FaHospital color="gray" size="25" />
         <Text fontSize={18} fontWeight={500} color="gray">
-          {hospital_Name}
+          {hospital}
         </Text>
       </Box>
     </Box>
@@ -53,11 +52,11 @@ const CaseReferrerInformation = ({
 };
 
 CaseReferrerInformation.propTypes = {
-  profile_FirstName: PropTypes.string,
+  name: PropTypes.string,
   profile_LastName: PropTypes.string,
-  case_number: PropTypes.string,
+  case_no: PropTypes.string,
   specialization: PropTypes.string,
-  hospital_Name: PropTypes.string,
+  hospital: PropTypes.string,
 };
 
 export default CaseReferrerInformation;

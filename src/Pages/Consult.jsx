@@ -20,7 +20,7 @@ const Consult = () => {
   const state = useState(location.state);
 
   const handleFetchCase = useCallback(async () => {
-    GetRequest({ url: `${Case}/c/${state[0]}` })
+    GetRequest({ url: `${Case}/${state[0]}` })
       .then((res) => {
         if (res.statusText !== "OK") {
           throw new Error("Bad response", { cause: res });

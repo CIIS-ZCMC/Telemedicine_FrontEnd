@@ -16,7 +16,7 @@ import { create } from "zustand";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Doctors from "../Pages/Doctor/Doctor";
 import User from "../Pages/User/User";
-import Patients from "../Pages/Patient";
+import Patient from "../Pages/Patient/Patient";
 import Cases from "../Pages/Case";
 import Archived from "../Pages/Archived";
 import Hospital from "../Pages/Hospital/Hospital";
@@ -176,7 +176,7 @@ const routesDetails = [
     icon: <FaUserMd id="dashboard-icon" />,
     label: "Doctors",
     element: <Doctors />,
-    access: [1, 2, 3, 4],
+    access: [1, 2],
     hasBadge: true,
     badgeValue: 7,
   },
@@ -193,7 +193,7 @@ const routesDetails = [
     path: "/patients",
     icon: <FaUserFriends id="dashboard-icon" />,
     label: "Patients",
-    element: <Patients />,
+    element: <Patient />,
     access: [4],
     hasBadge: false,
     badgeValue: 0,

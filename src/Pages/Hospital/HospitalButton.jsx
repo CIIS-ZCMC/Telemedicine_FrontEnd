@@ -1,9 +1,17 @@
 import { Button, Text } from "@chakra-ui/react";
 import PropTypes from "prop-types";
 
-const HospitalButton = ({ name, icon, color, selected, setSelected }) => {
+const HospitalButton = ({
+  name,
+  icon,
+  color,
+  selected,
+  setSelected,
+  onClick,
+}) => {
   return (
     <Button
+      w={selected === name ? "8rem" : "3.5rem"}
       size="xs"
       fontSize={11}
       color={color}
@@ -21,6 +29,7 @@ const HospitalButton = ({ name, icon, color, selected, setSelected }) => {
       onMouseEnter={() => {
         setSelected(name);
       }}
+      onClick={() => onClick()}
     >
       {icon}
       {selected === name ? (
@@ -38,6 +47,7 @@ HospitalButton.propTypes = {
   color: PropTypes.object,
   selected: PropTypes.string,
   setSelected: PropTypes.func,
+  onClick: PropTypes.func,
 };
 
 export default HospitalButton;

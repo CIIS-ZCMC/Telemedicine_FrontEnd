@@ -34,26 +34,22 @@ const Archived = () => {
   }
 
   return (
-    <Box w="100%" h="100%" overflow="hidden">
-      <Box
-        width="inherit"
-        height="inherit"
-        bg="#f5f7f9"
-        pt={10}
-        pl={5}
-        pr={5}
-        pb={5}
-        display="flex"
-        justifyContent="space-around"
-        flexWrap="wrap"
-        columnGap={5}
-        rowGap={5}
-        overflow="scroll"
-      >
-        {archiveCases.map((value, index) => (
-          <CardComponent key={index} {...value} />
-        ))}
-      </Box>
+    <Box
+      w="100%"
+      h="100%"
+      overflow="hidden"
+      bg="#f5f7f9"
+      pt={10}
+      pl={5}
+      pr={5}
+      pb={5}
+      display="flex"
+      flexWrap="wrap"
+      columnGap={5}
+    >
+      {archiveCases.map((value, index) => (
+        <CardComponent key={index} {...value} />
+      ))}
     </Box>
   );
 };

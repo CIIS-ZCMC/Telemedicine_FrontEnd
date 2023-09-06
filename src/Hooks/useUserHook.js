@@ -77,15 +77,15 @@ const useUserHook = create((set) => ({
         callBack(200, "/");
       })
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
@@ -104,15 +104,15 @@ const useUserHook = create((set) => ({
         callBack(200, "/");
       })
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
@@ -129,20 +129,20 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
   signOut: (callBack) => {
-    DeleteRequest({ url: 'signout' })
+    DeleteRequest({ url: "signout" })
       .then((res) => {
         const { statusText } = res;
 
@@ -162,15 +162,15 @@ const useUserHook = create((set) => ({
         callBack(200, data);
       })
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
@@ -187,15 +187,15 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
@@ -212,15 +212,15 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
@@ -237,15 +237,15 @@ const useUserHook = create((set) => ({
       })
       .then((res) => callBack(200, res.data))
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
@@ -261,15 +261,15 @@ const useUserHook = create((set) => ({
       })
       .then(() => callBack(200, "Registered successfully, Wait for approval."))
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },
@@ -292,15 +292,15 @@ const useUserHook = create((set) => ({
         callBack(200, "success");
       })
       .catch((err) => {
-        try{
+        try {
           const {
             status,
             data: { message },
           } = err.response;
-    
+
           callBack(status, message);
-        }catch(err){
-          callBack(500, 'Something went wrong.');
+        } catch (err) {
+          callBack(500, "Something went wrong.");
         }
       });
   },

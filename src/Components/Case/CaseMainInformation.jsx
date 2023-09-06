@@ -33,26 +33,10 @@ const caseInfoData = [
   },
 ];
 
-const CaseMainInformation = ({
-  cases_CC,
-  cases_HPI,
-  cases_PMH,
-  cases_PE,
-  cases_WI,
-  cases_IMD,
-  cases_Reason,
-}) => {
+const CaseMainInformation = ({ cc, hpi, pmh, pe, wi, imd, reson }) => {
   return (
     <Box>
-      {[
-        cases_CC,
-        cases_HPI,
-        cases_PMH,
-        cases_PE,
-        cases_WI,
-        cases_IMD,
-        cases_Reason,
-      ].map((value, index) => (
+      {[cc, hpi, pmh, pe, wi, imd, reson].map((value, index) => (
         <CaseMainInformationComponent
           key={index}
           {...caseInfoData[index]}
@@ -64,13 +48,13 @@ const CaseMainInformation = ({
 };
 
 CaseMainInformation.propTypes = {
-  cases_CC: PropTypes.string,
-  cases_HPI: PropTypes.string,
-  cases_PMH: PropTypes.string,
-  cases_PE: PropTypes.string,
-  cases_WI: PropTypes.string,
-  cases_IMD: PropTypes.string,
-  cases_Reason: PropTypes.string,
+  cc: PropTypes.string,
+  hpi: PropTypes.string,
+  pmh: PropTypes.string,
+  pe: PropTypes.string,
+  wi: PropTypes.string,
+  imd: PropTypes.string,
+  reson: PropTypes.string,
 };
 
 export default CaseMainInformation;
